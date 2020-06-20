@@ -64,8 +64,6 @@ namespace FinalArtsShop.Controllers
                 if (lastestProduct == null)
                 {
                     var id = CurrentCategory.Abbreviation + "00001";
-
-                    Debug.WriteLine( "First" + id);
                     product.Id = id;
                 }
                 if (lastestProduct != null)
@@ -73,7 +71,6 @@ namespace FinalArtsShop.Controllers
                     var index = (lastestProduct.CountProduct + 1).ToString();
                     var id = index.PadLeft(5, '0');
                     product.Id = id;
-                    Debug.WriteLine(id);
                 }
 
                 if (thumbnails != null && thumbnails.Length > 0)

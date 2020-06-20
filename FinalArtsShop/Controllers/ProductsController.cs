@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -52,10 +53,34 @@ namespace FinalArtsShop.Controllers
         {
             if (ModelState.IsValid)
             {
+                var CurrentCategory = db.Categories.Find(product.CategoryID);
+                if(CurrentCategory != null)
+                {
+                    product.Category = CurrentCategory;
+                }
+
+                var lastestProduct = db.Counters.Where(p => p.Active == ActiveEnum.Active).FirstOrDefault();
+
+                if (lastestProduct == null)
+                {
+                    var id = CurrentCategory.Abbreviation + "00001";
+
+                    Debug.WriteLine( "First" + id);
+                    product.Id = id;
+                }
+                if (lastestProduct != null)
+                {
+                    var index = (lastestProduct.CountProduct + 1).ToString();
+                    var id = index.PadLeft(5, '0');
+                    product.Id = id;
+                    Debug.WriteLine(id);
+                }
+
                 if (thumbnails != null && thumbnails.Length > 0)
                 {
                     product.Thumbnail = string.Join(",", thumbnails);
                 }
+
                 db.Products.Add(product);
                 db.SaveChanges();
                 return RedirectToAction("Index");

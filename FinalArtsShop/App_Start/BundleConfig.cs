@@ -25,6 +25,9 @@ namespace FinalArtsShop
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+
+            bundles.Add(new ScriptBundle("~/Admin/js").Include(
+                        "~/MarkUps-dailyShop/dailyShop/js/custom.js"));
         }
     }
 }

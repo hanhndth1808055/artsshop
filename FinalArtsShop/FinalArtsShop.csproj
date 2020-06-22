@@ -168,13 +168,14 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\CategoriesController.cs" />
-    <Compile Include="Controllers\CitiesController.cs" />
-    <Compile Include="Controllers\DistrictsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\CategoriesController.cs" />
+    <Compile Include="Areas\Admin\Controllers\CitiesController.cs" />
+    <Compile Include="Areas\Admin\Controllers\DistrictsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\ProductsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ProductsController.cs" />
     <Compile Include="Controllers\TestThemeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -202,6 +203,10 @@
     <Compile Include="Migrations\202006220713315_UpdateAnnotation.cs" />
     <Compile Include="Migrations\202006220713315_UpdateAnnotation.Designer.cs">
       <DependentUpon>202006220713315_UpdateAnnotation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202006221040138_UpdateDB.cs" />
+    <Compile Include="Migrations\202006221040138_UpdateDB.Designer.cs">
+      <DependentUpon>202006221040138_UpdateDB.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -759,6 +764,29 @@
     <Content Include="kiaalap-master\pdf\mamunur.pdf" />
     <Content Include="kiaalap-master\README.md" />
     <Content Include="Areas\Admin\Views\web.config" />
+    <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Admin\Views\Home\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Categories\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Categories\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Categories\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Categories\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Categories\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Cities\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Cities\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Cities\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Cities\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Cities\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Districts\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Districts\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Districts\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Districts\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Districts\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Products\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Products\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Products\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Products\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Products\Index.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -817,32 +845,12 @@
     <Content Include="Views\Frontend\Account.cshtml" />
     <Content Include="Views\Frontend\Contact.cshtml" />
     <Content Include="Views\Frontend\WishList.cshtml" />
-    <Content Include="Views\Categories\Create.cshtml" />
-    <Content Include="Views\Categories\Delete.cshtml" />
-    <Content Include="Views\Categories\Details.cshtml" />
-    <Content Include="Views\Categories\Edit.cshtml" />
-    <Content Include="Views\Categories\Index.cshtml" />
-    <Content Include="Views\Products\Create.cshtml" />
-    <Content Include="Views\Products\Delete.cshtml" />
-    <Content Include="Views\Products\Details.cshtml" />
-    <Content Include="Views\Products\Edit.cshtml" />
-    <Content Include="Views\Products\Index.cshtml" />
-    <Content Include="Views\Cities\Create.cshtml" />
-    <Content Include="Views\Cities\Delete.cshtml" />
-    <Content Include="Views\Cities\Details.cshtml" />
-    <Content Include="Views\Cities\Edit.cshtml" />
-    <Content Include="Views\Cities\Index.cshtml" />
-    <Content Include="Views\Districts\Create.cshtml" />
-    <Content Include="Views\Districts\Delete.cshtml" />
-    <Content Include="Views\Districts\Details.cshtml" />
-    <Content Include="Views\Districts\Edit.cshtml" />
-    <Content Include="Views\Districts\Index.cshtml" />
+    <Content Include="Views\Backend\Dashboard.cshtml" />
+    <Content Include="Views\Backend\DemoForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Admin\Controllers\" />
     <Folder Include="Areas\Admin\Data\" />
-    <Folder Include="Areas\Admin\Views\Shared\" />
     <Folder Include="Views\TestTheme\" />
   </ItemGroup>
   <ItemGroup>
@@ -876,6 +884,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202006220713315_UpdateAnnotation.resx">
       <DependentUpon>202006220713315_UpdateAnnotation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006221040138_UpdateDB.resx">
+      <DependentUpon>202006221040138_UpdateDB.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

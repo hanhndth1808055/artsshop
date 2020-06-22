@@ -9,6 +9,7 @@ namespace FinalArtsShop.Models
     public class Category
     {
         public int Id { get; set; }
+        [Required]
         public int Parent { get; set; }
         [Required]
         public string Name { get; set; }

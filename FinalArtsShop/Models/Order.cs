@@ -9,7 +9,6 @@ namespace FinalArtsShop.Models
     public class Order
     {
         public string Id { get; set; }
-
         [ForeignKey("ApplicationUser")]
         public string UserId { get; set; }
         public virtual ApplicationUser ApplicationUser { get; set; }

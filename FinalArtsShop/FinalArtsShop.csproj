@@ -170,6 +170,8 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
+    <Compile Include="Controllers\CitiesController.cs" />
+    <Compile Include="Controllers\DistrictsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
@@ -196,6 +198,10 @@
     <Compile Include="Migrations\202006201249221_UpdateCounter.cs" />
     <Compile Include="Migrations\202006201249221_UpdateCounter.Designer.cs">
       <DependentUpon>202006201249221_UpdateCounter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202006220713315_UpdateAnnotation.cs" />
+    <Compile Include="Migrations\202006220713315_UpdateAnnotation.Designer.cs">
+      <DependentUpon>202006220713315_UpdateAnnotation.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -821,6 +827,16 @@
     <Content Include="Views\Products\Details.cshtml" />
     <Content Include="Views\Products\Edit.cshtml" />
     <Content Include="Views\Products\Index.cshtml" />
+    <Content Include="Views\Cities\Create.cshtml" />
+    <Content Include="Views\Cities\Delete.cshtml" />
+    <Content Include="Views\Cities\Details.cshtml" />
+    <Content Include="Views\Cities\Edit.cshtml" />
+    <Content Include="Views\Cities\Index.cshtml" />
+    <Content Include="Views\Districts\Create.cshtml" />
+    <Content Include="Views\Districts\Delete.cshtml" />
+    <Content Include="Views\Districts\Details.cshtml" />
+    <Content Include="Views\Districts\Edit.cshtml" />
+    <Content Include="Views\Districts\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -857,6 +873,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202006201249221_UpdateCounter.resx">
       <DependentUpon>202006201249221_UpdateCounter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006220713315_UpdateAnnotation.resx">
+      <DependentUpon>202006220713315_UpdateAnnotation.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

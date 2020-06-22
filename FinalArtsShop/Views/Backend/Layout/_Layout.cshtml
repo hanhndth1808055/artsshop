@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Dashboard V.1 | Kiaalap - Kiaalap Admin Template</title>
+    <title>Admin</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- favicon
@@ -89,9 +89,18 @@
                             </a>
                         </li>
                         <li>
-                            <a title="Landing Page" href="@Url.Action("IndexBackend", "TestTheme")" aria-expanded="false"><span class="educate-icon educate-event icon-wrap sub-icon-mg" aria-hidden="true"></span> <span class="mini-click-non">Sources</span></a>
+                            <a title="Products" href="@Url.Action("Index", "Products")" aria-expanded="false"><span class="educate-icon educate-event icon-wrap sub-icon-mg" aria-hidden="true"></span> <span class="mini-click-non">Product</span></a>
                         </li>
                         <li>
+                            <a title="Categories" href="@Url.Action("Index", "Categories")" aria-expanded="false"><span class="educate-icon educate-event icon-wrap sub-icon-mg" aria-hidden="true"></span> <span class="mini-click-non">Categories</span></a>
+                        </li>
+                        <li>
+                            <a title="Cities" href="@Url.Action("Index", "Cities")" aria-expanded="false"><span class="educate-icon educate-event icon-wrap sub-icon-mg" aria-hidden="true"></span> <span class="mini-click-non">Cities</span></a>
+                        </li>
+                        <li>
+                            <a title="Districts" href="@Url.Action("Index", "Districts")" aria-expanded="false"><span class="educate-icon educate-event icon-wrap sub-icon-mg" aria-hidden="true"></span> <span class="mini-click-non">Districts</span></a>
+                        </li>
+                        @*<li>
                             <a class="has-arrow" href="~/kiaalap-master/all-professors.html" aria-expanded="false"><span class="educate-icon educate-professor icon-wrap"></span> <span class="mini-click-non">Categories</span></a>
                             <ul class="submenu-angle" aria-expanded="false">
                                 <li><a title="All Professors" href="~/kiaalap-master/all-professors.html"><span class="mini-sub-pro">All Professors</span></a></li>
@@ -99,24 +108,7 @@
                                 <li><a title="Edit Professor" href="~/kiaalap-master/edit-professor.html"><span class="mini-sub-pro">Edit Professor</span></a></li>
                                 <li><a title="Professor Profile" href="~/kiaalap-master/professor-profile.html"><span class="mini-sub-pro">Professor Profile</span></a></li>
                             </ul>
-                        </li>
-                        <li>
-                            <a class="has-arrow" href="~/kiaalap-master/all-students.html" aria-expanded="false"><span class="educate-icon educate-student icon-wrap"></span> <span class="mini-click-non">News</span></a>
-                            <ul class="submenu-angle" aria-expanded="false">
-                                <li><a title="All Students" href="~/kiaalap-master/all-students.html"><span class="mini-sub-pro">All Students</span></a></li>
-                                <li><a title="Add Students" href="~/kiaalap-master/add-student.html"><span class="mini-sub-pro">Add Student</span></a></li>
-                                <li><a title="Edit Students" href="~/kiaalap-master/edit-student.html"><span class="mini-sub-pro">Edit Student</span></a></li>
-                                <li><a title="Students Profile" href="~/kiaalap-master/student-profile.html"><span class="mini-sub-pro">Student Profile</span></a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a class="has-arrow" href="~/kiaalap-master/all-courses.html" aria-expanded="false"><span class="educate-icon educate-library icon-wrap"></span> <span class="mini-click-non">Users</span></a>
-                            <ul class="submenu-angle" aria-expanded="false">
-                                <li><a title="All Library" href="~/kiaalap-master/library-assets.html"><span class="mini-sub-pro">Library Assets</span></a></li>
-                                <li><a title="Add Library" href="~/kiaalap-master/add-library-assets.html"><span class="mini-sub-pro">Add Library Asset</span></a></li>
-                                <li><a title="Edit Library" href="~/kiaalap-master/edit-library-assets.html"><span class="mini-sub-pro">Edit Library Asset</span></a></li>
-                            </ul>
-                        </li>
+                        </li>*@
                     </ul>
                 </nav>
             </div>
@@ -150,12 +142,12 @@
                                     </div>
                                     <div class="col-lg-6 col-md-7 col-sm-6 col-xs-12">
                                         <div class="header-top-menu tabl-d-n">
-                                            <ul class="nav navbar-nav mai-top-nav">
+                                            @*<ul class="nav navbar-nav mai-top-nav">
                                                 <li class="nav-item">
                                                     <a href="#" class="nav-link">Dashbroad</a>
                                                 </li>
                                                 <li class="nav-item">
-                                                    <a href="#" class="nav-link">Sources</a>
+                                                    <a href="Category/Index" class="nav-link">Sources</a>
                                                 </li>
                                                 <li class="nav-item">
                                                     <a href="#" class="nav-link">Categories</a>
@@ -172,7 +164,7 @@
                                                 <li class="nav-item">
                                                     <a href="#" class="nav-link">Users</a>
                                                 </li>
-                                            </ul>
+                                            </ul>*@
                                         </div>
                                     </div>
                                     <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">

@@ -9,7 +9,6 @@ namespace FinalArtsShop.Models
     {
         public int Id { get; set; }
         public int? CountProduct { get; set; }
-        public int? CountInvoice { get; set; }
         public ActiveEnum Active { get; set; }
     }
 

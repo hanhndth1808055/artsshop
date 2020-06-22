@@ -65,14 +65,18 @@ namespace FinalArtsShop.Controllers
                 {
                     var id = CurrentCategory.Abbreviation + "00001";
                     product.Id = id;
+                    // var counter = new Counter()
+                    // {
+                    //     
+                    // };
                 }
-                if (lastestProduct != null)
+                else
                 {
                     var index = (lastestProduct.CountProduct + 1).ToString();
                     var id = index.PadLeft(5, '0');
-                    product.Id = id;
-                }
 
+                    product.Id = CurrentCategory.Abbreviation + id;
+                }
                 if (thumbnails != null && thumbnails.Length > 0)
                 {
                     product.Thumbnail = string.Join(",", thumbnails);

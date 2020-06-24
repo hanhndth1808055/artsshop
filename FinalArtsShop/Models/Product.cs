@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Configuration;
@@ -29,7 +30,7 @@ namespace FinalArtsShop.Models
         [Required]
         public int Unit { get; set; }
         public int isNew { get; set; }
-        public int isActive { get; set; }
+        public int isActive { get; set; } = 1;
         public DateTime? CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
         public int isFeature { get; set; }

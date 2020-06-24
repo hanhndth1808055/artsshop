@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -18,7 +19,7 @@ namespace FinalArtsShop.Models
         [Required]
         [Display(Name = "Shipping Fee")]
         public double ShippingFee { get; set; }
-        public int Active { get; set; }
+        public int Active { get; set; } = 1;
         public DateTime? CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
     }

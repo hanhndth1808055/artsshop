@@ -21,11 +21,10 @@ namespace FinalArtsShop.Models
         public virtual Product Product { get; set; }
         [Required]
         public string Name { get; set; }
-        [DefaultValue(5)]
-        public int Rate { get; set; }
+        public int Rate { get; set; } = 5;
         [Required]
         public string Message { get; set; }
-        public int Active { get; set; }
+        public int Active { get; set; } = 1;
         public DateTime? CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
     }

@@ -14,9 +14,8 @@ namespace FinalArtsShop.Models
         public string Name { get; set; }
         [Required]
         public string Abbreviation { get; set; }
-        [DefaultValue(1)]
-        public double Factor { get; set; }
-        public int Active { get; set; }
+        public double Factor { get; set; } = 1;
+        public int Active { get; set; } = 1;
         public DateTime? CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
     }

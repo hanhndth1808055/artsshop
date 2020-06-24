@@ -1,0 +1,60 @@
+﻿@model FinalArtsShop.Models.DeliveryType
+
+@{
+    ViewBag.Title = "Create";
+}
+@using (Html.BeginForm("Create", "DeliveryTypes", FormMethod.Post, new { @class = "product-form", style = "margin-bottom:50px" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="container">
+        <div class="product-tab-list tab-pane" id="reviews">
+            <div class="row">
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"></div>
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <h2 class="">Create</h2>
+                    <div>
+                        @Html.ActionLink("Back to List", "Index")
+                    </div>
+                    <hr />
+                    <div class="review-content-section">
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div class="devit-card-custom">
+                                    <div class="col-lg-12 form-group">
+                                        @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 form-group">
+                                        @Html.LabelFor(model => model.Abbreviation, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            @Html.EditorFor(model => model.Abbreviation, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.Abbreviation, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 form-group">
+                                        @Html.LabelFor(model => model.Factor, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            @Html.EditorFor(model => model.Factor, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.Factor, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 form-group text-center">
+                                        <div class="col-md-offset-2 col-md-10">
+                                            <input type="submit" value="Create" class="btn btn-primary waves-effect waves-light" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

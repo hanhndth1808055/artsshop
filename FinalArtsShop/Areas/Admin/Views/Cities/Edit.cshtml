@@ -2,7 +2,6 @@
 
 @{
     ViewBag.Title = "Edit";
-    Layout = "~/Views/Backend/Layout/_Layout.cshtml";
 }
 @using (Html.BeginForm())
 {
@@ -51,36 +50,3 @@
         </div>
     </div>
 }
-<script src="https://widget.cloudinary.com/v2.0/global/all.js" type="text/javascript"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script type="text/javascript">
-    function showUploadWidget() {
-        cloudinary.openUploadWidget({
-            cloudName: "daaycakkk",
-            uploadPreset: "hcgmdndc",
-            sources: [
-                "local",
-                "url",
-                "camera"
-            ],
-            form: ".product-form",
-            fieldName: "thumbnails[]",
-            thumbnails: '.uploaded',
-            showAdvancedOptions: true,
-            multiple: true,
-        },
-            (err, info) => {
-                if (!err) {
-                    console.log("Upload Widget event - ", info);
-                }
-            });
-    }
-    $('body').on('click', '.cloudinary-delete', function () {
-        var splittedLink = $(this).prev().attr('src').split('/');
-        var imgId = splittedLink[splittedLink.length - 1].split('.')[0];
-        $(`input[data-cloudinary-public-id="${imgId}"]`).remove();
-    });
-    document.getElementById("upload_widget").addEventListener("click", function(){
-        showUploadWidget();
-    }, false);
-</script>

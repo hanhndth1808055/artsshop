@@ -173,6 +173,7 @@
     <Compile Include="Areas\Admin\Controllers\CategoriesController.cs" />
     <Compile Include="Areas\Admin\Controllers\CitiesController.cs" />
     <Compile Include="Areas\Admin\Controllers\DistrictsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\DeliveryTypesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductsController.cs" />
@@ -207,6 +208,10 @@
     <Compile Include="Migrations\202006221040138_UpdateDB.cs" />
     <Compile Include="Migrations\202006221040138_UpdateDB.Designer.cs">
       <DependentUpon>202006221040138_UpdateDB.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202006240452260_UpdateDefaultValueForActiveAttr.cs" />
+    <Compile Include="Migrations\202006240452260_UpdateDefaultValueForActiveAttr.Designer.cs">
+      <DependentUpon>202006240452260_UpdateDefaultValueForActiveAttr.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -847,6 +852,11 @@
     <Content Include="Views\Frontend\WishList.cshtml" />
     <Content Include="Views\Backend\Dashboard.cshtml" />
     <Content Include="Views\Backend\DemoForm.cshtml" />
+    <Content Include="Areas\Admin\Views\DeliveryTypes\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\DeliveryTypes\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\DeliveryTypes\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\DeliveryTypes\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\DeliveryTypes\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -887,6 +897,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202006221040138_UpdateDB.resx">
       <DependentUpon>202006221040138_UpdateDB.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006240452260_UpdateDefaultValueForActiveAttr.resx">
+      <DependentUpon>202006240452260_UpdateDefaultValueForActiveAttr.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

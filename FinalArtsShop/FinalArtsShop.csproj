@@ -168,7 +168,6 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
-    <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Areas\Admin\Controllers\CategoriesController.cs" />
     <Compile Include="Areas\Admin\Controllers\CitiesController.cs" />
@@ -212,6 +211,14 @@
     <Compile Include="Migrations\202006240452260_UpdateDefaultValueForActiveAttr.cs" />
     <Compile Include="Migrations\202006240452260_UpdateDefaultValueForActiveAttr.Designer.cs">
       <DependentUpon>202006240452260_UpdateDefaultValueForActiveAttr.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202006241442024_UpdateOrder.cs" />
+    <Compile Include="Migrations\202006241442024_UpdateOrder.Designer.cs">
+      <DependentUpon>202006241442024_UpdateOrder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202006241512177_UpdateOrder1.cs" />
+    <Compile Include="Migrations\202006241512177_UpdateOrder1.Designer.cs">
+      <DependentUpon>202006241512177_UpdateOrder1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -771,7 +778,6 @@
     <Content Include="Areas\Admin\Views\web.config" />
     <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\Admin\Views\Home\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Categories\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Categories\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\Categories\Details.cshtml" />
@@ -900,6 +906,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202006240452260_UpdateDefaultValueForActiveAttr.resx">
       <DependentUpon>202006240452260_UpdateDefaultValueForActiveAttr.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006241442024_UpdateOrder.resx">
+      <DependentUpon>202006241442024_UpdateOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006241512177_UpdateOrder1.resx">
+      <DependentUpon>202006241512177_UpdateOrder1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

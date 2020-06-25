@@ -13,7 +13,6 @@ namespace FinalArtsShop.Models
         public string UserId { get; set; }
         public virtual ApplicationUser ApplicationUser { get; set; }
         public PaymentMethodEnum PaymentMethod { get; set; }
-
         [ForeignKey("DeliveryType")]
         public int? DeliveryTypeId { get; set; }
         public virtual DeliveryType DeliveryType { get; set; }

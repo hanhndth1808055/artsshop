@@ -13,7 +13,6 @@ namespace FinalArtsShop.Models
         public string UserId { get; set; }
         public virtual ApplicationUser ApplicationUser { get; set; }
         public PaymentMethodEnum PaymentMethod { get; set; }
-
         [ForeignKey("DeliveryType")]
         public int? DeliveryTypeId { get; set; }
         public virtual DeliveryType DeliveryType { get; set; }
@@ -24,11 +23,9 @@ namespace FinalArtsShop.Models
         public int? isReturn { get; set; }
         public DateTime? CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
-
         [ForeignKey("City")]
         public int? CityId { get; set; }
-        public virtual City City { get; set; }
-
+        public virtual City City { get; set; }             
         [ForeignKey("District")]
         public int? DistrictId { get; set; }
         public virtual District District { get; set; }

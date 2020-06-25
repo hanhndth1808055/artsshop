@@ -168,6 +168,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\OrdersController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Areas\Admin\Controllers\CategoriesController.cs" />
     <Compile Include="Areas\Admin\Controllers\CitiesController.cs" />
@@ -882,6 +883,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Data\" />
+    <Folder Include="Areas\Admin\Views\Orders\" />
     <Folder Include="Views\TestTheme\" />
   </ItemGroup>
   <ItemGroup>

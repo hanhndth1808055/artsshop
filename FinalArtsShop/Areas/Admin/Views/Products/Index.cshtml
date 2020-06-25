@@ -50,7 +50,7 @@
                                         <th data-field="name" data-editable="true">Name</th>
                                         <th data-field="unit">Unit</th>
                                         <th data-field="price">Price</th>
-                                        <th data-field="price">Active</th>
+                                        <th data-field="active">Active</th>
                                         <th data-field="action">Action</th>
                                     </tr>
                                 </thead>
@@ -63,7 +63,7 @@
                                             @Html.DisplayFor(modelItem => item.Id)
                                         </td>
                                         <td>
-                                            @Html.DisplayNameFor(model => model.Category.Name)
+                                            @item.Category.Name
                                         </td>
                                         <td>
                                             @Html.DisplayFor(modelItem => item.Name)

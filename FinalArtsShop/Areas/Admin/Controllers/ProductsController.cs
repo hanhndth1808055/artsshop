@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Diagnostics;
 using System.Linq;
 using System.Net;
@@ -71,6 +72,7 @@ namespace FinalArtsShop.Areas.Admin.Controllers
                         Active = ActiveEnum.Active
                     };
                     db.Counters.Add(counter);
+                    db.SaveChanges();
                 }
                 else
                 {
@@ -78,7 +80,14 @@ namespace FinalArtsShop.Areas.Admin.Controllers
                     var id = index.PadLeft(5, '0');
 
                     product.Id = CurrentCategory.Abbreviation + id;
-                    lastestProduct.CountProduct = lastestProduct.CountProduct++;
+                    lastestProduct.CountProduct++;
+                    if (ModelState.IsValid)
+                    {
+                        db.Entry(lastestProduct).State = EntityState.Modified;
+                        db.Counters.AddOrUpdate(lastestProduct);
+                    }
+
+                    db.SaveChanges();
                 }
                 if (thumbnails != null && thumbnails.Length > 0)
                 {

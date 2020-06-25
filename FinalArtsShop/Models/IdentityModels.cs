@@ -63,5 +63,6 @@ namespace FinalArtsShop.Models
         public System.Data.Entity.DbSet<FinalArtsShop.Models.Post> Posts { get; set; }
         public System.Data.Entity.DbSet<FinalArtsShop.Models.Product> Products { get; set; }
         public System.Data.Entity.DbSet<FinalArtsShop.Models.Slide> Slides { get; set; }
+        public System.Data.Entity.DbSet<FinalArtsShop.Models.OrderItem> OrderItems { get; set; }
     }
 }

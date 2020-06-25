@@ -65,10 +65,12 @@ namespace FinalArtsShop.Areas.Admin.Controllers
                 {
                     var id = CurrentCategory.Abbreviation + "00001";
                     product.Id = id;
-                    // var counter = new Counter()
-                    // {
-                    //     
-                    // };
+                    var counter = new Counter()
+                    {
+                        CountProduct = 1,
+                        Active = ActiveEnum.Active
+                    };
+                    db.Counters.Add(counter);
                 }
                 else
                 {
@@ -76,6 +78,7 @@ namespace FinalArtsShop.Areas.Admin.Controllers
                     var id = index.PadLeft(5, '0');
 
                     product.Id = CurrentCategory.Abbreviation + id;
+                    lastestProduct.CountProduct = lastestProduct.CountProduct++;
                 }
                 if (thumbnails != null && thumbnails.Length > 0)
                 {

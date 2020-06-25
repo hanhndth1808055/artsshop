@@ -45,17 +45,6 @@ namespace FinalArtsShop.Models
         {
             Items = new Dictionary<string, OrderItem>();
         }
-        public class OrderItem
-        {
-            [ForeignKey("Product")]
-            public string ProductId { get; set; }
-            public string Name { get; set; }
-            public virtual Product Product { get; set; }
-            public double Price { get; set; }
-            public int Quantity { get; set; }
-            public string Thumbnail { get; set; }
-            public double TotalItemPrice => Quantity * Price;
-        }
     }
 
     public enum PaymentMethodEnum

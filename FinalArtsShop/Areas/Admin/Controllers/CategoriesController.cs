@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -104,11 +105,12 @@ namespace FinalArtsShop.Areas.Admin.Controllers
             return View(category);
         }
 
-        // POST: Categories/Delete/5
+        // POST: Admin/Categories/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            Debug.WriteLine("Delete here");
             Category category = db.Categories.Find(id);
             db.Categories.Remove(category);
             db.SaveChanges();

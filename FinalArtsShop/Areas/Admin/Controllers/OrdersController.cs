@@ -8,6 +8,7 @@ using static FinalArtsShop.Models.ShoppingCart;
 
 namespace FinalArtsShop.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class OrdersController : Controller
     {
         public readonly String CartSessionName = "cart";

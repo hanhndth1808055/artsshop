@@ -1,6 +1,8 @@
 ﻿namespace FinalArtsShop.Migrations
 {
     using FinalArtsShop.Models;
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.EntityFramework;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
@@ -20,9 +22,10 @@
 
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
             //  to avoid creating duplicate seed data.
-
-            SeedingCategories(context);
-            SeedingProduct(context);
+            SeedingRole(context);
+            SeedingUser(context);
+            //SeedingCategories(context);
+            //SeedingProduct(context);
         }
 
         private void Truncate(FinalArtsShop.Models.ApplicationDbContext context)
@@ -34,6 +37,53 @@
             //context.Database.ExecuteSqlCommand("TRUNCATE TABLE dbo.AspNetRoles");
             //context.Database.ExecuteSqlCommand("TRUNCATE TABLE dbo.AspNetUsers");
             context.Database.ExecuteSqlCommand("TRUNCATE TABLE Products");
+        }
+
+         private void SeedingRole(ApplicationDbContext context)
+        {
+            if (!context.Roles.Any(r => r.Name == "Admin"))
+            {
+                var store = new RoleStore<ApplicationRole>(context);
+                var manager = new RoleManager<ApplicationRole>(store);
+                var role = new ApplicationRole { Name = "Admin" };
+                manager.Create(role);
+            }
+
+            if (!context.Roles.Any(r => r.Name == "Customer"))
+            {
+                var store = new RoleStore<ApplicationRole>(context);
+                var manager = new RoleManager<ApplicationRole>(store);
+                var role = new ApplicationRole { Name = "Customer" };
+                manager.Create(role);
+            }
+
+
+        }
+
+        private void SeedingUser(ApplicationDbContext context)
+        {
+            if (!context.Users.Any(u => u.UserName == "newsfeedvn"))
+            {
+                var store = new UserStore<ApplicationUser>(context);
+                var manager = new UserManager<ApplicationUser>(store);
+                var admin = new ApplicationUser
+                {
+                    UserName = "artShopAdmin",
+                    Email = "artShop@yopmail.com"
+                };
+
+                manager.Create(admin, "Abcabc123@@");
+                manager.AddToRole(admin.Id, "Admin");
+
+                var user = new ApplicationUser
+                {
+                    UserName = "user1",
+                    Email = "user1@yopmail.com"
+                };
+
+                manager.Create(user, "Abcabc123@@");
+                manager.AddToRole(user.Id, "Customer");
+            }
         }
 
         private void SeedingCategories(ApplicationDbContext context)

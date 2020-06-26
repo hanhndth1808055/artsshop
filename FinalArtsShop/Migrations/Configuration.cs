@@ -20,6 +20,7 @@
 
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
             //  to avoid creating duplicate seed data.
+
             SeedingCategories(context);
             SeedingProduct(context);
         }
@@ -33,6 +34,7 @@
             //context.Database.ExecuteSqlCommand("TRUNCATE TABLE dbo.AspNetRoles");
             //context.Database.ExecuteSqlCommand("TRUNCATE TABLE dbo.AspNetUsers");
             //context.Database.ExecuteSqlCommand("TRUNCATE TABLE Products");
+
         }
 
         private void SeedingCategories(ApplicationDbContext context)

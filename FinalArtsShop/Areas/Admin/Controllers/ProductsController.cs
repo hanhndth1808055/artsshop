@@ -12,6 +12,7 @@ using FinalArtsShop.Models;
 
 namespace FinalArtsShop.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class ProductsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

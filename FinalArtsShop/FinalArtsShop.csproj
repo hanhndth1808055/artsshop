@@ -180,6 +180,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductsController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\ShoppingCartController.cs" />
     <Compile Include="Controllers\TestThemeController.cs" />
     <Compile Include="Global.asax.cs">
@@ -250,6 +251,7 @@
     <Compile Include="Models\UserViewModel.cs" />
     <Compile Include="Models\ViewCategoryClient.cs" />
     <Compile Include="Models\ViewHomeClient.cs" />
+    <Compile Include="Models\ViewLayoutClient.cs" />
     <Compile Include="Models\ViewProductClient.cs" />
     <Compile Include="Models\ViewShoppingCart.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -896,6 +898,7 @@
     <Content Include="Views\ShoppingCart\Layout\_Layout.cshtml" />
     <Content Include="Views\Category\Index.cshtml" />
     <Content Include="Views\Product\Index.cshtml" />
+    <Content Include="Views\Search\Search.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

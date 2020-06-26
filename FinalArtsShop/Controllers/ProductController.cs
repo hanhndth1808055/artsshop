@@ -42,7 +42,6 @@ namespace FinalArtsShop.Controllers
 
 
             ViewProductClient viewProductClient = new ViewProductClient() {
-                CategoriesMenu = db.Categories.Where(c => c.Active == 1).ToList(),
                 Product = product,
                 LatestProducts = latestProduct
             };

@@ -1,6 +1,6 @@
 ﻿@model FinalArtsShop.Models.ViewCategoryClient
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Search";
     Layout = "~/Views/Home/Layout/_Layout.cshtml";
 }
 
@@ -58,49 +58,52 @@
                     <div class="aa-product-catg-body">
                         <ul class="aa-product-catg">
                             @{
-                                foreach (var prod in Model.Products)
+                                if (Model.Products != null)
                                 {
-                                    <!-- start single product item -->
-                                    <li>
-                                        <figure>
-                                            <a class="aa-product-img" href="#"><img src="~/MarkUps-dailyShop/dailyShop/img/electronics/@prod.Image" alt="" width="250px" height="300px"></a>
-                                            <a class="aa-add-card-btn" href="/ShoppingCart/AddToCart?productId=@prod.Id&quantity=1"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
-                                            <figcaption>
-                                                <h4 class="aa-product-title"><a href="#">@prod.Name</a></h4>
-                                                @{
-                                                    if (prod.PromotionPrice > 0)
-                                                    {
-                                                        <span class="aa-product-price">@prod.PromotionPrice</span><span class="aa-product-price"><del>@prod.UnitPrice</del></span>
+                                    foreach (var prod in Model.Products)
+                                    {
+                                        <!-- start single product item -->
+                                        <li>
+                                            <figure>
+                                                <a class="aa-product-img" href="#"><img src="~/MarkUps-dailyShop/dailyShop/img/electronics/@prod.Image" alt="" width="250px" height="300px"></a>
+                                                <a class="aa-add-card-btn" href="/ShoppingCart/AddToCart?productId=@prod.Id&quantity=1"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
+                                                <figcaption>
+                                                    <h4 class="aa-product-title"><a href="#">@prod.Name</a></h4>
+                                                    @{
+                                                        if (prod.PromotionPrice > 0)
+                                                        {
+                                                            <span class="aa-product-price">@prod.PromotionPrice</span><span class="aa-product-price"><del>@prod.UnitPrice</del></span>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span class="aa-product-price">@prod.UnitPrice</span>
+                                                        }
                                                     }
-                                                    else
-                                                    {
-                                                        <span class="aa-product-price">@prod.UnitPrice</span>
-                                                    }
+                                                </figcaption>
+                                            </figure>
+                                            <div class="aa-product-hvr-content">
+                                                <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
+                                                <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
+                                                <a onclick="quickView('@prod.Id', '@prod.Name', @prod.PromotionPrice, @prod.UnitPrice, '@prod.Description', '@prod.Category.Name', '@prod.Image', '@prod.Thumbnail')" href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
+                                            </div>
+                                            <!-- product badge -->
+                                            @{
+                                                if (prod.Unit <= prod.SellIndex)
+                                                {
+                                                    <span class="aa-badge aa-sold-out" href="#">Sold Out!</span>
                                                 }
-                                            </figcaption>
-                                        </figure>
-                                        <div class="aa-product-hvr-content">
-                                            <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
-                                            <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
-                                            <a onclick="quickView('@prod.Id', '@prod.Name', @prod.PromotionPrice, @prod.UnitPrice, '@prod.Description', '@prod.Category.Name', '@prod.Image', '@prod.Thumbnail')" href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
-                                        </div>
-                                        <!-- product badge -->
-                                        @{
-                                            if (prod.Unit <= prod.SellIndex)
-                                            {
-                                                <span class="aa-badge aa-sold-out" href="#">Sold Out!</span>
+                                                else if (prod.isFeature <= 0 && prod.isNew > 0 && prod.Unit >= prod.SellIndex)
+                                                {
+                                                    <span class="aa-badge aa-sale" href="#">NEW!</span>
+                                                }
+                                                else if (prod.isFeature > 0 && prod.Unit >= prod.SellIndex)
+                                                {
+                                                    <span class="aa-badge aa-hot" href="#">HOT!</span>
+                                                }
                                             }
-                                            else if (prod.isFeature <= 0 && prod.isNew > 0 && prod.Unit >= prod.SellIndex)
-                                            {
-                                                <span class="aa-badge aa-sale" href="#">NEW!</span>
-                                            }
-                                            else if (prod.isFeature > 0 && prod.Unit >= prod.SellIndex)
-                                            {
-                                                <span class="aa-badge aa-hot" href="#">HOT!</span>
-                                            }
-                                        }
 
-                                    </li>
+                                        </li>
+                                    }
                                 }
                             }
 
@@ -344,3 +347,4 @@
         }
     </script>
 }
+

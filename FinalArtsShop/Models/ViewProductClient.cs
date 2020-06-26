@@ -5,9 +5,8 @@ using System.Web;
 
 namespace FinalArtsShop.Models
 {
-    public class ViewProductClient
+    public class ViewProductClient : ViewLayoutClient
     {
-        public List<Category> CategoriesMenu { get; set; }
         public List<Product> LatestProducts { get; set; }
         public Product Product { get; set; }
     }

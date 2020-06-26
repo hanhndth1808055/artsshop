@@ -36,13 +36,26 @@ namespace FinalArtsShop.Controllers
 
             }
 
-            viewCategoryClient = new ViewCategoryClient() { 
-                CategoriesMenu = CategoriesMenu,
+            viewCategoryClient = new ViewCategoryClient() {
                 Products = products.ToList(),
-                FeatureProducts = db.Products.Where(p => p.isFeature > 0).Take(3).ToList()
+                FeatureProducts = db.Products.Where(p => p.isFeature > 0).Take(3).ToList(),
+                LatestProducts = getLastestProduct()
             };
 
             return View(viewCategoryClient);
+        }
+        public List<Product> getLastestProduct()
+        {
+            List<Product> LastestProduct = null;
+            if (Session["LastestProduct"] != null)
+            {
+                LastestProduct = Session["LastestProduct"] as List<Product>;
+            }
+            if (Session["LastestProduct"] == null)
+            {
+                LastestProduct = new List<Product>();
+            }
+            return LastestProduct;
         }
     }
 }

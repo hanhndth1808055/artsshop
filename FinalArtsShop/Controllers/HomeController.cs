@@ -49,7 +49,6 @@ namespace FinalArtsShop.Controllers
             }
 
             ViewHomeClient viewHomeClient = new ViewHomeClient() {
-                CategoriesMenu = CategoriesMenu,
                 CategoriesProduct = CategoriesProduct,
                 Products = Products,
                 NewProducts = db.Products.Where(p => p.isNew == 1 && p.isActive == 1).Take(8).ToList(),

@@ -1,4 +1,4 @@
-﻿@model  FinalArtsShop.Models.ShoppingCart
+﻿@model  FinalArtsShop.Models.ViewShoppingCart
 
 @{
     ViewBag.Title = "My Cart";
@@ -29,28 +29,28 @@
         <th></th>
     </tr>
 
-    @foreach (var item in Model.Items.Values)
+    @foreach (var item in Model.shoppingCart.Items.Values)
     {
-    <tr>
-        <td>@index</td>
-        <td>@item.Name</td>
-        <td><img src="@item.Thumbnail" style="width: 150px" /> </td>
-        <td>@item.Price </td>
-        <td>
-            <span>
-                @Html.ActionLink(" ", "RemoveOneItem", new { productId = item.ProductId }, new { @class = "glyphicon glyphicon-triangle-left" }) |
-            </span> @item.Quantity <span>
-                | @Html.ActionLink(" ", "AddToCart", new {productId = item.ProductId, quantity = 1}, new { @class = "glyphicon glyphicon-triangle-right" })
-            </span>
-        </td>
-        <td>@item.TotalItemPrice</td>
-        <td>@item.Name</td>
-        <td>
-            @Html.ActionLink(" ", "RemoveCartItem", new { productId = item.ProductId }, new { @class = "glyphicon glyphicon-trash"})
-        </td>
-    </tr>
-    index++;
+        <tr>
+            <td>@index</td>
+            <td>@item.Name</td>
+            <td><img src="@item.Thumbnail" style="width: 150px" /> </td>
+            <td>@item.Price </td>
+            <td>
+                <span>
+                    @Html.ActionLink(" ", "RemoveOneItem", new { productId = item.ProductId }, new { @class = "glyphicon glyphicon-triangle-left" }) |
+                </span> @item.Quantity <span>
+                    | @Html.ActionLink(" ", "AddToCart", new { productId = item.ProductId, quantity = 1 }, new { @class = "glyphicon glyphicon-triangle-right" })
+                </span>
+            </td>
+            <td>@item.TotalItemPrice</td>
+            <td>@item.Name</td>
+            <td>
+                @Html.ActionLink(" ", "RemoveCartItem", new { productId = item.ProductId }, new { @class = "glyphicon glyphicon-trash" })
+            </td>
+        </tr>
+        index++;
     }
 </table>
-<strong>Total Price: @Model.TotalPrice (VND)</strong>
+<strong>Total Price: @Model.shoppingCart.TotalPrice (VND)</strong>
 @Html.ActionLink("Clear Cart", "ClearShoppingCart")

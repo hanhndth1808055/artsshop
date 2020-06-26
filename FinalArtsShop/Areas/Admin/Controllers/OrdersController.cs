@@ -57,6 +57,8 @@ namespace FinalArtsShop.Areas.Admin.Controllers
                 };
                 return RedirectToAction("");
             }
+
+            return HttpNotFound();
         }
     }
 }

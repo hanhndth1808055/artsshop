@@ -20,19 +20,42 @@ namespace FinalArtsShop.Areas.Admin.Controllers
 
         public ActionResult Create()
         {
-            Product product = db.Products.Find("KC00001");
-            ShoppingCart cart = new ShoppingCart();
-            cart.Add(product);
-            Session[CartSessionName] = cart.Items.ToString();
-            if(Session[CartSessionName] != null)
+            //ShoppingCart cart = new ShoppingCart();
+            //Session[CartSessionName] = cart.Items;
+            if (Session[CartSessionName] != null)
             {
-                var items = Session[CartSessionName] as Dictionary<string, CartItem>;
-                foreach(CartItem item in items.Values){
-
+                Dictionary<string, CartItem> items;
+                try
+                {
+                    items = Session[CartSessionName] as Dictionary<string, CartItem>;
                 }
+                catch (Exception e)
+                {
+                    items = new Dictionary<string, CartItem>();
+                }
+                if (items.Count < 0)
+                {
+                    return HttpNotFound();
+                }
+                OrderItem orderItem;
+                Order order;
+                foreach (CartItem item in items.Values)
+                {
+                    orderItem = new OrderItem
+                    {
+                        Name = item.Name,
+                        Price = item.Price,
+                        Quantity = item.Quantity,
+                        Thumbnail = item.Thumbnail,
+                        ProductId = item.ProductId,
+                    };
+                }
+                order = new Order()
+                {
+
+                };
+                return RedirectToAction("");
             }
-           
-            return null;
         }
     }
 }

@@ -11,8 +11,6 @@ namespace FinalArtsShop.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // public ShoppingCart shoppingCart = new ShoppingCart();
-
         private const string ShoppingCartName = "ShoppingCartName";
         public ActionResult About()
         {
@@ -26,6 +24,8 @@ namespace FinalArtsShop.Controllers
             var keyChainCategory = db.Categories.Where(c => c.Abbreviation == "KC").FirstOrDefault();
 
             var products = db.Products.Where(p => p.CategoryID == keyChainCategory.Id).ToList();
+
+            ViewBag["ShoppingCart"] = Session[ShoppingCartName];
 
             return View("~/Views/Home/Home.cshtml", products);
         }

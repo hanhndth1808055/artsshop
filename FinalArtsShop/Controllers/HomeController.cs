@@ -11,6 +11,8 @@ namespace FinalArtsShop.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
+        // public ShoppingCart shoppingCart = new ShoppingCart();
+
         private const string ShoppingCartName = "ShoppingCartName";
         public ActionResult About()
         {
@@ -19,15 +21,43 @@ namespace FinalArtsShop.Controllers
             return View();
         }
 
-        public ActionResult Index()
+        public ActionResult Home()
         {
-            var keyChainCategory = db.Categories.Where(c => c.Abbreviation == "KC").FirstOrDefault();
+            List<Category> CategoriesMenu = new List<Category>();
+            List<Category> CategoriesProduct = new List<Category>();
+            List<Product> Products = new List<Product>();
+            List<Product> NewProducts = new List<Product>();
+            List<Product> FeatureProducts = new List<Product>();
+            List<Product> LatestProducts = new List<Product>();
 
-            var products = db.Products.Where(p => p.CategoryID == keyChainCategory.Id).ToList();
+            CategoriesMenu = db.Categories.Where(c => c.Active == 1).ToList();
+            CategoriesProduct = db.Categories.Where(c => c.Parent == 0 && c.Active == 1).Take(4).ToList();
+            foreach (var cate in CategoriesProduct)
+            {
+                var count = 0;
+                foreach (var cate2 in CategoriesMenu)
+                {
+                    if (cate2.Parent == cate.Id)
+                    {
+                        if (count < 8)
+                        {
+                            Products.AddRange(db.Products.Where(p => p.CategoryID == cate2.Id && p.isActive == 1).Take(2).ToList());
+                            count += 2;
+                        }
+                    }
+                }
+            }
 
-            ViewBag["ShoppingCart"] = Session[ShoppingCartName];
+            ViewHomeClient viewHomeClient = new ViewHomeClient() {
+                CategoriesMenu = CategoriesMenu,
+                CategoriesProduct = CategoriesProduct,
+                Products = Products,
+                NewProducts = db.Products.Where(p => p.isNew == 1 && p.isActive == 1).Take(8).ToList(),
+                FeatureProducts = db.Products.Where(p => p.isFeature == 1 && p.isActive == 1).Take(8).ToList(),
+            };
 
-            return View("~/Views/Home/Home.cshtml", products);
+
+            return View("~/Views/Home/Home.cshtml", viewHomeClient);
         }
 
         public ActionResult Product()

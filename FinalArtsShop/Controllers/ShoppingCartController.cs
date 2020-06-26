@@ -16,8 +16,11 @@ namespace FinalArtsShop.Controllers
         // GET: ShoppingCart
         public ActionResult Index()
         {
-
-            return View(GetShoppingCart());
+            ViewShoppingCart viewShoppingCart = new ViewShoppingCart() {
+                CategoriesMenu = db.Categories.Where(c => c.Active == 1).ToList(),
+                shoppingCart = GetShoppingCart()
+            };
+            return View(viewShoppingCart);
         }
 
         private ShoppingCart GetShoppingCart()
@@ -67,8 +70,14 @@ namespace FinalArtsShop.Controllers
 
         public ActionResult ClearShoppingCart()
         {
+            ViewShoppingCart viewShoppingCart = new ViewShoppingCart()
+            {
+                CategoriesMenu = db.Categories.Where(c => c.Active == 1).ToList(),
+                shoppingCart = GetShoppingCart()
+            };
+
             Session[ShoppingCartName] = null;
-            return View("Index", GetShoppingCart());
+            return View("Index", viewShoppingCart);
         }
 
         public ActionResult RemoveCartItem(string productId)
@@ -76,16 +85,27 @@ namespace FinalArtsShop.Controllers
             ShoppingCart shoppingCart = GetShoppingCart();
             shoppingCart.Delete(productId);
             SetShoppingCart(shoppingCart);
-            return View("Index", GetShoppingCart());
+
+            ViewShoppingCart viewShoppingCart = new ViewShoppingCart()
+            {
+                CategoriesMenu = db.Categories.Where(c => c.Active == 1).ToList(),
+                shoppingCart = GetShoppingCart()
+            };
+            return View("Index", viewShoppingCart);
         }
 
         public ActionResult RemoveOneItem(string productId)
         {
+            ViewShoppingCart viewShoppingCart;
             ShoppingCart shoppingCart = GetShoppingCart();
             if (!shoppingCart.Items.ContainsKey(productId))
             {
-                return View("Index", GetShoppingCart());
-
+                viewShoppingCart = new ViewShoppingCart()
+                {
+                    CategoriesMenu = db.Categories.Where(c => c.Active == 1).ToList(),
+                    shoppingCart = GetShoppingCart()
+                };
+                return View("Index", viewShoppingCart);
             }
             if (shoppingCart.Items[productId].Quantity > 1)
             {
@@ -96,7 +116,13 @@ namespace FinalArtsShop.Controllers
                 RemoveCartItem(productId);
             }
             SetShoppingCart(shoppingCart);
-            return View("Index", GetShoppingCart());
+
+            viewShoppingCart = new ViewShoppingCart()
+            {
+                CategoriesMenu = db.Categories.Where(c => c.Active == 1).ToList(),
+                shoppingCart = GetShoppingCart()
+            };
+            return View("Index", viewShoppingCart);
         }
     }
 }

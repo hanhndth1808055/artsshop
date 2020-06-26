@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace FinalArtsShop.Controllers
 {
-    public class ProductController : Controller
+    public class ProductController : ShoppingCartController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
         // GET: Product
@@ -43,7 +43,8 @@ namespace FinalArtsShop.Controllers
 
             ViewProductClient viewProductClient = new ViewProductClient() {
                 Product = product,
-                LatestProducts = latestProduct
+                LatestProducts = latestProduct,
+                shoppingCart = GetShoppingCart()
             };
             return View(viewProductClient);
         }

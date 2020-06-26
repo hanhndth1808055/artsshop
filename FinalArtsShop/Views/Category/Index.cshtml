@@ -14,9 +14,9 @@
     <div class="aa-catg-head-banner-area">
         <div class="container">
             <div class="aa-catg-head-banner-content">
-                <h2>Fashion</h2>
+                <h2>@ViewBag.CateName</h2>
                 <ol class="breadcrumb">
-                    <li><a href="~/MarkUps-dailyShop/dailyShop/index.html">Home</a></li>
+                    <li><a href="/Home/Home">Home</a></li>
                     <li class="active">@ViewBag.CateName</li>
                 </ol>
             </div>
@@ -63,10 +63,10 @@
                                     <!-- start single product item -->
                                     <li>
                                         <figure>
-                                            <a class="aa-product-img" href="#"><img src="~/MarkUps-dailyShop/dailyShop/img/electronics/@prod.Image" alt="" width="250px" height="300px"></a>
+                                            <a class="aa-product-img" href="/Product/Index?id=@prod.Id"><img src="~/MarkUps-dailyShop/dailyShop/img/electronics/@prod.Image" alt="" width="250px" height="300px"></a>
                                             <a class="aa-add-card-btn" href="/ShoppingCart/AddToCart?productId=@prod.Id&quantity=1"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
                                             <figcaption>
-                                                <h4 class="aa-product-title"><a href="#">@prod.Name</a></h4>
+                                                <h4 class="aa-product-title"><a href="/Product/Index?id=@prod.Id">@prod.Name</a></h4>
                                                 @{
                                                     if (prod.PromotionPrice > 0)
                                                     {
@@ -82,21 +82,21 @@
                                         <div class="aa-product-hvr-content">
                                             <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
                                             <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
-                                            <a onclick="quickView('@prod.Id', '@prod.Name', @prod.PromotionPrice, @prod.UnitPrice, '@prod.Description', '@prod.Category.Name', '@prod.Image', '@prod.Thumbnail')" href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
+                                            <a onclick="quickView('@prod.Id', '@prod.Name', @prod.PromotionPrice, @prod.UnitPrice, '@prod.Description', '@prod.Category.Name', '@prod.Category.Id', '@prod.Image', '@prod.Thumbnail')" href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
                                         </div>
                                         <!-- product badge -->
                                         @{
                                             if (prod.Unit <= prod.SellIndex)
                                             {
-                                                <span class="aa-badge aa-sold-out" href="#">Sold Out!</span>
+                                                <span class="aa-badge aa-sold-out">Sold Out!</span>
                                             }
                                             else if (prod.isFeature <= 0 && prod.isNew > 0 && prod.Unit >= prod.SellIndex)
                                             {
-                                                <span class="aa-badge aa-sale" href="#">NEW!</span>
+                                                <span class="aa-badge aa-sale">NEW!</span>
                                             }
                                             else if (prod.isFeature > 0 && prod.Unit >= prod.SellIndex)
                                             {
-                                                <span class="aa-badge aa-hot" href="#">HOT!</span>
+                                                <span class="aa-badge aa-hot">HOT!</span>
                                             }
                                         }
 
@@ -169,8 +169,8 @@
                                                         </p>
                                                     </div>
                                                     <div class="aa-prod-view-bottom">
-                                                        <a href="#" class="aa-add-to-cart-btn"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
-                                                        <a href="#" class="aa-add-to-cart-btn">View Details</a>
+                                                        <a href="#" id="add-cart" class="aa-add-to-cart-btn"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
+                                                        <a href="#" id="view-detail" class="aa-add-to-cart-btn">View Details</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -247,9 +247,9 @@
                                     foreach (var prodRate in Model.LatestProducts)
                                     {
                                         <li>
-                                            <a href="#" class="aa-cartbox-img"><img alt="img" src="~/MarkUps-dailyShop/dailyShop/img/electronics/@prodRate.Image"></a>
+                                            <a href="/Product/Index?id=@prodRate.Id" class="aa-cartbox-img"><img alt="img" src="~/MarkUps-dailyShop/dailyShop/img/electronics/@prodRate.Image"></a>
                                             <div class="aa-cartbox-info">
-                                                <h4><a href="#">@prodRate.Name</a></h4>
+                                                <h4><a href="/Product/Index?id=@prodRate.Id">@prodRate.Name</a></h4>
                                                 @{
                                                     if (prodRate.PromotionPrice > 0)
                                                     {
@@ -276,9 +276,9 @@
                                     foreach (var prodRate in Model.FeatureProducts)
                                     {
                                         <li>
-                                            <a href="#" class="aa-cartbox-img"><img alt="img" src="~/MarkUps-dailyShop/dailyShop/img/electronics/@prodRate.Image"></a>
+                                            <a href="/Product/Index?id=@prodRate.Id" class="aa-cartbox-img"><img alt="img" src="~/MarkUps-dailyShop/dailyShop/img/electronics/@prodRate.Image"></a>
                                             <div class="aa-cartbox-info">
-                                                <h4><a href="#">@prodRate.Name</a></h4>
+                                                <h4><a href="/Product/Index?id=@prodRate.Id">@prodRate.Name</a></h4>
                                                 @{
                                                     if (prodRate.PromotionPrice > 0)
                                                     {
@@ -306,13 +306,14 @@
 @section scripts{
 
     <script>
-        function quickView(Id, Name, PromotionPrice, UnitPrice, Description, CateName, Image, Thumbnail) {
+        function quickView(Id, Name, PromotionPrice, UnitPrice, Description, CateName, CateId, Image, Thumbnail) {
             String(Id);
             String(Name);
             parseFloat(PromotionPrice);
             parseFloat(UnitPrice);
             String(Description);
             String(CateName);
+            parseInt(CateId);
             String(Image);
             String(Thumbnail);
 
@@ -341,6 +342,10 @@
             $("#quick-view-description").html(Description);
 
             $(".aa-prod-category a").html(CateName);
+            $(".aa-prod-category a").attr("href", "/Category/Index?id=" + CateId);
+
+            $("#add-cart").attr("href", "/ShoppingCart/AddToCart?productId=" + Id + "&quantity=1");
+            $("#view-detail").attr("href", "/Product/Index?id=" + Id);
         }
     </script>
 }

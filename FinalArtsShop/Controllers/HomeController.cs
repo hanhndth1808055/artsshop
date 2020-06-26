@@ -7,7 +7,7 @@ using FinalArtsShop.Models;
 
 namespace FinalArtsShop.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : ShoppingCartController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
@@ -53,10 +53,25 @@ namespace FinalArtsShop.Controllers
                 Products = Products,
                 NewProducts = db.Products.Where(p => p.isNew == 1 && p.isActive == 1).Take(8).ToList(),
                 FeatureProducts = db.Products.Where(p => p.isFeature == 1 && p.isActive == 1).Take(8).ToList(),
+                shoppingCart = GetShoppingCart(),
+                LatestProducts = getLastestProduct()
             };
 
 
             return View("~/Views/Home/Home.cshtml", viewHomeClient);
+        }
+        public List<Product> getLastestProduct()
+        {
+            List<Product> LastestProduct = null;
+            if (Session["LastestProduct"] != null)
+            {
+                LastestProduct = Session["LastestProduct"] as List<Product>;
+            }
+            if (Session["LastestProduct"] == null)
+            {
+                LastestProduct = new List<Product>();
+            }
+            return LastestProduct;
         }
 
         public ActionResult Product()

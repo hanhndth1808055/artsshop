@@ -7,7 +7,6 @@ namespace FinalArtsShop.Models
 {
     public class ViewShoppingCart : ViewLayoutClient
     {
-        public ShoppingCart shoppingCart { get; set; }
-
+        
     }
 }

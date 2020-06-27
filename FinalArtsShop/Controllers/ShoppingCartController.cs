@@ -17,7 +17,6 @@ namespace FinalArtsShop.Controllers
         public ActionResult Index()
         {
             ViewShoppingCart viewShoppingCart = new ViewShoppingCart() {
-                CategoriesMenu = db.Categories.Where(c => c.Active == 1).ToList(),
                 shoppingCart = GetShoppingCart()
             };
             return View(viewShoppingCart);
@@ -72,7 +71,6 @@ namespace FinalArtsShop.Controllers
         {
             ViewShoppingCart viewShoppingCart = new ViewShoppingCart()
             {
-                CategoriesMenu = db.Categories.Where(c => c.Active == 1).ToList(),
                 shoppingCart = GetShoppingCart()
             };
 
@@ -88,7 +86,6 @@ namespace FinalArtsShop.Controllers
 
             ViewShoppingCart viewShoppingCart = new ViewShoppingCart()
             {
-                CategoriesMenu = db.Categories.Where(c => c.Active == 1).ToList(),
                 shoppingCart = GetShoppingCart()
             };
             return View("Index", viewShoppingCart);
@@ -102,7 +99,6 @@ namespace FinalArtsShop.Controllers
             {
                 viewShoppingCart = new ViewShoppingCart()
                 {
-                    CategoriesMenu = db.Categories.Where(c => c.Active == 1).ToList(),
                     shoppingCart = GetShoppingCart()
                 };
                 return View("Index", viewShoppingCart);
@@ -119,7 +115,6 @@ namespace FinalArtsShop.Controllers
 
             viewShoppingCart = new ViewShoppingCart()
             {
-                CategoriesMenu = db.Categories.Where(c => c.Active == 1).ToList(),
                 shoppingCart = GetShoppingCart()
             };
             return View("Index", viewShoppingCart);

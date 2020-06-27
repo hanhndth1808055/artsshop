@@ -4,12 +4,13 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using FinalArtsShop.Models;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace FinalArtsShop.Controllers
 {
     public class ShoppingCartController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        // private ApplicationDbContext db = new ApplicationDbContext();
 
         private const string ShoppingCartName = "ShoppingCartName";
 
@@ -23,8 +24,8 @@ namespace FinalArtsShop.Controllers
             List<Product> FeatureProducts = new List<Product>();
             List<Product> LatestProducts = new List<Product>();
 
-            CategoriesMenu = db.Categories.Where(c => c.Active == 1).ToList();
-            CategoriesProduct = db.Categories.Where(c => c.Parent == 0 && c.Active == 1).Take(4).ToList();
+            CategoriesMenu = HttpContext.GetOwinContext().Get<ApplicationDbContext>().Categories.Where(c => c.Active == 1).ToList();
+            CategoriesProduct = HttpContext.GetOwinContext().Get<ApplicationDbContext>().Categories.Where(c => c.Parent == 0 && c.Active == 1).Take(4).ToList();
             foreach (var cate in CategoriesProduct)
             {
                 var count = 0;
@@ -34,7 +35,7 @@ namespace FinalArtsShop.Controllers
                     {
                         if (count < 8)
                         {
-                            Products.AddRange(db.Products.Where(p => p.CategoryID == cate2.Id && p.isActive == 1).Take(2).ToList());
+                            Products.AddRange(HttpContext.GetOwinContext().Get<ApplicationDbContext>().Products.Where(p => p.CategoryID == cate2.Id && p.isActive == 1).Take(2).ToList());
                             count += 2;
                         }
                     }
@@ -45,8 +46,8 @@ namespace FinalArtsShop.Controllers
             {
                 CategoriesProduct = CategoriesProduct,
                 Products = Products,
-                NewProducts = db.Products.Where(p => p.isNew == 1 && p.isActive == 1).Take(8).ToList(),
-                FeatureProducts = db.Products.Where(p => p.isFeature == 1 && p.isActive == 1).Take(8).ToList(),
+                NewProducts = HttpContext.GetOwinContext().Get<ApplicationDbContext>().Products.Where(p => p.isNew == 1 && p.isActive == 1).Take(8).ToList(),
+                FeatureProducts = HttpContext.GetOwinContext().Get<ApplicationDbContext>().Products.Where(p => p.isFeature == 1 && p.isActive == 1).Take(8).ToList(),
                 shoppingCart = GetShoppingCart(),
                 LatestProducts = getLastestProduct()
             };
@@ -96,7 +97,7 @@ namespace FinalArtsShop.Controllers
         // GET: ShoppingCart/Details/5
         public ActionResult AddToCart(string productId, int quantity)
         {
-            var existingProduct = db.Products.FirstOrDefault(p => p.Id == productId);
+            var existingProduct = HttpContext.GetOwinContext().Get<ApplicationDbContext>().Products.FirstOrDefault(p => p.Id == productId);
 
             if (existingProduct == null)
             {

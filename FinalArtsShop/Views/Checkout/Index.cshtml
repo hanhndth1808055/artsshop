@@ -1,7 +1,27 @@
-﻿@model FinalArtsShop.Models.ViewCheckoutClient
+﻿@using System.Collections
+@using FinalArtsShop.Models
+@model FinalArtsShop.Models.ViewCheckoutClient
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Home/Layout/_Layout.cshtml";
+
+    ShoppingCart shoppingCart = null;
+    if (Session["ShoppingCartName"] != null)
+    {
+        try
+        {
+            shoppingCart = Session["ShoppingCartName"] as ShoppingCart;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+        }
+    }
+
+    if (shoppingCart == null)
+    {
+        shoppingCart = new ShoppingCart();
+    }
 }
 
 <!-- catg header banner section -->
@@ -26,7 +46,8 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="checkout-area">
-                    <form action="">
+                    <form action="/Checkout/PlaceOrder" method="post">
+                        @Html.AntiForgeryToken()
                         <div class="row">
                             <div class="col-md-8">
                                 <div class="checkout-left">
@@ -45,31 +66,37 @@
                                                     <div class="row">
                                                         <div class="col-md-6">
                                                             <div class="aa-checkout-single-bill">
-                                                                <input type="email" placeholder="Email Address*">
+                                                                <input name="email" type="email" placeholder="Email Address*" value="@Model.User.Email">
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6">
                                                             <div class="aa-checkout-single-bill">
-                                                                <input type="tel" placeholder="Phone*">
+                                                                <input name="phoneNumber" type="tel" placeholder="Phone*" value="@Model.User.PhoneNumber">
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="row">
                                                         <div class="col-md-6">
                                                             <div class="aa-checkout-single-bill">
-                                                                <select>
+                                                                <select name="city">
                                                                     <option value="0">Select Your City</option>
-                                                                    <option value="1">Ha Noi</option>
-                                                                    <option value="2">Ho Chi Minh</option>
+                                                                    @foreach (var item in Model.Cities)
+                                                                    {
+                                                                        <option value="@item.Id">@item.Name</option>
+
+                                                                    }
                                                                 </select>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6">
                                                             <div class="aa-checkout-single-bill">
-                                                                <select>
+                                                                <select name="district">
                                                                     <option value="0">Select Your District</option>
-                                                                    <option value="1">Long Bien</option>
-                                                                    <option value="2">Hai ba Trung</option>
+                                                                    @foreach (var item in Model.Districts)
+                                                                    {
+                                                                        <option value="@item.Id">@item.Name</option>
+
+                                                                    }
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -77,10 +104,9 @@
                                                     <div class="row">
                                                         <div class="col-md-6">
                                                             <div class="aa-checkout-single-bill">
-                                                                <select>
+                                                                <select name="deliveryType">
                                                                     <option value="0">Select Type Delivery</option>
-                                                                    <option value="1">Long Bien</option>
-                                                                    <option value="2">Hai ba Trung</option>
+                                                                    <option value="1">AhaMove</option>
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -88,7 +114,7 @@
                                                     <div class="row">
                                                         <div class="col-md-12">
                                                             <div class="aa-checkout-single-bill">
-                                                                <textarea cols="8" rows="3">Address*</textarea>
+                                                                <textarea cols="8" rows="3" name="address">Address*</textarea>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -117,40 +143,40 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>T-Shirt <strong> x  1</strong></td>
-                                                    <td>$150</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Polo T-Shirt <strong> x  1</strong></td>
-                                                    <td>$250</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Shoes <strong> x  1</strong></td>
-                                                    <td>$350</td>
-                                                </tr>
+
+                                                @foreach (var item in shoppingCart.Items)
+                                                {
+                                                    <tr>
+                                                        <td> @item.Value.Name <strong> x @item.Value.Quantity</strong></td>
+                                                        <td>$ @item.Value.TotalItemPrice </td>
+                                                    </tr>
+                                                }
+
                                             </tbody>
                                             <tfoot>
                                                 <tr>
-                                                    <th>Subtotal</th>
-                                                    <td>$750</td>
-                                                </tr>
-                                                <tr>
-                                                    <th>Tax</th>
-                                                    <td>$35</td>
-                                                </tr>
-                                                <tr>
                                                     <th>Total</th>
-                                                    <td>$785</td>
+                                                    <td>$ @shoppingCart.TotalPrice</td>
                                                 </tr>
+                                                @* <tr> *@
+                                                @*     <th>Tax</th> *@
+                                                @*     <td>$35</td> *@
+                                                @* </tr> *@
+                                                @* <tr> *@
+                                                @*     <th>Total</th> *@
+                                                @*     <td>$785</td> *@
+                                                @* </tr> *@
                                             </tfoot>
                                         </table>
                                     </div>
                                     <h4>Payment Method</h4>
                                     <div class="aa-payment-method">
-                                        <label for="cashdelivery"><input type="radio" id="cashdelivery" name="optionsRadios"> Cash on Delivery </label>
-                                        <label for="paypal"><input type="radio" id="paypal" name="optionsRadios" checked> Via Paypal </label>
+                                        <label for="vpp"><input type="radio" id="vpp" name="optionsRadios" value="2"> VPP </label>
+                                        <label for="paypal"><input type="radio" id="paypal" name="optionsRadios" checked value="1"> Via Paypal </label>
                                         <img src="https://www.paypalobjects.com/webstatic/mktg/logo/AM_mc_vs_dc_ae.jpg" border="0" alt="PayPal Acceptance Mark">
+                                        <label for="check"><input type="radio" id="check" name="optionsRadios" checked value="3"> Cheque </label>
+                                        <label for="dd"><input type="radio" id="dd" name="optionsRadios" checked value="3"> Direct Deposit </label>
+
                                         <input type="submit" value="Place Order" class="aa-browse-btn">
                                     </div>
                                 </div>

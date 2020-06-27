@@ -231,6 +231,10 @@
     <Compile Include="Migrations\202006251049340_UpdateOrderItem.Designer.cs">
       <DependentUpon>202006251049340_UpdateOrderItem.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202006271142020_UpdateOrders.cs" />
+    <Compile Include="Migrations\202006271142020_UpdateOrders.Designer.cs">
+      <DependentUpon>202006271142020_UpdateOrders.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Order.cs" />
@@ -967,6 +971,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202006251049340_UpdateOrderItem.resx">
       <DependentUpon>202006251049340_UpdateOrderItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006271142020_UpdateOrders.resx">
+      <DependentUpon>202006271142020_UpdateOrders.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

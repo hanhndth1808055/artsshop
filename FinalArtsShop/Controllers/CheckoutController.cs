@@ -63,6 +63,7 @@ namespace FinalArtsShop.Controllers
                 Dictionary<string, OrderItem> listOrderItem = new Dictionary<string, OrderItem>();
                 Order order;
                 OrderItem orderItem = null;
+
                 foreach (ShoppingCart.CartItem item in items.Values)
                 {
                     orderItem = new OrderItem
@@ -105,7 +106,8 @@ namespace FinalArtsShop.Controllers
                     Otp = "12345",
                     Status = 1,
                     UserId = user.Id,
-                    isReturn = 0
+                    isReturn = 0,
+                    TotalPrice = shoppingCart.TotalPrice
                 };
                 Debug.WriteLine("Order Id " + order.Id);
                 if (ModelState.IsValid)

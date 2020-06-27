@@ -37,6 +37,18 @@
 
         }
 
+        public void SeedingCouters(ApplicationDbContext context)
+        {
+            Counter[] arrCouters = {
+                new Counter()
+                {
+                    CountProduct = 56,
+                    Active = ActiveEnum.Active
+                }
+            };
+            context.Counters.AddOrUpdate(arrCouters);
+        }
+
         private void SeedingCategories(ApplicationDbContext context)
         {
             Category[] arrCategories =
@@ -290,7 +302,7 @@
 
                 new Product()
                 {
-                    Id = "0300001",
+                    Id = "0300005",
                     Name = "3 circles",
                     Description = "Color: white Material: stainless steel Size: Description: fashion pendant products made from stainless steel material, very suitable for personality teenagers",
                     UnitPrice = 100000,
@@ -307,7 +319,7 @@
                 },
                 new Product()
                 {
-                    Id = "0300002",
+                    Id = "0300006",
                     Name = "Wolf Head",
                     Description = "Color: white Material: stainless steel Size: Description: fashion pendant products made from stainless steel material, very suitable for personality teenagers",
                     UnitPrice = 100000,
@@ -324,7 +336,7 @@
                 },
                 new Product()
                 {
-                    Id = "0300003",
+                    Id = "0300007",
                     Name = "LINE 2 FISH",
                     Description = "Color: white Material: stainless steel Size: Description: fashion pendant products made from stainless steel material, very suitable for personality teenagers",
                     UnitPrice = 100000,
@@ -341,7 +353,7 @@
                 },
                 new Product()
                 {
-                    Id = "0300004",
+                    Id = "0300008",
                     Name = "Pendant Lines",
                     Description = "Color: white Material: stainless steel Size: Description: fashion pendant products made from stainless steel material, very suitable for personality teenagers",
                     UnitPrice = 100000,
@@ -359,7 +371,7 @@
 
                 new Product()
                 {
-                    Id = "0400001",
+                    Id = "0400009",
                     Name = "Small spiky hair",
                     Description = "Color: white Material: stainless steel Size: Description: fashion pendant products made from stainless steel material, very suitable for personality teenagers",
                     UnitPrice = 100000,
@@ -376,7 +388,7 @@
                 },
                 new Product()
                 {
-                    Id = "0400002",
+                    Id = "0400010",
                     Name = "Spiky hair",
                     Description = "Color: white Material: stainless steel Size: Description: fashion pendant products made from stainless steel material, very suitable for personality teenagers",
                     UnitPrice = 100000,
@@ -393,7 +405,7 @@
                 },
                 new Product()
                 {
-                    Id = "0400003",
+                    Id = "0400011",
                     Name = "Elastic spandex small",
                     Description = "Color: white Material: stainless steel Size: Description: fashion pendant products made from stainless steel material, very suitable for personality teenagers",
                     UnitPrice = 100000,
@@ -410,7 +422,7 @@
                 },
                 new Product()
                 {
-                    Id = "0400004",
+                    Id = "0400012",
                     Name = "Tie elastic hair bow",
                     Description = "Color: white Material: stainless steel Size: Description: fashion pendant products made from stainless steel material, very suitable for personality teenagers",
                     UnitPrice = 100000,
@@ -428,7 +440,7 @@
 
                 new Product()
                 {
-                    Id = "0500001",
+                    Id = "0500013",
                     Name = "2-button clip set",
                     Description = "Color: white Material: stainless steel Size: Description: fashion pendant products made from stainless steel material, very suitable for personality teenagers",
                     UnitPrice = 100000,
@@ -445,7 +457,7 @@
                 },
                 new Product()
                 {
-                    Id = "0500002",
+                    Id = "0500014",
                     Name = "Set of 3 diamonds",
                     Description = "Color: white Material: stainless steel Size: Description: fashion pendant products made from stainless steel material, very suitable for personality teenagers",
                     UnitPrice = 100000,
@@ -462,7 +474,7 @@
                 },
                 new Product()
                 {
-                    Id = "0500003",
+                    Id = "0500015",
                     Name = "Heart shaped clip set",
                     Description = "Color: white Material: stainless steel Size: Description: fashion pendant products made from stainless steel material, very suitable for personality teenagers",
                     UnitPrice = 100000,
@@ -479,7 +491,7 @@
                 },
                 new Product()
                 {
-                    Id = "0500004",
+                    Id = "0500016",
                     Name = "Pearl clip",
                     Description = "Color: white Material: stainless steel Size: Description: fashion pendant products made from stainless steel material, very suitable for personality teenagers",
                     UnitPrice = 100000,
@@ -497,7 +509,7 @@
 
                 new Product()
                 {
-                    Id = "0600001",
+                    Id = "0600017",
                     Name = "Leopard puka sandals",
                     Description = "Color: white Material: stainless steel Size: Description: fashion pendant products made from stainless steel material, very suitable for personality teenagers",
                     UnitPrice = 100000,
@@ -514,7 +526,7 @@
                 },
                 new Product()
                 {
-                    Id = "0600002",
+                    Id = "0600018",
                     Name = "Pikachu slippers",
                     Description = "Color: white Material: stainless steel Size: Description: fashion pendant products made from stainless steel material, very suitable for personality teenagers",
                     UnitPrice = 100000,
@@ -531,7 +543,7 @@
                 },
                 new Product()
                 {
-                    Id = "0600003",
+                    Id = "0600019",
                     Name = "Pony slippers",
                     Description = "Color: white Material: stainless steel Size: Description: fashion pendant products made from stainless steel material, very suitable for personality teenagers",
                     UnitPrice = 100000,
@@ -548,7 +560,7 @@
                 },
                 new Product()
                 {
-                    Id = "0600004",
+                    Id = "0600020",
                     Name = "Leopard cat sandals",
                     Description = "Color: white Material: stainless steel Size: Description: fashion pendant products made from stainless steel material, very suitable for personality teenagers",
                     UnitPrice = 100000,
@@ -566,7 +578,7 @@
 
                 new Product()
                 {
-                    Id = "0700001",
+                    Id = "0700021",
                     Name = "Case apeach iphone 6/6s/6 plus",
                     Description = "Color: white Material: stainless steel Size: Description: fashion pendant products made from stainless steel material, very suitable for personality teenagers",
                     UnitPrice = 100000,
@@ -583,7 +595,7 @@
                 },
                 new Product()
                 {
-                    Id = "0700002",
+                    Id = "0700022",
                     Name = "Case Chimmy iphone 7, 7 plus",
                     Description = "Color: white Material: stainless steel Size: Description: fashion pendant products made from stainless steel material, very suitable for personality teenagers",
                     UnitPrice = 100000,
@@ -600,7 +612,7 @@
                 },
                 new Product()
                 {
-                    Id = "0700003",
+                    Id = "0700023",
                     Name = "Case iphone 6G pig",
                     Description = "Color: white Material: stainless steel Size: Description: fashion pendant products made from stainless steel material, very suitable for personality teenagers",
                     UnitPrice = 100000,
@@ -617,7 +629,7 @@
                 },
                 new Product()
                 {
-                    Id = "0700004",
+                    Id = "0700024",
                     Name = "Case Koya iphone 7, 6 plus",
                     Description = "Color: white Material: stainless steel Size: Description: fashion pendant products made from stainless steel material, very suitable for personality teenagers",
                     UnitPrice = 100000,
@@ -635,7 +647,7 @@
 
                 new Product()
                 {
-                    Id = "0900001",
+                    Id = "0900025",
                     Name = "BT21 2-sided pillow Shooky 40cm",
                     Description = "Color: white Material: stainless steel Size: Description: fashion pendant products made from stainless steel material, very suitable for personality teenagers",
                     UnitPrice = 100000,
@@ -652,7 +664,7 @@
                 },
                 new Product()
                 {
-                    Id = "0900002",
+                    Id = "0900026",
                     Name = "EXO flexible pens",
                     Description = "Color: white Material: stainless steel Size: Description: fashion pendant products made from stainless steel material, very suitable for personality teenagers",
                     UnitPrice = 100000,
@@ -669,7 +681,7 @@
                 },
                 new Product()
                 {
-                    Id = "0900003",
+                    Id = "0900027",
                     Name = "Square mirror Angela",
                     Description = "Color: white Material: stainless steel Size: Description: fashion pendant products made from stainless steel material, very suitable for personality teenagers",
                     UnitPrice = 100000,
@@ -686,7 +698,7 @@
                 },
                 new Product()
                 {
-                    Id = "0900004",
+                    Id = "0900028",
                     Name = "Keychains brown pig shirt",
                     Description = "Color: white Material: stainless steel Size: Description: fashion pendant products made from stainless steel material, very suitable for personality teenagers",
                     UnitPrice = 100000,
@@ -704,7 +716,7 @@
 
                 new Product()
                 {
-                    Id = "1000001",
+                    Id = "1000029",
                     Name = "Set of wooden pots with heart-shaped grass I LOVE YOU",
                     Description = "Color: white Material: stainless steel Size: Description: fashion pendant products made from stainless steel material, very suitable for personality teenagers",
                     UnitPrice = 100000,
@@ -721,7 +733,7 @@
                 },
                 new Product()
                 {
-                    Id = "1000002",
+                    Id = "1000030",
                     Name = "Bouquet of heart frames",
                     Description = "Color: white Material: stainless steel Size: Description: fashion pendant products made from stainless steel material, very suitable for personality teenagers",
                     UnitPrice = 100000,
@@ -738,7 +750,7 @@
                 },
                 new Product()
                 {
-                    Id = "1000003",
+                    Id = "1000031",
                     Name = "Water bridge 2 pink deer",
                     Description = "Color: white Material: stainless steel Size: Description: fashion pendant products made from stainless steel material, very suitable for personality teenagers",
                     UnitPrice = 100000,
@@ -755,7 +767,7 @@
                 },
                 new Product()
                 {
-                    Id = "1000004",
+                    Id = "1000032",
                     Name = "Water bridge reindeer old man",
                     Description = "Color: white Material: stainless steel Size: Description: fashion pendant products made from stainless steel material, very suitable for personality teenagers",
                     UnitPrice = 100000,
@@ -773,7 +785,7 @@
 
                 new Product()
                 {
-                    Id = "1100001",
+                    Id = "1100033",
                     Name = "Plastic heart cup lid",
                     Description = "Color: white Material: stainless steel Size: Description: fashion pendant products made from stainless steel material, very suitable for personality teenagers",
                     UnitPrice = 100000,
@@ -790,7 +802,7 @@
                 },
                 new Product()
                 {
-                    Id = "1100002",
+                    Id = "1100034",
                     Name = "Porcelain cup lid",
                     Description = "Color: white Material: stainless steel Size: Description: fashion pendant products made from stainless steel material, very suitable for personality teenagers",
                     UnitPrice = 100000,
@@ -807,7 +819,7 @@
                 },
                 new Product()
                 {
-                    Id = "1100003",
+                    Id = "1100035",
                     Name = "Porcelain cup with spoon of heart",
                     Description = "Color: white Material: stainless steel Size: Description: fashion pendant products made from stainless steel material, very suitable for personality teenagers",
                     UnitPrice = 100000,
@@ -824,7 +836,7 @@
                 },
                 new Product()
                 {
-                    Id = "1100004",
+                    Id = "1100036",
                     Name = "Red starbuck glass",
                     Description = "Color: white Material: stainless steel Size: Description: fashion pendant products made from stainless steel material, very suitable for personality teenagers",
                     UnitPrice = 100000,
@@ -842,7 +854,7 @@
 
                 new Product()
                 {
-                    Id = "1200001",
+                    Id = "1200037",
                     Name = "Battery cord",
                     Description = "Color: white Material: stainless steel Size: Description: fashion pendant products made from stainless steel material, very suitable for personality teenagers",
                     UnitPrice = 100000,
@@ -859,7 +871,7 @@
                 },
                 new Product()
                 {
-                    Id = "1200002",
+                    Id = "1200038",
                     Name = "Happy birthday baby girl",
                     Description = "Color: white Material: stainless steel Size: Description: fashion pendant products made from stainless steel material, very suitable for personality teenagers",
                     UnitPrice = 100000,
@@ -876,7 +888,7 @@
                 },
                 new Product()
                 {
-                    Id = "1200003",
+                    Id = "1200039",
                     Name = "Happy birthday batman wire",
                     Description = "Color: white Material: stainless steel Size: Description: fashion pendant products made from stainless steel material, very suitable for personality teenagers",
                     UnitPrice = 100000,
@@ -893,7 +905,7 @@
                 },
                 new Product()
                 {
-                    Id = "1200004",
+                    Id = "1200040",
                     Name = "Happy birthday gold chicken wire",
                     Description = "Color: white Material: stainless steel Size: Description: fashion pendant products made from stainless steel material, very suitable for personality teenagers",
                     UnitPrice = 100000,
@@ -911,7 +923,7 @@
 
                 new Product()
                 {
-                    Id = "1400001",
+                    Id = "1400041",
                     Name = "PU bags",
                     Description = "Color: white Material: stainless steel Size: Description: fashion pendant products made from stainless steel material, very suitable for personality teenagers",
                     UnitPrice = 100000,
@@ -928,7 +940,7 @@
                 },
                 new Product()
                 {
-                    Id = "1400002",
+                    Id = "1400042",
                     Name = "Squeeze Fuerdanni",
                     Description = "Color: white Material: stainless steel Size: Description: fashion pendant products made from stainless steel material, very suitable for personality teenagers",
                     UnitPrice = 100000,
@@ -945,7 +957,7 @@
                 },
                 new Product()
                 {
-                    Id = "1400003",
+                    Id = "1400043",
                     Name = "Squeeze short female button",
                     Description = "Color: white Material: stainless steel Size: Description: fashion pendant products made from stainless steel material, very suitable for personality teenagers",
                     UnitPrice = 100000,
@@ -962,7 +974,7 @@
                 },
                 new Product()
                 {
-                    Id = "1400004",
+                    Id = "1400044",
                     Name = "Pierre's long wallet",
                     Description = "Color: white Material: stainless steel Size: Description: fashion pendant products made from stainless steel material, very suitable for personality teenagers",
                     UnitPrice = 100000,
@@ -980,7 +992,7 @@
 
                 new Product()
                 {
-                    Id = "1500001",
+                    Id = "1500045",
                     Name = "Brown alarm clock 203",
                     Description = "Color: white Material: stainless steel Size: Description: fashion pendant products made from stainless steel material, very suitable for personality teenagers",
                     UnitPrice = 100000,
@@ -998,7 +1010,7 @@
 
                 new Product()
                 {
-                    Id = "1600001",
+                    Id = "1600046",
                     Name = "Fake black glasses",
                     Description = "Color: white Material: stainless steel Size: Description: fashion pendant products made from stainless steel material, very suitable for personality teenagers",
                     UnitPrice = 100000,
@@ -1015,7 +1027,7 @@
                 },
                 new Product()
                 {
-                    Id = "1600002",
+                    Id = "1600047",
                     Name = "Sunglasses",
                     Description = "Color: white Material: stainless steel Size: Description: fashion pendant products made from stainless steel material, very suitable for personality teenagers",
                     UnitPrice = 100000,
@@ -1032,7 +1044,7 @@
                 },
                 new Product()
                 {
-                    Id = "1600003",
+                    Id = "1600048",
                     Name = "Plastic sunglasses",
                     Description = "Color: white Material: stainless steel Size: Description: fashion pendant products made from stainless steel material, very suitable for personality teenagers",
                     UnitPrice = 100000,
@@ -1049,7 +1061,7 @@
                 },
                 new Product()
                 {
-                    Id = "1600004",
+                    Id = "1600049",
                     Name = "Coated Fashion Mirror Female Glasses",
                     Description = "Color: white Material: stainless steel Size: Description: fashion pendant products made from stainless steel material, very suitable for personality teenagers",
                     UnitPrice = 100000,
@@ -1067,7 +1079,7 @@
 
                 new Product()
                 {
-                    Id = "1700001",
+                    Id = "1700050",
                     Name = "Minifan hand fan",
                     Description = "Color: white Material: stainless steel Size: Description: fashion pendant products made from stainless steel material, very suitable for personality teenagers",
                     UnitPrice = 100000,
@@ -1084,7 +1096,7 @@
                 },
                 new Product()
                 {
-                    Id = "1700002",
+                    Id = "1700051",
                     Name = "Mirror fan",
                     Description = "Color: white Material: stainless steel Size: Description: fashion pendant products made from stainless steel material, very suitable for personality teenagers",
                     UnitPrice = 100000,
@@ -1101,7 +1113,7 @@
                 },
                 new Product()
                 {
-                    Id = "1700003",
+                    Id = "1700052",
                     Name = "Phone support stickers",
                     Description = "Color: white Material: stainless steel Size: Description: fashion pendant products made from stainless steel material, very suitable for personality teenagers",
                     UnitPrice = 100000,
@@ -1118,7 +1130,7 @@
                 },
                 new Product()
                 {
-                    Id = "1700004",
+                    Id = "1700053",
                     Name = "Conical hat against rabbit rabbit fluids",
                     Description = "Color: white Material: stainless steel Size: Description: fashion pendant products made from stainless steel material, very suitable for personality teenagers",
                     UnitPrice = 100000,

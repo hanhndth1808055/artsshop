@@ -84,7 +84,7 @@ namespace FinalArtsShop.Controllers
 
                 order = new Order()
                 {
-                    Id = listOrderItem.Values.FirstOrDefault().ProductId + RandomNumberGenerator.Create(),
+                    Id = listOrderItem.Values.FirstOrDefault().ProductId + randomNum(),
                     Active = 1,
                     Items = listOrderItem,
                     Address = address,
@@ -125,5 +125,13 @@ namespace FinalArtsShop.Controllers
             // return HttpNotFound();
             return View();
         }
+
+        public int randomNum()
+        {
+            var random = new Random();
+            var value = random.Next();
+            return value;
+        }
     }
+
 }

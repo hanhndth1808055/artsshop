@@ -10,7 +10,7 @@ using FinalArtsShop.Models;
 
 namespace FinalArtsShop.Areas.Admin.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize]
     public class DeliveryTypesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

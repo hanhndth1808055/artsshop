@@ -305,6 +305,42 @@ namespace FinalArtsShop.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
+            List<Category> CategoriesMenu = new List<Category>();
+            List<Category> CategoriesProduct = new List<Category>();
+            List<Product> Products = new List<Product>();
+            List<Product> NewProducts = new List<Product>();
+            List<Product> FeatureProducts = new List<Product>();
+            List<Product> LatestProducts = new List<Product>();
+
+            CategoriesMenu = db.Categories.Where(c => c.Active == 1).ToList();
+            CategoriesProduct = db.Categories.Where(c => c.Parent == 0 && c.Active == 1).Take(4).ToList();
+            foreach (var cate in CategoriesProduct)
+            {
+                var count = 0;
+                foreach (var cate2 in CategoriesMenu)
+                {
+                    if (cate2.Parent == cate.Id)
+                    {
+                        if (count < 8)
+                        {
+                            Products.AddRange(db.Products.Where(p => p.CategoryID == cate2.Id && p.isActive == 1).Take(2).ToList());
+                            count += 2;
+                        }
+                    }
+                }
+            }
+
+            ViewHomeClient viewHomeClient = new ViewHomeClient()
+            {
+                CategoriesProduct = CategoriesProduct,
+                Products = Products,
+                NewProducts = db.Products.Where(p => p.isNew == 1 && p.isActive == 1).Take(8).ToList(),
+                FeatureProducts = db.Products.Where(p => p.isFeature == 1 && p.isActive == 1).Take(8).ToList(),
+                shoppingCart = GetShoppingCart(),
+                LatestProducts = getLastestProduct()
+            };
+            ViewBag.Message = viewHomeClient;
+            //return View("~/Views/Home/Account/Register.cshtml");
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.UserName, Email = model.Email };
@@ -325,7 +361,7 @@ namespace FinalArtsShop.Controllers
             }
 
             // If we got this far, something failed, redisplay form
-            return View(model);
+            return View("~/Views/Home/Account/Register.cshtml", model);
         }
 
         //

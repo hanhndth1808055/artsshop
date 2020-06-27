@@ -7,11 +7,11 @@ using System.Web.Mvc;
 
 namespace FinalArtsShop.Controllers
 {
-    public class CategoryController : Controller
+    public class CategoryController : ShoppingCartController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
         // GET: Category
-        public ActionResult Index(int id)
+        public ActionResult Index(int? id)
         {
             ViewCategoryClient viewCategoryClient;
 
@@ -33,13 +33,14 @@ namespace FinalArtsShop.Controllers
             }
             else
             {
-
+                products = products.Where(p => p.isActive == 1).Take(15);
             }
 
             viewCategoryClient = new ViewCategoryClient() {
                 Products = products.ToList(),
                 FeatureProducts = db.Products.Where(p => p.isFeature > 0).Take(3).ToList(),
-                LatestProducts = getLastestProduct()
+                LatestProducts = getLastestProduct(),
+                shoppingCart = GetShoppingCart()
             };
 
             return View(viewCategoryClient);

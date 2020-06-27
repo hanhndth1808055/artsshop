@@ -14,7 +14,7 @@ namespace FinalArtsShop.Controllers
         private const string ShoppingCartName = "ShoppingCartName";
 
         // GET: ShoppingCart
-        public ActionResult Index()
+        public ActionResult ShowCart()
         {
             ViewShoppingCart viewShoppingCart = new ViewShoppingCart() {
                 shoppingCart = GetShoppingCart()
@@ -22,7 +22,7 @@ namespace FinalArtsShop.Controllers
             return View(viewShoppingCart);
         }
 
-        private ShoppingCart GetShoppingCart()
+        public ShoppingCart GetShoppingCart()
         {
             ShoppingCart shoppingCart = null;
             if (Session[ShoppingCartName] != null)
@@ -59,7 +59,7 @@ namespace FinalArtsShop.Controllers
             shoppingCart.Add(existingProduct, quantity, false);
             SetShoppingCart(shoppingCart);
 
-            return RedirectToAction("Index");
+            return RedirectToAction("ShowCart");
         }
 
         private void SetShoppingCart(ShoppingCart shoppingCart)
@@ -75,7 +75,7 @@ namespace FinalArtsShop.Controllers
             };
 
             Session[ShoppingCartName] = null;
-            return View("Index", viewShoppingCart);
+            return View("ShowCart", viewShoppingCart);
         }
 
         public ActionResult RemoveCartItem(string productId)
@@ -88,7 +88,7 @@ namespace FinalArtsShop.Controllers
             {
                 shoppingCart = GetShoppingCart()
             };
-            return View("Index", viewShoppingCart);
+            return View("ShowCart", viewShoppingCart);
         }
 
         public ActionResult RemoveOneItem(string productId)
@@ -101,7 +101,7 @@ namespace FinalArtsShop.Controllers
                 {
                     shoppingCart = GetShoppingCart()
                 };
-                return View("Index", viewShoppingCart);
+                return View("ShowCart", viewShoppingCart);
             }
             if (shoppingCart.Items[productId].Quantity > 1)
             {
@@ -117,7 +117,7 @@ namespace FinalArtsShop.Controllers
             {
                 shoppingCart = GetShoppingCart()
             };
-            return View("Index", viewShoppingCart);
+            return View("ShowCart", viewShoppingCart);
         }
     }
 }

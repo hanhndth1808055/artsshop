@@ -7,7 +7,7 @@ using System.Web.Mvc;
 
 namespace FinalArtsShop.Controllers
 {
-    public class SearchController : Controller
+    public class SearchController : ShoppingCartController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
         // GET: Search
@@ -23,8 +23,10 @@ namespace FinalArtsShop.Controllers
                     CategoriesMenu = db.Categories.Where(c => c.Active == 1).ToList(),
                     Products = products,
                     FeatureProducts = db.Products.Where(p => p.isFeature > 0).Take(3).ToList(),
-                    LatestProducts = getLastestProduct()
+                    LatestProducts = getLastestProduct(),
+                    shoppingCart = GetShoppingCart()
                 };
+                ViewBag.Keyword = keyword;
             }
             else
             {
@@ -32,8 +34,10 @@ namespace FinalArtsShop.Controllers
                 {
                     CategoriesMenu = db.Categories.Where(c => c.Active == 1).ToList(),
                     FeatureProducts = db.Products.Where(p => p.isFeature > 0).Take(3).ToList(),
-                    LatestProducts = getLastestProduct()
+                    LatestProducts = getLastestProduct(),
+                    shoppingCart = GetShoppingCart()
                 };
+                ViewBag.Keyword = "";
             }
             return View(viewCategoryClient);
         }

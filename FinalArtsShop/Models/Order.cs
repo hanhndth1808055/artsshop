@@ -39,7 +39,7 @@ namespace FinalArtsShop.Models
         //Order Items
         public Dictionary<string, OrderItem> Items { get; set; }
 
-        public double TotalPrice => Items.Values.Sum(i => i.TotalItemPrice);
+        public double TotalPrice { get; set; }
 
         public Order()
         {

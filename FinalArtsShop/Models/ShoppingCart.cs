@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 
@@ -34,11 +35,12 @@ namespace FinalArtsShop.Models
             {
                 ProductId = product.Id,
                 Product = product,
-                Price = product.PromotionPrice != null ? product.PromotionPrice : product.UnitPrice,
+                Price = (product.PromotionPrice == null || product.PromotionPrice == 0) ? product.UnitPrice : product.PromotionPrice,
                 Name = product.Name,
                 Quantity = quantity,
                 Thumbnail = product.Thumbnail
             };
+
             var existKey = Items.ContainsKey(product.Id);
         
             if (existKey && !isUpdate)

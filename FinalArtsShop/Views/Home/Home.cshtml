@@ -125,18 +125,18 @@
                                                             <!-- start single product item -->
                                                             <li>
                                                                 <figure>
-                                                                    <a class="aa-product-img" href="/Product/Index?id=@data.Products[j].Id"><img src="~/MarkUps-dailyShop/dailyShop/img/electronics/@data.Products[j].Image" alt="" width="250px" height="300px"></a>
+                                                                    <a class="aa-product-img" href="/Product/Index?id=@data.Products[j].Id"><img src="@("https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_300,w_250/v1587872991/" + @data.Products[j].GetThubnailIds()[0] + ".jpg")" alt="" width="250px" height="300px"></a>
                                                                     <a class="aa-add-card-btn" href="/ShoppingCart/AddToCart?productId=@data.Products[j].Id&quantity=1"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
                                                                     <figcaption>
                                                                         <h4 class="aa-product-title"><a href="/Product/Index?id=@data.Products[j].Id">@data.Products[j].Name</a></h4>
                                                                         @{
                                                                             if (data.Products[j].PromotionPrice > 0)
                                                                             {
-                                                                                <span class="aa-product-price">@data.Products[j].PromotionPrice</span><span class="aa-product-price"><del>@data.Products[j].UnitPrice</del></span>
+                                                                                <span class="aa-product-price">$@data.Products[j].PromotionPrice</span><span class="aa-product-price"><del>$@data.Products[j].UnitPrice</del></span>
                                                                             }
                                                                             else
                                                                             {
-                                                                                <span class="aa-product-price">@data.Products[j].UnitPrice</span>
+                                                                                <span class="aa-product-price">$@data.Products[j].UnitPrice</span>
                                                                             }
                                                                         }
                                                                     </figcaption>
@@ -144,7 +144,7 @@
                                                                 <div class="aa-product-hvr-content">
                                                                     <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
                                                                     <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
-                                                                    <a onclick="quickView('@data.Products[j].Id', '@data.Products[j].Name', @data.Products[j].PromotionPrice, @data.Products[j].UnitPrice, '@data.Products[j].Description', '@data.Products[j].Category.Name', '@data.Products[j].Category.Id', '@data.Products[j].Image', '@data.Products[j].Thumbnail')" href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
+                                                                    <a onclick="quickView('@data.Products[j].Id', '@data.Products[j].Name', @data.Products[j].PromotionPrice, @data.Products[j].UnitPrice, '@data.Products[j].Description', '@data.Products[j].Category.Name', '@data.Products[j].Category.Id', '@data.Products[j].Image', '@data.Products[j].GetThubnailIds()[0]', '@data.Products[j].GetThubnailIds()[1]', '@data.Products[j].GetThubnailIds()[2]', '@data.Products[j].GetThubnailIds()[3]')" href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
                                                                 </div>
                                                                 <!-- product badge -->
                                                                 @{
@@ -295,18 +295,18 @@
                                             <!-- start single product item -->
                                             <li>
                                                 <figure>
-                                                    <a class="aa-product-img" href="/Product/Index?id=@prod.Id"><img src="~/MarkUps-dailyShop/dailyShop/img/electronics/@prod.Image" alt="" width="250px" height="300px"></a>
+                                                    <a class="aa-product-img" href="/Product/Index?id=@prod.Id"><img src="@("https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_300,w_250/v1587872991/" + @prod.GetThubnailIds()[0] + ".jpg")" alt="" width="250px" height="300px"></a>
                                                     <a class="aa-add-card-btn" href="/ShoppingCart/AddToCart?productId=@prod.Id&quantity=1"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
                                                     <figcaption>
                                                         <h4 class="aa-product-title"><a href="/Product/Index?id=@prod.Id">@prod.Name</a></h4>
                                                         @{
                                                             if (prod.PromotionPrice > 0)
                                                             {
-                                                                <span class="aa-product-price">@prod.PromotionPrice</span><span class="aa-product-price"><del>@prod.UnitPrice</del></span>
+                                                                <span class="aa-product-price">$@prod.PromotionPrice</span><span class="aa-product-price"><del>$@prod.UnitPrice</del></span>
                                                             }
                                                             else
                                                             {
-                                                                <span class="aa-product-price">@prod.UnitPrice</span>
+                                                                <span class="aa-product-price">$@prod.UnitPrice</span>
                                                             }
                                                         }
                                                     </figcaption>
@@ -314,7 +314,7 @@
                                                 <div class="aa-product-hvr-content">
                                                     <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
                                                     <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
-                                                    <a onclick="quickView('@prod.Id', '@prod.Name', @prod.PromotionPrice, @prod.UnitPrice, '@prod.Description', '@prod.Category.Name', '@prod.Category.Id', '@prod.Image', '@prod.Thumbnail')" href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
+                                                    <a onclick="quickView('@prod.Id', '@prod.Name', @prod.PromotionPrice, @prod.UnitPrice, '@prod.Description', '@prod.Category.Name', '@prod.Category.Id', '@prod.Image', '@prod.GetThubnailIds()[0]', '@prod.GetThubnailIds()[1]', '@prod.GetThubnailIds()[2]', '@prod.GetThubnailIds()[3]')" href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
                                                 </div>
                                                 <!-- product badge -->
                                                 @{
@@ -348,18 +348,18 @@
                                             <!-- start single product item -->
                                             <li>
                                                 <figure>
-                                                    <a class="aa-product-img" href="/Product/Index?id=@prod.Id"><img src="~/MarkUps-dailyShop/dailyShop/img/electronics/@prod.Image" alt="" width="250px" height="300px"></a>
+                                                    <a class="aa-product-img" href="/Product/Index?id=@prod.Id"><img src="@("https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_300,w_250/v1587872991/" + @prod.GetThubnailIds()[0] + ".jpg")" alt="" width="250px" height="300px"></a>
                                                     <a class="aa-add-card-btn" href="/ShoppingCart/AddToCart?productId=@prod.Id&quantity=1"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
                                                     <figcaption>
                                                         <h4 class="aa-product-title"><a href="/Product/Index?id=@prod.Id">@prod.Name</a></h4>
                                                         @{
                                                             if (prod.PromotionPrice > 0)
                                                             {
-                                                                <span class="aa-product-price">@prod.PromotionPrice</span><span class="aa-product-price"><del>@prod.UnitPrice</del></span>
+                                                                <span class="aa-product-price">$@prod.PromotionPrice</span><span class="aa-product-price"><del>$@prod.UnitPrice</del></span>
                                                             }
                                                             else
                                                             {
-                                                                <span class="aa-product-price">@prod.UnitPrice</span>
+                                                                <span class="aa-product-price">$@prod.UnitPrice</span>
                                                             }
                                                         }
                                                     </figcaption>
@@ -367,7 +367,7 @@
                                                 <div class="aa-product-hvr-content">
                                                     <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
                                                     <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
-                                                    <a onclick="quickView('@prod.Id', '@prod.Name', @prod.PromotionPrice, @prod.UnitPrice, '@prod.Description', '@prod.Category.Name', '@prod.Category.Id', '@prod.Image', '@prod.Thumbnail')" href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
+                                                    <a onclick="quickView('@prod.Id', '@prod.Name', @prod.PromotionPrice, @prod.UnitPrice, '@prod.Description', '@prod.Category.Name', '@prod.Category.Id', '@prod.Image', '@prod.GetThubnailIds()[0]', '@prod.GetThubnailIds()[1]', '@prod.GetThubnailIds()[2]', '@prod.GetThubnailIds()[3]')" href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
                                                 </div>
                                                 <!-- product badge -->
                                                 @{
@@ -386,7 +386,6 @@
                                                 }
 
                                             </li>
-                                            <!-- start single product item -->
                                         }
                                     }
                                 </ul>
@@ -402,18 +401,18 @@
                                             <!-- start single product item -->
                                             <li>
                                                 <figure>
-                                                    <a class="aa-product-img" href="/Product/Index?id=@prod.Id"><img src="~/MarkUps-dailyShop/dailyShop/img/electronics/@prod.Image" alt="" width="250px" height="300px"></a>
+                                                    <a class="aa-product-img" href="/Product/Index?id=@prod.Id"><img src="@("https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_300,w_250/v1587872991/" + @prod.GetThubnailIds()[0] + ".jpg")" alt="" width="250px" height="300px"></a>
                                                     <a class="aa-add-card-btn" href="/ShoppingCart/AddToCart?productId=@prod.Id&quantity=1"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
                                                     <figcaption>
                                                         <h4 class="aa-product-title"><a href="/Product/Index?id=@prod.Id">@prod.Name</a></h4>
                                                         @{
                                                             if (prod.PromotionPrice > 0)
                                                             {
-                                                                <span class="aa-product-price">@prod.PromotionPrice</span><span class="aa-product-price"><del>@prod.UnitPrice</del></span>
+                                                                <span class="aa-product-price">$@prod.PromotionPrice</span><span class="aa-product-price"><del>$@prod.UnitPrice</del></span>
                                                             }
                                                             else
                                                             {
-                                                                <span class="aa-product-price">@prod.UnitPrice</span>
+                                                                <span class="aa-product-price">$@prod.UnitPrice</span>
                                                             }
                                                         }
                                                     </figcaption>
@@ -421,7 +420,7 @@
                                                 <div class="aa-product-hvr-content">
                                                     <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
                                                     <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
-                                                    <a onclick="quickView('@prod.Id', '@prod.Name', @prod.PromotionPrice, @prod.UnitPrice, '@prod.Description', '@prod.Category.Name', '@prod.Category.Id', '@prod.Image', '@prod.Thumbnail')" href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
+                                                    <a onclick="quickView('@prod.Id', '@prod.Name', @prod.PromotionPrice, @prod.UnitPrice, '@prod.Description', '@prod.Category.Name', '@prod.Category.Id', '@prod.Image', '@prod.GetThubnailIds()[0]', '@prod.GetThubnailIds()[1]', '@prod.GetThubnailIds()[2]', '@prod.GetThubnailIds()[3]')" href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
                                                 </div>
                                                 <!-- product badge -->
                                                 @{
@@ -440,7 +439,6 @@
                                                 }
 
                                             </li>
-                                            <!-- start single product item -->
                                         }
                                     }
                                 </ul>
@@ -644,7 +642,7 @@
 @section scripts{
 
     <script>
-        function quickView(Id, Name, PromotionPrice, UnitPrice, Description, CateName, CateId, Image, Thumbnail) {
+        function quickView(Id, Name, PromotionPrice, UnitPrice, Description, CateName, CateId, Image, Thumbnail_1, Thumbnail_2, Thumbnail_3, Thumbnail_4) {
             String(Id);
             String(Name);
             parseFloat(PromotionPrice);
@@ -653,28 +651,27 @@
             String(CateName);
             parseInt(CateId);
             String(Image);
-            String(Thumbnail);
 
-            $("#quick-view-image").attr("data-lens-image", "../../MarkUps-dailyShop/dailyShop/img/electronics/" + Image);
-            $("#quick-view-image img").attr("src", "/MarkUps-dailyShop/dailyShop/img/electronics/" + Image);
+            $("#quick-view-image").attr("data-lens-image", "https://res.cloudinary.com/daaycakkk/image/upload/c_limit/v1587872991/" + Thumbnail_2 + ".jpg");
+            $("#quick-view-image img").attr("src", "https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_300,w_250/v1587872991/" + Thumbnail_2 + ".jpg");
 
-            $("#quick-view-thumbnail-1").attr("data-lens-image", "../../MarkUps-dailyShop/dailyShop/img/electronics/" + Image);
-            $("#quick-view-thumbnail-1").attr("data-big-image", "../../MarkUps-dailyShop/dailyShop/img/electronics/" + Image);
-            $("#quick-view-thumbnail-1 img").attr("src", "/MarkUps-dailyShop/dailyShop/img/electronics/" + Image);
+            $("#quick-view-thumbnail-1").attr("data-lens-image", "https://res.cloudinary.com/daaycakkk/image/upload/c_limit/v1587872991/" + Thumbnail_1 + ".jpg");
+            $("#quick-view-thumbnail-1").attr("data-big-image", "https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_300,w_250/v1587872991/" + Thumbnail_1 + ".jpg");
+            $("#quick-view-thumbnail-1 img").attr("src", "https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_55,w_45/v1587872991/" + Thumbnail_1 + ".jpg");
 
-            $("#quick-view-thumbnail-2").attr("data-lens-image", "../../MarkUps-dailyShop/dailyShop/img/electronics/" + Image);
-            $("#quick-view-thumbnail-2").attr("data-big-image", "../../MarkUps-dailyShop/dailyShop/img/electronics/" + Image);
-            $("#quick-view-thumbnail-2 img").attr("src", "/MarkUps-dailyShop/dailyShop/img/electronics/" + Image);
+            $("#quick-view-thumbnail-2").attr("data-lens-image", "https://res.cloudinary.com/daaycakkk/image/upload/c_limit/v1587872991/" + Thumbnail_3 + ".jpg");
+            $("#quick-view-thumbnail-2").attr("data-big-image", "https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_300,w_250/v1587872991/" + Thumbnail_3 + ".jpg");
+            $("#quick-view-thumbnail-2 img").attr("src", "https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_55,w_45/v1587872991/" + Thumbnail_3 + ".jpg");
 
-            $("#quick-view-thumbnail-3").attr("data-lens-image", "../../MarkUps-dailyShop/dailyShop/img/electronics/" + Image);
-            $("#quick-view-thumbnail-3").attr("data-big-image", "../../MarkUps-dailyShop/dailyShop/img/electronics/" + Image);
-            $("#quick-view-thumbnail-3 img").attr("src", "/MarkUps-dailyShop/dailyShop/img/electronics/" + Image);
+            $("#quick-view-thumbnail-3").attr("data-lens-image", "https://res.cloudinary.com/daaycakkk/image/upload/c_limit/v1587872991/" + Thumbnail_4 + ".jpg");
+            $("#quick-view-thumbnail-3").attr("data-big-image", "https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_300,w_250/v1587872991/" + Thumbnail_4 + ".jpg");
+            $("#quick-view-thumbnail-3 img").attr("src", "https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_55,w_45/v1587872991/" + Thumbnail_4 + ".jpg");
 
             $(".aa-product-view-content h3").html(Name);
             if (PromotionPrice > 0) {
-                $(".aa-product-view-price").html(PromotionPrice);
+                $(".aa-product-view-price").html("$" + PromotionPrice);
             } else {
-                $(".aa-product-view-price").html(UnitPrice);
+                $(".aa-product-view-price").html("$" + UnitPrice);
             }
 
             $("#quick-view-description").html(Description);

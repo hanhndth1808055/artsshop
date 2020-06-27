@@ -12,7 +12,7 @@ namespace FinalArtsShop.Controllers
     public class CheckoutController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-;
+
         // GET: Checkout
         public ActionResult Index()
         {

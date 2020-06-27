@@ -8,7 +8,7 @@ using static FinalArtsShop.Models.ShoppingCart;
 
 namespace FinalArtsShop.Areas.Admin.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize]
     public class OrdersController : Controller
     {
         public readonly String CartSessionName = "cart";
@@ -16,7 +16,7 @@ namespace FinalArtsShop.Areas.Admin.Controllers
         // GET: Admin/Orders
         public ActionResult Index()
         {
-            return View();
+            return View(db.Orders.ToList());
         }
 
         public ActionResult Create()

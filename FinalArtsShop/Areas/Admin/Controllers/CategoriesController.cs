@@ -11,7 +11,7 @@ using FinalArtsShop.Models;
 
 namespace FinalArtsShop.Areas.Admin.Controllers
 {
-[Authorize(Roles = "Admin")]
+[Authorize]
     public class CategoriesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

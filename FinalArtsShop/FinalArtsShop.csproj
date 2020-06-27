@@ -899,6 +899,18 @@
     <Content Include="Views\Category\Index.cshtml" />
     <Content Include="Views\Product\Index.cshtml" />
     <Content Include="Views\Search\Search.cshtml" />
+    <Content Include="Views\Home\Account\_ExternalLoginsListPartial.cshtml" />
+    <Content Include="Views\Home\Account\ConfirmEmail.cshtml" />
+    <Content Include="Views\Home\Account\ExternalLoginConfirmation.cshtml" />
+    <Content Include="Views\Home\Account\ExternalLoginFailure.cshtml" />
+    <Content Include="Views\Home\Account\ForgotPassword.cshtml" />
+    <Content Include="Views\Home\Account\ForgotPasswordConfirmation.cshtml" />
+    <Content Include="Views\Home\Account\Login.cshtml" />
+    <Content Include="Views\Home\Account\Register.cshtml" />
+    <Content Include="Views\Home\Account\ResetPassword.cshtml" />
+    <Content Include="Views\Home\Account\ResetPasswordConfirmation.cshtml" />
+    <Content Include="Views\Home\Account\SendCode.cshtml" />
+    <Content Include="Views\Home\Account\VerifyCode.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

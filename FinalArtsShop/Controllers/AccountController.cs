@@ -9,7 +9,6 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using FinalArtsShop.Models;
-using System.Collections.Generic;
 
 namespace FinalArtsShop.Controllers
 {
@@ -18,14 +17,12 @@ namespace FinalArtsShop.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-        private ApplicationDbContext db = new ApplicationDbContext();
-        private const string ShoppingCartName = "ShoppingCartName";
 
         public AccountController()
         {
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             UserManager = userManager;
             SignInManager = signInManager;
@@ -37,9 +34,9 @@ namespace FinalArtsShop.Controllers
             {
                 return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
-            private set 
-            { 
-                _signInManager = value; 
+            private set
+            {
+                _signInManager = value;
             }
         }
 
@@ -61,88 +58,9 @@ namespace FinalArtsShop.Controllers
         public ActionResult Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
-            List<Category> CategoriesMenu = new List<Category>();
-            List<Category> CategoriesProduct = new List<Category>();
-            List<Product> Products = new List<Product>();
-            List<Product> NewProducts = new List<Product>();
-            List<Product> FeatureProducts = new List<Product>();
-            List<Product> LatestProducts = new List<Product>();
-
-            CategoriesMenu = db.Categories.Where(c => c.Active == 1).ToList();
-            CategoriesProduct = db.Categories.Where(c => c.Parent == 0 && c.Active == 1).Take(4).ToList();
-            foreach (var cate in CategoriesProduct)
-            {
-                var count = 0;
-                foreach (var cate2 in CategoriesMenu)
-                {
-                    if (cate2.Parent == cate.Id)
-                    {
-                        if (count < 8)
-                        {
-                            Products.AddRange(db.Products.Where(p => p.CategoryID == cate2.Id && p.isActive == 1).Take(2).ToList());
-                            count += 2;
-                        }
-                    }
-                }
-            }
-
-            ViewHomeClient viewHomeClient = new ViewHomeClient()
-            {
-                CategoriesProduct = CategoriesProduct,
-                Products = Products,
-                NewProducts = db.Products.Where(p => p.isNew == 1 && p.isActive == 1).Take(8).ToList(),
-                FeatureProducts = db.Products.Where(p => p.isFeature == 1 && p.isActive == 1).Take(8).ToList(),
-                shoppingCart = GetShoppingCart(),
-                LatestProducts = getLastestProduct()
-            };
-            ViewBag.Message = viewHomeClient;
             return View("~/Views/Home/Account/Login.cshtml");
-            //return View();
-        }
-        public List<Product> getLastestProduct()
-        {
-            List<Product> LastestProduct = null;
-            if (Session["LastestProduct"] != null)
-            {
-                LastestProduct = Session["LastestProduct"] as List<Product>;
-            }
-            if (Session["LastestProduct"] == null)
-            {
-                LastestProduct = new List<Product>();
-            }
-            return LastestProduct;
-        }
-        public ActionResult ShowCart()
-        {
-            ViewShoppingCart viewShoppingCart = new ViewShoppingCart()
-            {
-                shoppingCart = GetShoppingCart()
-            };
-            return View(viewShoppingCart);
         }
 
-        public ShoppingCart GetShoppingCart()
-        {
-            ShoppingCart shoppingCart = null;
-            if (Session[ShoppingCartName] != null)
-            {
-                try
-                {
-                    shoppingCart = Session[ShoppingCartName] as ShoppingCart;
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e);
-                }
-            }
-
-            if (shoppingCart == null)
-            {
-                shoppingCart = new ShoppingCart();
-            }
-
-            return shoppingCart;
-        }
         //
         // POST: /Account/Login
         [HttpPost]
@@ -150,46 +68,9 @@ namespace FinalArtsShop.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
-            ViewBag.ReturnUrl = returnUrl;
-            List<Category> CategoriesMenu = new List<Category>();
-            List<Category> CategoriesProduct = new List<Category>();
-            List<Product> Products = new List<Product>();
-            List<Product> NewProducts = new List<Product>();
-            List<Product> FeatureProducts = new List<Product>();
-            List<Product> LatestProducts = new List<Product>();
-
-            CategoriesMenu = db.Categories.Where(c => c.Active == 1).ToList();
-            CategoriesProduct = db.Categories.Where(c => c.Parent == 0 && c.Active == 1).Take(4).ToList();
-            foreach (var cate in CategoriesProduct)
-            {
-                var count = 0;
-                foreach (var cate2 in CategoriesMenu)
-                {
-                    if (cate2.Parent == cate.Id)
-                    {
-                        if (count < 8)
-                        {
-                            Products.AddRange(db.Products.Where(p => p.CategoryID == cate2.Id && p.isActive == 1).Take(2).ToList());
-                            count += 2;
-                        }
-                    }
-                }
-            }
-
-            ViewHomeClient viewHomeClient = new ViewHomeClient()
-            {
-                CategoriesProduct = CategoriesProduct,
-                Products = Products,
-                NewProducts = db.Products.Where(p => p.isNew == 1 && p.isActive == 1).Take(8).ToList(),
-                FeatureProducts = db.Products.Where(p => p.isFeature == 1 && p.isActive == 1).Take(8).ToList(),
-                shoppingCart = GetShoppingCart(),
-                LatestProducts = getLastestProduct()
-            };
-            ViewBag.Message = viewHomeClient;
             if (!ModelState.IsValid)
             {
-                return View("~/Views/Home/Account/Login.cshtml", model);
-                //return View(model);
+                return View(model);
             }
 
             // This doesn't count login failures towards account lockout
@@ -198,8 +79,7 @@ namespace FinalArtsShop.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToAction("Home", "Home");
-                    //return RedirectToLocal(returnUrl);
+                    return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -207,8 +87,7 @@ namespace FinalArtsShop.Controllers
                 case SignInStatus.Failure:
                 default:
                     ModelState.AddModelError("", "Invalid login attempt.");
-                    return View("~/Views/Home/Account/Login.cshtml", model);
-                    //return View(model);
+                    return View(model);
             }
         }
 
@@ -241,11 +120,11 @@ namespace FinalArtsShop.Controllers
             // If a user enters incorrect codes for a specified amount of time then the user account 
             // will be locked out for a specified amount of time. 
             // You can configure the account lockout settings in IdentityConfig
-            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent:  model.RememberMe, rememberBrowser: model.RememberBrowser);
+            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent: model.RememberMe, rememberBrowser: model.RememberBrowser);
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToLocal(model.ReturnUrl);
+                    return RedirectToAction("Home", "Home");
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.Failure:
@@ -260,41 +139,6 @@ namespace FinalArtsShop.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
-            List<Category> CategoriesMenu = new List<Category>();
-            List<Category> CategoriesProduct = new List<Category>();
-            List<Product> Products = new List<Product>();
-            List<Product> NewProducts = new List<Product>();
-            List<Product> FeatureProducts = new List<Product>();
-            List<Product> LatestProducts = new List<Product>();
-
-            CategoriesMenu = db.Categories.Where(c => c.Active == 1).ToList();
-            CategoriesProduct = db.Categories.Where(c => c.Parent == 0 && c.Active == 1).Take(4).ToList();
-            foreach (var cate in CategoriesProduct)
-            {
-                var count = 0;
-                foreach (var cate2 in CategoriesMenu)
-                {
-                    if (cate2.Parent == cate.Id)
-                    {
-                        if (count < 8)
-                        {
-                            Products.AddRange(db.Products.Where(p => p.CategoryID == cate2.Id && p.isActive == 1).Take(2).ToList());
-                            count += 2;
-                        }
-                    }
-                }
-            }
-
-            ViewHomeClient viewHomeClient = new ViewHomeClient()
-            {
-                CategoriesProduct = CategoriesProduct,
-                Products = Products,
-                NewProducts = db.Products.Where(p => p.isNew == 1 && p.isActive == 1).Take(8).ToList(),
-                FeatureProducts = db.Products.Where(p => p.isFeature == 1 && p.isActive == 1).Take(8).ToList(),
-                shoppingCart = GetShoppingCart(),
-                LatestProducts = getLastestProduct()
-            };
-            ViewBag.Message = viewHomeClient;
             return View("~/Views/Home/Account/Register.cshtml");
         }
 
@@ -305,50 +149,14 @@ namespace FinalArtsShop.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
-            List<Category> CategoriesMenu = new List<Category>();
-            List<Category> CategoriesProduct = new List<Category>();
-            List<Product> Products = new List<Product>();
-            List<Product> NewProducts = new List<Product>();
-            List<Product> FeatureProducts = new List<Product>();
-            List<Product> LatestProducts = new List<Product>();
-
-            CategoriesMenu = db.Categories.Where(c => c.Active == 1).ToList();
-            CategoriesProduct = db.Categories.Where(c => c.Parent == 0 && c.Active == 1).Take(4).ToList();
-            foreach (var cate in CategoriesProduct)
-            {
-                var count = 0;
-                foreach (var cate2 in CategoriesMenu)
-                {
-                    if (cate2.Parent == cate.Id)
-                    {
-                        if (count < 8)
-                        {
-                            Products.AddRange(db.Products.Where(p => p.CategoryID == cate2.Id && p.isActive == 1).Take(2).ToList());
-                            count += 2;
-                        }
-                    }
-                }
-            }
-
-            ViewHomeClient viewHomeClient = new ViewHomeClient()
-            {
-                CategoriesProduct = CategoriesProduct,
-                Products = Products,
-                NewProducts = db.Products.Where(p => p.isNew == 1 && p.isActive == 1).Take(8).ToList(),
-                FeatureProducts = db.Products.Where(p => p.isFeature == 1 && p.isActive == 1).Take(8).ToList(),
-                shoppingCart = GetShoppingCart(),
-                LatestProducts = getLastestProduct()
-            };
-            ViewBag.Message = viewHomeClient;
-            //return View("~/Views/Home/Account/Register.cshtml");
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.UserName, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
@@ -382,7 +190,7 @@ namespace FinalArtsShop.Controllers
         [AllowAnonymous]
         public ActionResult ForgotPassword()
         {
-            return View();
+            return View("~/Views/Home/Account/ForgotPassword.cshtml");
         }
 
         //
@@ -517,7 +325,6 @@ namespace FinalArtsShop.Controllers
             var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync();
             if (loginInfo == null)
             {
-                //return View("~/Views/Home/Account/Login.cshtml"
                 return RedirectToAction("Login");
             }
 
@@ -549,7 +356,7 @@ namespace FinalArtsShop.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                return RedirectToAction("Home", "Manage");
+                return RedirectToAction("Index", "Manage");
             }
 
             if (ModelState.IsValid)
@@ -642,7 +449,7 @@ namespace FinalArtsShop.Controllers
             {
                 return Redirect(returnUrl);
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Home", "Home");
         }
 
         internal class ChallengeResult : HttpUnauthorizedResult

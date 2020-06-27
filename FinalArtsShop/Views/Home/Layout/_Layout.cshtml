@@ -1,4 +1,26 @@
-﻿
+﻿@using FinalArtsShop.Models
+
+@{
+    ShoppingCart shoppingCart = null;
+    if (Session["ShoppingCartName"] != null)
+    {
+        try
+        {
+            shoppingCart = Session["ShoppingCartName"] as ShoppingCart;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+        }
+    }
+
+    if (shoppingCart == null)
+    {
+        shoppingCart = new ShoppingCart();
+    }
+    var db = new ApplicationDbContext();
+    var categoriesMenu = db.Categories.Where(c => c.Active == 1).ToList();
+}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -140,12 +162,12 @@
                                 <a class="aa-cart-link" href="/ShoppingCart/ShowCart">
                                     <span class="fa fa-shopping-basket"></span>
                                     <span class="aa-cart-title">SHOPPING CART</span>
-                                    <span class="aa-cart-notify">@data.shoppingCart.Items.Count</span>
+                                    <span class="aa-cart-notify">@shoppingCart.Items.Count</span>
                                 </a>
                                 <div class="aa-cartbox-summary">
                                     <ul>
                                         @{
-                                            foreach (var cartItem in data.shoppingCart.Items.Values)
+                                            foreach (var cartItem in shoppingCart.Items.Values)
                                             {
                                                 <li>
                                                     <a class="aa-cartbox-img" href="#"><img src="~/MarkUps-dailyShop/dailyShop/img/electronics/@cartItem.Product.Image" alt="img"></a>
@@ -162,7 +184,7 @@
                                                 Total
                                             </span>
                                             <span class="aa-cartbox-total-price">
-                                                $@data.shoppingCart.TotalPrice
+                                                $@shoppingCart.TotalPrice
                                             </span>
                                         </li>
                                     </ul>
@@ -206,9 +228,9 @@
                             <li><a href="/Home/Home">Home</a></li>
 
                             @{
-                                if (data.CategoriesMenu.Count > 0)
+                                if (categoriesMenu.Count > 0)
                                 {
-                                    foreach (var cate in data.CategoriesMenu)
+                                    foreach (var cate in categoriesMenu)
                                     {
                                         if (cate.Parent == 0)
                                         {
@@ -216,7 +238,7 @@
                                                 <a href="/Category/Index?id=@cate.Id">@cate.Name <span class="caret"></span></a>
                                                 <ul class="dropdown-menu">
                                                     @{
-                                                        foreach (var cateItem in data.CategoriesMenu)
+                                                        foreach (var cateItem in categoriesMenu)
                                                         {
                                                             if (cateItem.Parent == cate.Id)
                                                             {

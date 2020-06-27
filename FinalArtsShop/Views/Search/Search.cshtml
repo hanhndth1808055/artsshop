@@ -66,7 +66,7 @@
                                         <!-- start single product item -->
                                         <li>
                                             <figure>
-                                                <a class="aa-product-img" href="/Product/Index?id=@prod.Id"><img src="~/MarkUps-dailyShop/dailyShop/img/electronics/@prod.Image" alt="" width="250px" height="300px"></a>
+                                                <a class="aa-product-img" href="/Product/Index?id=@prod.Id"><img src="@("https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_300,w_250/v1587872991/" + @prod.GetThubnailIds()[0] + ".jpg")" alt="" width="250px" height="300px"></a>
                                                 <a class="aa-add-card-btn" href="/ShoppingCart/AddToCart?productId=@prod.Id&quantity=1"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
                                                 <figcaption>
                                                     <h4 class="aa-product-title"><a href="/Product/Index?id=@prod.Id">@prod.Name</a></h4>
@@ -85,7 +85,7 @@
                                             <div class="aa-product-hvr-content">
                                                 <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
                                                 <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
-                                                <a onclick="quickView('@prod.Id', '@prod.Name', @prod.PromotionPrice, @prod.UnitPrice, '@prod.Description', '@prod.Category.Name', '@prod.Category.Id', '@prod.Image', '@prod.Thumbnail')" href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
+                                                <a onclick="quickView('@prod.Id', '@prod.Name', @prod.PromotionPrice, @prod.UnitPrice, '@prod.Description', '@prod.Category.Name', '@prod.Category.Id', '@prod.Image', '@prod.GetThubnailIds()[0]', '@prod.GetThubnailIds()[1]', '@prod.GetThubnailIds()[2]', '@prod.GetThubnailIds()[3]')" href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
                                             </div>
                                             <!-- product badge -->
                                             @{
@@ -251,7 +251,7 @@
                                     foreach (var prodRate in Model.LatestProducts)
                                     {
                                         <li>
-                                            <a href="/Product/Index?id=@prodRate.Id" class="aa-cartbox-img"><img alt="img" src="~/MarkUps-dailyShop/dailyShop/img/electronics/@prodRate.Image"></a>
+                                            <a href="/Product/Index?id=@prodRate.Id" class="aa-cartbox-img"><img alt="img" src="@("https://res.cloudinary.com/daaycakkk/image/upload/c_limit/v1587872991/" + prodRate.GetThubnailIds()[1] + ".jpg")"></a>
                                             <div class="aa-cartbox-info">
                                                 <h4><a href="/Product/Index?id=@prodRate.Id">@prodRate.Name</a></h4>
                                                 @{
@@ -280,7 +280,7 @@
                                     foreach (var prodRate in Model.FeatureProducts)
                                     {
                                         <li>
-                                            <a href="/Product/Index?id=@prodRate.Id" class="aa-cartbox-img"><img alt="img" src="~/MarkUps-dailyShop/dailyShop/img/electronics/@prodRate.Image"></a>
+                                            <a href="/Product/Index?id=@prodRate.Id" class="aa-cartbox-img"><img alt="img" src="@("https://res.cloudinary.com/daaycakkk/image/upload/c_limit/v1587872991/" + prodRate.GetThubnailIds()[1] + ".jpg")"></a>
                                             <div class="aa-cartbox-info">
                                                 <h4><a href="/Product/Index?id=@prodRate.Id">@prodRate.Name</a></h4>
                                                 @{
@@ -310,7 +310,7 @@
 @section scripts{
 
     <script>
-        function quickView(Id, Name, PromotionPrice, UnitPrice, Description, CateName, CateId, Image, Thumbnail) {
+        function quickView(Id, Name, PromotionPrice, UnitPrice, Description, CateName, CateId, Image, Thumbnail_1, Thumbnail_2, Thumbnail_3, Thumbnail_4) {
             String(Id);
             String(Name);
             parseFloat(PromotionPrice);
@@ -319,22 +319,21 @@
             String(CateName);
             parseInt(CateId);
             String(Image);
-            String(Thumbnail);
 
-            $("#quick-view-image").attr("data-lens-image", "../../MarkUps-dailyShop/dailyShop/img/electronics/" + Image);
-            $("#quick-view-image img").attr("src", "/MarkUps-dailyShop/dailyShop/img/electronics/" + Image);
+            $("#quick-view-image").attr("data-lens-image", "https://res.cloudinary.com/daaycakkk/image/upload/c_limit/v1587872991/" + Thumbnail_2 + ".jpg");
+            $("#quick-view-image img").attr("src", "https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_300,w_250/v1587872991/" + Thumbnail_2 + ".jpg");
 
-            $("#quick-view-thumbnail-1").attr("data-lens-image", "../../MarkUps-dailyShop/dailyShop/img/electronics/" + Image);
-            $("#quick-view-thumbnail-1").attr("data-big-image", "../../MarkUps-dailyShop/dailyShop/img/electronics/" + Image);
-            $("#quick-view-thumbnail-1 img").attr("src", "/MarkUps-dailyShop/dailyShop/img/electronics/" + Image);
+            $("#quick-view-thumbnail-1").attr("data-lens-image", "https://res.cloudinary.com/daaycakkk/image/upload/c_limit/v1587872991/" + Thumbnail_1 + ".jpg");
+            $("#quick-view-thumbnail-1").attr("data-big-image", "https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_300,w_250/v1587872991/" + Thumbnail_1 + ".jpg");
+            $("#quick-view-thumbnail-1 img").attr("src", "https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_55,w_45/v1587872991/" + Thumbnail_1 + ".jpg");
 
-            $("#quick-view-thumbnail-2").attr("data-lens-image", "../../MarkUps-dailyShop/dailyShop/img/electronics/" + Image);
-            $("#quick-view-thumbnail-2").attr("data-big-image", "../../MarkUps-dailyShop/dailyShop/img/electronics/" + Image);
-            $("#quick-view-thumbnail-2 img").attr("src", "/MarkUps-dailyShop/dailyShop/img/electronics/" + Image);
+            $("#quick-view-thumbnail-2").attr("data-lens-image", "https://res.cloudinary.com/daaycakkk/image/upload/c_limit/v1587872991/" + Thumbnail_3 + ".jpg");
+            $("#quick-view-thumbnail-2").attr("data-big-image", "https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_300,w_250/v1587872991/" + Thumbnail_3 + ".jpg");
+            $("#quick-view-thumbnail-2 img").attr("src", "https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_55,w_45/v1587872991/" + Thumbnail_3 + ".jpg");
 
-            $("#quick-view-thumbnail-3").attr("data-lens-image", "../../MarkUps-dailyShop/dailyShop/img/electronics/" + Image);
-            $("#quick-view-thumbnail-3").attr("data-big-image", "../../MarkUps-dailyShop/dailyShop/img/electronics/" + Image);
-            $("#quick-view-thumbnail-3 img").attr("src", "/MarkUps-dailyShop/dailyShop/img/electronics/" + Image);
+            $("#quick-view-thumbnail-3").attr("data-lens-image", "https://res.cloudinary.com/daaycakkk/image/upload/c_limit/v1587872991/" + Thumbnail_4 + ".jpg");
+            $("#quick-view-thumbnail-3").attr("data-big-image", "https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_300,w_250/v1587872991/" + Thumbnail_4 + ".jpg");
+            $("#quick-view-thumbnail-3 img").attr("src", "https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_55,w_45/v1587872991/" + Thumbnail_4 + ".jpg");
 
             $(".aa-product-view-content h3").html(Name);
             if (PromotionPrice > 0) {

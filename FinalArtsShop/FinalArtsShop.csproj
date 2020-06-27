@@ -176,6 +176,7 @@
     <Compile Include="Areas\Admin\Controllers\DistrictsController.cs" />
     <Compile Include="Areas\Admin\Controllers\DeliveryTypesController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
+    <Compile Include="Controllers\CheckoutController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductsController.cs" />
@@ -250,6 +251,7 @@
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\UserViewModel.cs" />
     <Compile Include="Models\ViewCategoryClient.cs" />
+    <Compile Include="Models\ViewCheckoutClient.cs" />
     <Compile Include="Models\ViewHomeClient.cs" />
     <Compile Include="Models\ViewLayoutClient.cs" />
     <Compile Include="Models\ViewProductClient.cs" />
@@ -911,6 +913,7 @@
     <Content Include="Views\Home\Account\ResetPasswordConfirmation.cshtml" />
     <Content Include="Views\Home\Account\SendCode.cshtml" />
     <Content Include="Views\Home\Account\VerifyCode.cshtml" />
+    <Content Include="Views\Checkout\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

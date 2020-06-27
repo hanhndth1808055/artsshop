@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using FinalArtsShop.Models;
+using System.Collections.Generic;
 
 namespace FinalArtsShop.Controllers
 {
@@ -17,6 +18,8 @@ namespace FinalArtsShop.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private ApplicationDbContext db = new ApplicationDbContext();
+        private const string ShoppingCartName = "ShoppingCartName";
 
         public AccountController()
         {
@@ -58,9 +61,88 @@ namespace FinalArtsShop.Controllers
         public ActionResult Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
-            return View();
+            List<Category> CategoriesMenu = new List<Category>();
+            List<Category> CategoriesProduct = new List<Category>();
+            List<Product> Products = new List<Product>();
+            List<Product> NewProducts = new List<Product>();
+            List<Product> FeatureProducts = new List<Product>();
+            List<Product> LatestProducts = new List<Product>();
+
+            CategoriesMenu = db.Categories.Where(c => c.Active == 1).ToList();
+            CategoriesProduct = db.Categories.Where(c => c.Parent == 0 && c.Active == 1).Take(4).ToList();
+            foreach (var cate in CategoriesProduct)
+            {
+                var count = 0;
+                foreach (var cate2 in CategoriesMenu)
+                {
+                    if (cate2.Parent == cate.Id)
+                    {
+                        if (count < 8)
+                        {
+                            Products.AddRange(db.Products.Where(p => p.CategoryID == cate2.Id && p.isActive == 1).Take(2).ToList());
+                            count += 2;
+                        }
+                    }
+                }
+            }
+
+            ViewHomeClient viewHomeClient = new ViewHomeClient()
+            {
+                CategoriesProduct = CategoriesProduct,
+                Products = Products,
+                NewProducts = db.Products.Where(p => p.isNew == 1 && p.isActive == 1).Take(8).ToList(),
+                FeatureProducts = db.Products.Where(p => p.isFeature == 1 && p.isActive == 1).Take(8).ToList(),
+                shoppingCart = GetShoppingCart(),
+                LatestProducts = getLastestProduct()
+            };
+            ViewBag.Message = viewHomeClient;
+            return View("~/Views/Home/Account/Login.cshtml");
+            //return View();
+        }
+        public List<Product> getLastestProduct()
+        {
+            List<Product> LastestProduct = null;
+            if (Session["LastestProduct"] != null)
+            {
+                LastestProduct = Session["LastestProduct"] as List<Product>;
+            }
+            if (Session["LastestProduct"] == null)
+            {
+                LastestProduct = new List<Product>();
+            }
+            return LastestProduct;
+        }
+        public ActionResult ShowCart()
+        {
+            ViewShoppingCart viewShoppingCart = new ViewShoppingCart()
+            {
+                shoppingCart = GetShoppingCart()
+            };
+            return View(viewShoppingCart);
         }
 
+        public ShoppingCart GetShoppingCart()
+        {
+            ShoppingCart shoppingCart = null;
+            if (Session[ShoppingCartName] != null)
+            {
+                try
+                {
+                    shoppingCart = Session[ShoppingCartName] as ShoppingCart;
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                }
+            }
+
+            if (shoppingCart == null)
+            {
+                shoppingCart = new ShoppingCart();
+            }
+
+            return shoppingCart;
+        }
         //
         // POST: /Account/Login
         [HttpPost]
@@ -68,9 +150,46 @@ namespace FinalArtsShop.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
+            ViewBag.ReturnUrl = returnUrl;
+            List<Category> CategoriesMenu = new List<Category>();
+            List<Category> CategoriesProduct = new List<Category>();
+            List<Product> Products = new List<Product>();
+            List<Product> NewProducts = new List<Product>();
+            List<Product> FeatureProducts = new List<Product>();
+            List<Product> LatestProducts = new List<Product>();
+
+            CategoriesMenu = db.Categories.Where(c => c.Active == 1).ToList();
+            CategoriesProduct = db.Categories.Where(c => c.Parent == 0 && c.Active == 1).Take(4).ToList();
+            foreach (var cate in CategoriesProduct)
+            {
+                var count = 0;
+                foreach (var cate2 in CategoriesMenu)
+                {
+                    if (cate2.Parent == cate.Id)
+                    {
+                        if (count < 8)
+                        {
+                            Products.AddRange(db.Products.Where(p => p.CategoryID == cate2.Id && p.isActive == 1).Take(2).ToList());
+                            count += 2;
+                        }
+                    }
+                }
+            }
+
+            ViewHomeClient viewHomeClient = new ViewHomeClient()
+            {
+                CategoriesProduct = CategoriesProduct,
+                Products = Products,
+                NewProducts = db.Products.Where(p => p.isNew == 1 && p.isActive == 1).Take(8).ToList(),
+                FeatureProducts = db.Products.Where(p => p.isFeature == 1 && p.isActive == 1).Take(8).ToList(),
+                shoppingCart = GetShoppingCart(),
+                LatestProducts = getLastestProduct()
+            };
+            ViewBag.Message = viewHomeClient;
             if (!ModelState.IsValid)
             {
-                return View(model);
+                return View("~/Views/Home/Account/Login.cshtml", model);
+                //return View(model);
             }
 
             // This doesn't count login failures towards account lockout
@@ -79,7 +198,8 @@ namespace FinalArtsShop.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
+                    return RedirectToAction("Home", "Home");
+                    //return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -87,7 +207,8 @@ namespace FinalArtsShop.Controllers
                 case SignInStatus.Failure:
                 default:
                     ModelState.AddModelError("", "Invalid login attempt.");
-                    return View(model);
+                    return View("~/Views/Home/Account/Login.cshtml", model);
+                    //return View(model);
             }
         }
 
@@ -139,7 +260,42 @@ namespace FinalArtsShop.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
-            return View();
+            List<Category> CategoriesMenu = new List<Category>();
+            List<Category> CategoriesProduct = new List<Category>();
+            List<Product> Products = new List<Product>();
+            List<Product> NewProducts = new List<Product>();
+            List<Product> FeatureProducts = new List<Product>();
+            List<Product> LatestProducts = new List<Product>();
+
+            CategoriesMenu = db.Categories.Where(c => c.Active == 1).ToList();
+            CategoriesProduct = db.Categories.Where(c => c.Parent == 0 && c.Active == 1).Take(4).ToList();
+            foreach (var cate in CategoriesProduct)
+            {
+                var count = 0;
+                foreach (var cate2 in CategoriesMenu)
+                {
+                    if (cate2.Parent == cate.Id)
+                    {
+                        if (count < 8)
+                        {
+                            Products.AddRange(db.Products.Where(p => p.CategoryID == cate2.Id && p.isActive == 1).Take(2).ToList());
+                            count += 2;
+                        }
+                    }
+                }
+            }
+
+            ViewHomeClient viewHomeClient = new ViewHomeClient()
+            {
+                CategoriesProduct = CategoriesProduct,
+                Products = Products,
+                NewProducts = db.Products.Where(p => p.isNew == 1 && p.isActive == 1).Take(8).ToList(),
+                FeatureProducts = db.Products.Where(p => p.isFeature == 1 && p.isActive == 1).Take(8).ToList(),
+                shoppingCart = GetShoppingCart(),
+                LatestProducts = getLastestProduct()
+            };
+            ViewBag.Message = viewHomeClient;
+            return View("~/Views/Home/Account/Register.cshtml");
         }
 
         //
@@ -163,7 +319,7 @@ namespace FinalArtsShop.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Home", "Home");
                 }
                 AddErrors(result);
             }
@@ -325,6 +481,7 @@ namespace FinalArtsShop.Controllers
             var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync();
             if (loginInfo == null)
             {
+                //return View("~/Views/Home/Account/Login.cshtml"
                 return RedirectToAction("Login");
             }
 
@@ -356,7 +513,7 @@ namespace FinalArtsShop.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                return RedirectToAction("Index", "Manage");
+                return RedirectToAction("Home", "Manage");
             }
 
             if (ModelState.IsValid)
@@ -392,7 +549,7 @@ namespace FinalArtsShop.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Home", "Home");
         }
 
         //

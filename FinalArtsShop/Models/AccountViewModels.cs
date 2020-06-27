@@ -50,7 +50,6 @@ namespace FinalArtsShop.Models
     {
         [Required]
         [Display(Name = "User Name")]
-        [EmailAddress]
         public string UserName { get; set; }
 
         [Required]
@@ -71,7 +70,6 @@ namespace FinalArtsShop.Models
 
         [Required]
         [Display(Name = "User Name")]
-        [EmailAddress]
         public string UserName { get; set; }
 
         [Required]

@@ -56,9 +56,15 @@ namespace FinalArtsShop.Controllers
                 shoppingCart = GetShoppingCart(),
                 LatestProducts = getLastestProduct()
             };
-
-
-            return View("~/Views/Home/Home.cshtml", viewHomeClient);
+            if (viewHomeClient != null)
+            {
+                ViewBag.Message = viewHomeClient;
+                return View("~/Views/Home/Home.cshtml");
+            }
+            else
+            {
+                return View("~/Views/Home/Home.cshtml");
+            }
         }
         public List<Product> getLastestProduct()
         {

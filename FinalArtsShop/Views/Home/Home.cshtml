@@ -1,7 +1,10 @@
-﻿@model FinalArtsShop.Models.ViewHomeClient
+﻿@*@data FinalArtsShop.datas.ViewHomeClient*@
 @{
     ViewBag.Title = "Home";
     Layout = "~/Views/Home/Layout/_Layout.cshtml";
+}
+@{
+    var data = ViewBag.Message;
 }
 
 <!-- Start slider -->
@@ -12,7 +15,7 @@
                 <ul class="seq-canvas">
                     <!-- single slide item -->
                     <li>
-                        <div class="seq-model">
+                        <div class="seq-data">
                             <img data-seq src="~/MarkUps-dailyShop/dailyShop/img/slider/1.jpg" alt="Men slide img" />
                         </div>
                         <div class="seq-title">
@@ -24,7 +27,7 @@
                     </li>
                     <!-- single slide item -->
                     <li>
-                        <div class="seq-model">
+                        <div class="seq-data">
                             <img data-seq src="~/MarkUps-dailyShop/dailyShop/img/slider/2.jpg" alt="Wristwatch slide img" />
                         </div>
                         <div class="seq-title">
@@ -36,7 +39,7 @@
                     </li>
                     <!-- single slide item -->
                     <li>
-                        <div class="seq-model">
+                        <div class="seq-data">
                             <img data-seq src="~/MarkUps-dailyShop/dailyShop/img/slider/3.jpg" alt="Women Jeans slide img" />
                         </div>
                         <div class="seq-title">
@@ -48,7 +51,7 @@
                     </li>
                     <!-- single slide item -->
                     <li>
-                        <div class="seq-model">
+                        <div class="seq-data">
                             <img data-seq src="~/MarkUps-dailyShop/dailyShop/img/slider/4.jpg" alt="Shoes slide img" />
                         </div>
                         <div class="seq-title">
@@ -60,7 +63,7 @@
                     </li>
                     <!-- single slide item -->
                     <li>
-                        <div class="seq-model">
+                        <div class="seq-data">
                             <img data-seq src="~/MarkUps-dailyShop/dailyShop/img/slider/5.jpg" alt="Male Female slide img" />
                         </div>
                         <div class="seq-title">
@@ -92,15 +95,15 @@
                             <!-- start prduct navigation -->
                             <ul class="nav nav-tabs aa-products-tab">
                                 @{
-                                    for (int i = 0; i < Model.CategoriesProduct.Count; i++)
+                                    for (int i = 0; i < data.CategoriesProduct.Count; i++)
                                     {
                                         if (i == 0)
                                         {
-                                            <li class="active"><a href="#@Model.CategoriesProduct[i].Id" data-toggle="tab">@Model.CategoriesProduct[i].Name</a></li>
+                                            <li class="active"><a href="#@data.CategoriesProduct[i].Id" data-toggle="tab">@data.CategoriesProduct[i].Name</a></li>
                                         }
                                         else
                                         {
-                                            <li><a href="#@Model.CategoriesProduct[i].Id" data-toggle="tab">@Model.CategoriesProduct[i].Name</a></li>
+                                            <li><a href="#@data.CategoriesProduct[i].Id" data-toggle="tab">@data.CategoriesProduct[i].Name</a></li>
                                         }
                                     }
                                 }
@@ -109,31 +112,31 @@
                             <div class="tab-content">
 
                                 @{
-                                    for (int i = 0; i < Model.CategoriesProduct.Count; i++)
+                                    for (int i = 0; i < @data.CategoriesProduct.Count; i++)
                                     {
                                         <!-- start electronic product category -->
-                                        <div class="tab-pane fade @{ if (i==0) { @Html.Raw("in active") } }" id="@Model.CategoriesProduct[i].Id">
+                                        <div class="tab-pane fade @{ if (i==0) { @Html.Raw("in active") } }" id="@data.CategoriesProduct[i].Id">
                                             <ul class="aa-product-catg">
                                                 @{
-                                                    for (int j = 0; j < Model.Products.Count; j++)
+                                                    for (int j = 0; j < data.Products.Count; j++)
                                                     {
-                                                        if (Model.Products[j].Category.Parent == Model.CategoriesProduct[i].Id)
+                                                        if (data.Products[j].Category.Parent == data.CategoriesProduct[i].Id)
                                                         {
                                                             <!-- start single product item -->
                                                             <li>
                                                                 <figure>
-                                                                    <a class="aa-product-img" href="/Product/Index?id=@Model.Products[j].Id"><img src="~/MarkUps-dailyShop/dailyShop/img/electronics/@Model.Products[j].Image" alt="" width="250px" height="300px"></a>
-                                                                    <a class="aa-add-card-btn" href="/ShoppingCart/AddToCart?productId=@Model.Products[j].Id&quantity=1"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
+                                                                    <a class="aa-product-img" href="/Product/Index?id=@data.Products[j].Id"><img src="~/MarkUps-dailyShop/dailyShop/img/electronics/@data.Products[j].Image" alt="" width="250px" height="300px"></a>
+                                                                    <a class="aa-add-card-btn" href="/ShoppingCart/AddToCart?productId=@data.Products[j].Id&quantity=1"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
                                                                     <figcaption>
-                                                                        <h4 class="aa-product-title"><a href="/Product/Index?id=@Model.Products[j].Id">@Model.Products[j].Name</a></h4>
+                                                                        <h4 class="aa-product-title"><a href="/Product/Index?id=@data.Products[j].Id">@data.Products[j].Name</a></h4>
                                                                         @{
-                                                                            if (Model.Products[j].PromotionPrice > 0)
+                                                                            if (data.Products[j].PromotionPrice > 0)
                                                                             {
-                                                                                <span class="aa-product-price">@Model.Products[j].PromotionPrice</span><span class="aa-product-price"><del>@Model.Products[j].UnitPrice</del></span>
+                                                                                <span class="aa-product-price">@data.Products[j].PromotionPrice</span><span class="aa-product-price"><del>@data.Products[j].UnitPrice</del></span>
                                                                             }
                                                                             else
                                                                             {
-                                                                                <span class="aa-product-price">@Model.Products[j].UnitPrice</span>
+                                                                                <span class="aa-product-price">@data.Products[j].UnitPrice</span>
                                                                             }
                                                                         }
                                                                     </figcaption>
@@ -141,19 +144,19 @@
                                                                 <div class="aa-product-hvr-content">
                                                                     <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
                                                                     <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
-                                                                    <a onclick="quickView('@Model.Products[j].Id', '@Model.Products[j].Name', @Model.Products[j].PromotionPrice, @Model.Products[j].UnitPrice, '@Model.Products[j].Description', '@Model.Products[j].Category.Name', '@Model.Products[j].Category.Id', '@Model.Products[j].Image', '@Model.Products[j].Thumbnail')" href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
+                                                                    <a onclick="quickView('@data.Products[j].Id', '@data.Products[j].Name', @data.Products[j].PromotionPrice, @data.Products[j].UnitPrice, '@data.Products[j].Description', '@data.Products[j].Category.Name', '@data.Products[j].Category.Id', '@data.Products[j].Image', '@data.Products[j].Thumbnail')" href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
                                                                 </div>
                                                                 <!-- product badge -->
                                                                 @{
-                                                                    if (@Model.Products[j].Unit <= @Model.Products[j].SellIndex)
+                                                                    if (@data.Products[j].Unit <= @data.Products[j].SellIndex)
                                                                     {
                                                                         <span class="aa-badge aa-sold-out">Sold Out!</span>
                                                                     }
-                                                                    else if (@Model.Products[j].isFeature <= 0 && @Model.Products[j].isNew > 0 && @Model.Products[j].Unit >= @Model.Products[j].SellIndex)
+                                                                    else if (@data.Products[j].isFeature <= 0 && @data.Products[j].isNew > 0 && @data.Products[j].Unit >= @data.Products[j].SellIndex)
                                                                     {
                                                                         <span class="aa-badge aa-sale">NEW!</span>
                                                                     }
-                                                                    else if (@Model.Products[j].isFeature > 0 && @Model.Products[j].Unit >= @Model.Products[j].SellIndex)
+                                                                    else if (@data.Products[j].isFeature > 0 && @data.Products[j].Unit >= @data.Products[j].SellIndex)
                                                                     {
                                                                         <span class="aa-badge aa-hot">HOT!</span>
                                                                     }
@@ -287,7 +290,7 @@
                             <div class="tab-pane fade in active" id="new">
                                 <ul class="aa-product-catg aa-popular-slider">
                                     @{
-                                        foreach (var prod in Model.NewProducts)
+                                        foreach (var prod in data.NewProducts)
                                         {
                                             <!-- start single product item -->
                                             <li>
@@ -340,7 +343,7 @@
                             <div class="tab-pane fade" id="featured">
                                 <ul class="aa-product-catg aa-featured-slider">
                                     @{
-                                        foreach (var prod in Model.FeatureProducts)
+                                        foreach (var prod in data.FeatureProducts)
                                         {
                                             <!-- start single product item -->
                                             <li>
@@ -394,7 +397,7 @@
                             <div class="tab-pane fade" id="latest">
                                 <ul class="aa-product-catg aa-latest-slider">
                                     @{
-                                        foreach (var prod in Model.LatestProducts)
+                                        foreach (var prod in data.LatestProducts)
                                         {
                                             <!-- start single product item -->
                                             <li>

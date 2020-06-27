@@ -106,7 +106,7 @@
                                     <li class="hidden-xs"><a href="~/MarkUps-dailyShop/dailyShop/wishlist.html">Wishlist</a></li>
                                     <li class="hidden-xs"><a href="/ShoppingCart/ShowCart">My Cart</a></li>
                                     <li class="hidden-xs"><a href="~/MarkUps-dailyShop/dailyShop/checkout.html">Checkout</a></li>
-                                    <li><a href="" data-toggle="modal" data-target="#login-modal">Login</a></li>
+                                    @Html.Partial("_LoginPartial")
                                 </ul>
                             </div>
                         </div>
@@ -133,16 +133,19 @@
                             </div>
                             <!-- / logo  -->
                             <!-- cart box -->
+                            @{
+                                var data = ViewBag.Message;
+                            }
                             <div class="aa-cartbox">
                                 <a class="aa-cart-link" href="/ShoppingCart/ShowCart">
                                     <span class="fa fa-shopping-basket"></span>
                                     <span class="aa-cart-title">SHOPPING CART</span>
-                                    <span class="aa-cart-notify">@Model.shoppingCart.Items.Count</span>
+                                    <span class="aa-cart-notify">@data.shoppingCart.Items.Count</span>
                                 </a>
                                 <div class="aa-cartbox-summary">
                                     <ul>
                                         @{
-                                            foreach (var cartItem in Model.shoppingCart.Items.Values)
+                                            foreach (var cartItem in data.shoppingCart.Items.Values)
                                             {
                                                 <li>
                                                     <a class="aa-cartbox-img" href="#"><img src="~/MarkUps-dailyShop/dailyShop/img/electronics/@cartItem.Product.Image" alt="img"></a>
@@ -150,7 +153,7 @@
                                                         <h4><a href="#">@cartItem.Name</a></h4>
                                                         <p>@cartItem.Quantity x $@cartItem.Price</p>
                                                     </div>
-                                                    <a class="aa-remove-product" href="/ShoppingCart/RemoveCartItem?productId=@cartItem.ProductId" ><span class="fa fa-times"></span></a>
+                                                    <a class="aa-remove-product" href="/ShoppingCart/RemoveCartItem?productId=@cartItem.ProductId"><span class="fa fa-times"></span></a>
                                                 </li>
                                             }
                                         }
@@ -159,7 +162,7 @@
                                                 Total
                                             </span>
                                             <span class="aa-cartbox-total-price">
-                                                $@Model.shoppingCart.TotalPrice
+                                                $@data.shoppingCart.TotalPrice
                                             </span>
                                         </li>
                                     </ul>
@@ -203,9 +206,9 @@
                             <li><a href="/Home/Home">Home</a></li>
 
                             @{
-                                if (Model.CategoriesMenu.Count > 0)
+                                if (data.CategoriesMenu.Count > 0)
                                 {
-                                    foreach (var cate in Model.CategoriesMenu)
+                                    foreach (var cate in data.CategoriesMenu)
                                     {
                                         if (cate.Parent == 0)
                                         {
@@ -213,7 +216,7 @@
                                                 <a href="/Category/Index?id=@cate.Id">@cate.Name <span class="caret"></span></a>
                                                 <ul class="dropdown-menu">
                                                     @{
-                                                        foreach (var cateItem in Model.CategoriesMenu)
+                                                        foreach (var cateItem in data.CategoriesMenu)
                                                         {
                                                             if (cateItem.Parent == cate.Id)
                                                             {

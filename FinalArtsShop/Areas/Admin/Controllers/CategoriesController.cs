@@ -111,7 +111,6 @@ namespace FinalArtsShop.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Debug.WriteLine("Delete here");
             Category category = db.Categories.Find(id);
             db.Categories.Remove(category);
             db.SaveChanges();

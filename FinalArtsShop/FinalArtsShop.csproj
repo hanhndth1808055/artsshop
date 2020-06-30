@@ -245,6 +245,10 @@
     <Compile Include="Migrations\202006300337095_TestBaseTimeStamps.Designer.cs">
       <DependentUpon>202006300337095_TestBaseTimeStamps.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202006301009012_UpdateStatusForUser.cs" />
+    <Compile Include="Migrations\202006301009012_UpdateStatusForUser.Designer.cs">
+      <DependentUpon>202006301009012_UpdateStatusForUser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BaseEntity.cs" />
@@ -756,6 +760,7 @@
     <Content Include="MarkUps-dailyShop\help\DOCUMENTATION\syntax-highlighter\styles\shThemeMidnight.css" />
     <Content Include="MarkUps-dailyShop\help\DOCUMENTATION\syntax-highlighter\styles\shThemeRDark.css" />
     <Content Include="MarkUps-dailyShop\license.txt" />
+    <Content Include="Scripts\AjaxCall.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="MarkUps-dailyShop\dailyShop\.sass-cache\3fcd99d0c8b91f50f06b0715ce73ad297a6fc258\_base.scssc" />
@@ -995,6 +1000,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202006300337095_TestBaseTimeStamps.resx">
       <DependentUpon>202006300337095_TestBaseTimeStamps.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006301009012_UpdateStatusForUser.resx">
+      <DependentUpon>202006301009012_UpdateStatusForUser.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

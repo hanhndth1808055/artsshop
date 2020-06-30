@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -123,6 +124,23 @@ namespace FinalArtsShop.Areas.Admin.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        [HttpPost]
+        public JsonResult DeliveryTypesDeleteWithAjax(string[] idArray)
+        {
+            foreach (string id in idArray)
+            {
+                DeliveryType deliveryType = db.DeliveryTypes.Find(id);
+                if (deliveryType != null && deliveryType.Active != 0)
+                {
+                    deliveryType.Active = 0;
+                    db.DeliveryTypes.AddOrUpdate(deliveryType);
+                }
+            }
+            db.SaveChanges();
+            var data = "Success";
+            return Json(data, JsonRequestBehavior.AllowGet);
         }
     }
 }

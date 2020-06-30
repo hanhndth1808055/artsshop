@@ -33,6 +33,16 @@ namespace FinalArtsShop.Models
         public int? DistrictId { get; set; }
         public virtual District District { get; set; }
         public string Address { get; set; }
+
+        public Status Status { get; set; } = Status.Active;
+
+        
+    }
+    public enum Status
+    {
+        Inactive = 0,
+        Active = 1,
+        Pending = 2,
     }
 
     public class ApplicationRole : IdentityRole

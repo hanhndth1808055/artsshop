@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Diagnostics;
 using System.Linq;
 using System.Net;
@@ -124,6 +125,36 @@ namespace FinalArtsShop.Areas.Admin.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        [HttpPost]
+        public JsonResult CategoriesDeleteWithAjax(string[] idArray)
+        {
+            foreach (string id in idArray)
+            {
+                int tranformId = int.Parse(id);
+                Category category = db.Categories.Find(tranformId);
+                if (category != null && category.Active != 0)
+                {
+                    category.Active = 0;
+                    var listProducts = db.Products
+                        .Include(p => p.Category)
+                        .Where(p => p.CategoryID == tranformId)
+                        .Where(p => p.isActive != 0).ToList();
+                    if (listProducts != null)
+                    {
+                        foreach (var product in listProducts)
+                        {
+                            product.isActive = 0;
+                            db.Products.AddOrUpdate(product);
+                        };
+                    }
+                    db.Categories.AddOrUpdate(category);
+                }
+            }
+            db.SaveChanges();
+            var data = "Success";
+            return Json(data, JsonRequestBehavior.AllowGet);
         }
     }
 }

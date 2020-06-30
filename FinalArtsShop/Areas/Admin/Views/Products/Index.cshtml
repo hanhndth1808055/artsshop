@@ -24,7 +24,7 @@
                 <div class="sparkline13-list">
                     <div class="sparkline13-hd">
                         <div class="main-sparkline13-hd">
-                            <h1>Products</h1>
+                            <h1 id="targetName">Products</h1>
                             <p>
                                 @Html.ActionLink("Create New", "Create")
                             </p>
@@ -50,53 +50,46 @@
                                         <th data-field="name">Name</th>
                                         <th data-field="unit">Unit</th>
                                         <th data-field="price">Price</th>
-                                        <th data-field="active">Active</th>
                                         <th data-field="action">Action</th>
                                     </tr>
                                 </thead>
-                                <tbody id="dataCon">
+                                <tbody>
                                     @foreach (var item in Model)
                                     {
-                                    <tr>
-                                        <td></td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Id)
-                                        </td>
-                                        <td>
-                                            @item.Category.Name
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Name)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Unit)
-                                        </td>
-                                        <td>
-                                            @if (item.PromotionPrice == 0)
-                                            {
-                                                @Html.DisplayFor(modelItem => item.UnitPrice)
-                                            }
-                                            else
-                                            {
-                                                @Html.DisplayFor(modelItem => item.PromotionPrice)
-                                            }
+                                        <tr data-id="@item.Id">
+                                            <td></td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Id)
+                                            </td>
+                                            <td>
+                                                @item.Category.Name
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Name)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Unit)
+                                            </td>
+                                            <td>
+                                                @if (item.PromotionPrice == 0)
+                                                {
+                                                    @Html.DisplayFor(modelItem => item.UnitPrice)
+                                                }
+                                                else
+                                                {
+                                                    @Html.DisplayFor(modelItem => item.PromotionPrice)
+                                                }
 
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.isActive)
-                                        </td>
-                                        <td class="datatable-ct">
-                                            @Html.ActionLink(" ", "Details", new { Id = item.Id }, new { @class = "glyphicon glyphicon-info-sign" }) |
-                                            @Html.ActionLink(" ", "Edit", new { Id = item.Id }, new { @class = "glyphicon glyphicon-edit" }) |
-                                            <a class="glyphicon glyphicon-trash checkDel" data-id="@item.Id" />
-                                            @*@Html.ActionLink(" ", "", new { Id = item.Id }, new { @class = "glyphicon glyphicon-trash" })*@
-                                        </td>
-
-                                    </tr>
+                                            </td>
+                                            <td class="datatable-ct">
+                                                @Html.ActionLink(" ", "Details", new { Id = item.Id }, new { @class = "glyphicon glyphicon-info-sign" }) |
+                                                @Html.ActionLink(" ", "Edit", new { Id = item.Id }, new { @class = "glyphicon glyphicon-edit" })
+                                            </td>
+                                        </tr>
                                     }
                                 </tbody>
                             </table>
-                            <button style="margin-bottom: 80px; margin-top: 10px; font-family: 'Roboto', sans-serif;" id="deleteAll" type="button" class="btn btn-primary waves-effect waves-light checkDel">Delete Selected</button>
+                            <button style="margin-bottom: 80px; margin-top: 10px; font-family: 'Roboto', sans-serif;" id="deleteAll" type="button" class="btn btn-primary waves-effect waves-light">Delete Selected</button>
                         </div>
                     </div>
                 </div>
@@ -132,75 +125,7 @@
     <!-- tab JS
     ============================================ -->
     <script src="~/kiaalap-master/js/tab.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function() {
-            var idArray = [];
-
-            $("#deleteAll").click(function() {
-                var myRows = document.querySelectorAll("tr.selected");
-                myRows.forEach(myFunction);
-                if (confirm('Are you sure ?')) {
-                    $.ajax({
-                        type: "POST",
-                        url: '@Url.Action("DeleteArrayConfirmed", "Categories")',
-                        traditional: true,
-                        data: { 'idArray': idArray }
-                    });
-                    $(myRows).remove();
-                };
-            });
-
-            function myFunction(v, i, a) {
-                idArray.push(v.firstChild.nextSibling.nextSibling.nextSibling.innerText);
-            };
-
-            $('.checkDel').on('click', function (e) {
-                e.preventDefault();
-                Swal.fire({
-                    title: 'Are you sure?',
-                    text: "You won't be able to revert this!",
-                    type: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes, delete it!'
-                }).then((result) => {
-                    if (result.value) {
-                        Swal.fire(
-                            'Deleted!',
-                            'Your file has been deleted.',
-                            'success'
-                        )
-                        var id = this.getAttribute('data-id')
-                        var _token = $('input[name="_token"]').val()
-                        $.ajaxSetup({
-                            headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                            }
-                        });
-                        $.ajax({
-                            url: "/Products/DeleteAjax",
-                            method: 'POST',
-                            data: { id: id, token: _token },
-                            dataType: 'json',
-                            success: function (data) {
-                                $('#dataCon').html(data);
-                                location.reload();
-                            },
-                            error: function (jqXHR, textStatus, errorThrown) {
-                                $('#result').html('<p>status code: ' + jqXHR.status + '</p><p>errorThrown: ' + errorThrown + '</p><p>jqXHR.responseText:</p><div>' + jqXHR.responseText + '</div>');
-                                console.log('jqXHR:');
-                                console.log(jqXHR);
-                                console.log('textStatus:');
-                                console.log(textStatus);
-                                console.log('errorThrown:');
-                                console.log(errorThrown);
-                            }
-                        })
-                    }
-                })
-            });
-        });
-
-    </script>
+    <!-- AJAX call
+    ============================================ -->
+    <script src="~/Scripts/AjaxCall.js"></script>
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -18,7 +19,7 @@ namespace FinalArtsShop.Areas.Admin.Controllers
         // GET: Districts
         public ActionResult Index()
         {
-            var districts = db.Districts.Include(d => d.City);
+            var districts = db.Districts.Include(d => d.City).Where(d => d.Active == 1);
             return View(districts.ToList());
         }
 
@@ -128,6 +129,24 @@ namespace FinalArtsShop.Areas.Admin.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        [HttpPost]
+        public JsonResult DistrictsDeleteWithAjax(string[] idArray)
+        {
+            foreach (string id in idArray)
+            {
+                int tranformId = int.Parse(id);
+                District district = db.Districts.Find(tranformId);
+                if (district != null && district.Active != 0)
+                {
+                    district.Active = 0;
+                    db.Districts.AddOrUpdate(district);
+                }
+            }
+            db.SaveChanges();
+            var data = "Success";
+            return Json(data, JsonRequestBehavior.AllowGet);
         }
     }
 }

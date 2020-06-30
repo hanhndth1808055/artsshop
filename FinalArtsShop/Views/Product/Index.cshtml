@@ -37,13 +37,13 @@
                                             <div class="simpleLens-big-image-container"><a data-lens-image="@("https://res.cloudinary.com/daaycakkk/image/upload/c_limit/v1587872991/" + @Model.Product.GetThubnailIds()[1] + ".jpg")" class="simpleLens-lens-image"><img src="@("https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_300,w_250/v1587872991/" + @Model.Product.GetThubnailIds()[1] + ".jpg")" class="simpleLens-big-image" width="250px" height="300px"></a></div>
                                         </div>
                                         <div class="simpleLens-thumbnails-container">
-                                            <a data-big-image="@("https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_300,w_250/v1587872991/" + @Model.Product.GetThubnailIds()[0] + ".jpg")" data-lens-image="@("https://res.cloudinary.com/daaycakkk/image/upload/c_limit/v1587872991/" + @Model.Product.GetThubnailIds()[0] + ".jpg")" class="simpleLens-thumbnail-wrapper" href="#">
+                                            <a data-big-image="@("https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_300,w_250/v1587872991/" + @Model.Product.GetThubnailIds()[0] + ".jpg")" data-lens-image="@("https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_1024,w_900/v1587872991/" + @Model.Product.GetThubnailIds()[0] + ".jpg")" class="simpleLens-thumbnail-wrapper" href="#">
                                                 <img src="@("https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_300,w_250/v1587872991/" + @Model.Product.GetThubnailIds()[0] + ".jpg")" width="45px" height="55px">
                                             </a>
-                                            <a data-big-image="@("https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_300,w_250/v1587872991/" + @Model.Product.GetThubnailIds()[2] + ".jpg")" data-lens-image="@("https://res.cloudinary.com/daaycakkk/image/upload/c_limit/v1587872991/" + @Model.Product.GetThubnailIds()[2] + ".jpg")" class="simpleLens-thumbnail-wrapper" href="#">
+                                            <a data-big-image="@("https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_300,w_250/v1587872991/" + @Model.Product.GetThubnailIds()[2] + ".jpg")" data-lens-image="@("https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_1024,w_900/v1587872991/" + @Model.Product.GetThubnailIds()[2] + ".jpg")" class="simpleLens-thumbnail-wrapper" href="#">
                                                 <img src="@("https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_300,w_250/v1587872991/" + @Model.Product.GetThubnailIds()[2] + ".jpg")" width="45px" height="55px">
                                             </a>
-                                            <a data-big-image="@("https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_300,w_250/v1587872991/" + @Model.Product.GetThubnailIds()[3] + ".jpg")" data-lens-image="@("https://res.cloudinary.com/daaycakkk/image/upload/c_limit/v1587872991/" + @Model.Product.GetThubnailIds()[3] + ".jpg")" class="simpleLens-thumbnail-wrapper" href="#">
+                                            <a data-big-image="@("https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_300,w_250/v1587872991/" + @Model.Product.GetThubnailIds()[3] + ".jpg")" data-lens-image="@("https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_1024,w_900/v1587872991/" + @Model.Product.GetThubnailIds()[3] + ".jpg")" class="simpleLens-thumbnail-wrapper" href="#">
                                                 <img src="@("https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_300,w_250/v1587872991/" + @Model.Product.GetThubnailIds()[3] + ".jpg")" width="45px" height="55px">
                                             </a>
                                         </div>
@@ -58,11 +58,11 @@
                                         @{
                                             if (@Model.Product.PromotionPrice > 0)
                                             {
-                                                <span class="aa-product-view-price">@Model.Product.PromotionPrice</span>
+                                                <span class="aa-product-view-price">$@Model.Product.PromotionPrice</span>
                                             }
                                             else
                                             {
-                                                <span class="aa-product-view-price">@Model.Product.UnitPrice</span>
+                                                <span class="aa-product-view-price">$@Model.Product.UnitPrice</span>
                                             }
                                         }
                                         @{
@@ -197,18 +197,18 @@
                                     <!-- start single product item -->
                                     <li>
                                         <figure>
-                                            <a class="aa-product-img" href="/Product/Index?id=@prod.Id"><img src="@("https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_300,w_250/v1587872991/" + @prod.GetThubnailIds()[0] + ".jpg")" alt="" width="250px" height="300px"></a>
+                                            <a class="aa-product-img" href="/Product/Index?id=@prod.Id"><img src="@("https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_300,w_250/v1587872991/" + @prod.GetThubnailIds()[0] + ".jpg")" alt=""></a>
                                             <a class="aa-add-card-btn" href="/ShoppingCart/AddToCart?productId=@prod.Id&quantity=1"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
                                             <figcaption>
                                                 <h4 class="aa-product-title"><a href="/Product/Index?id=@prod.Id">@prod.Name</a></h4>
                                                 @{
                                                     if (prod.PromotionPrice > 0)
                                                     {
-                                                        <span class="aa-product-price">@prod.PromotionPrice</span><span class="aa-product-price"><del>@prod.UnitPrice</del></span>
+                                                        <span class="aa-product-price">$@prod.PromotionPrice</span><span class="aa-product-price"><del>$@prod.UnitPrice</del></span>
                                                     }
                                                     else
                                                     {
-                                                        <span class="aa-product-price">@prod.UnitPrice</span>
+                                                        <span class="aa-product-price">$@prod.UnitPrice</span>
                                                     }
                                                 }
                                             </figcaption>
@@ -253,7 +253,7 @@
                                                         <div class="simpleLens-container">
                                                             <div class="simpleLens-big-image-container">
                                                                 <a id="quick-view-image" class="simpleLens-lens-image" data-lens-image="../../MarkUps-dailyShop/dailyShop/img/view-slider/large/polo-shirt-1.png">
-                                                                    <img src="~/MarkUps-dailyShop/dailyShop/img/view-slider/medium/polo-shirt-1.png" class="simpleLens-big-image" width="250px" height="300px">
+                                                                    <img src="~/MarkUps-dailyShop/dailyShop/img/view-slider/medium/polo-shirt-1.png" class="simpleLens-big-image">
                                                                 </a>
                                                             </div>
                                                         </div>
@@ -334,26 +334,26 @@
             parseInt(CateId);
             String(Image);
 
-            $("#quick-view-image").attr("data-lens-image", "https://res.cloudinary.com/daaycakkk/image/upload/c_limit/v1587872991/" + Thumbnail_2 + ".jpg");
+            $("#quick-view-image").attr("data-lens-image", "https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_1024,w_900/v1587872991/" + Thumbnail_2 + ".jpg");
             $("#quick-view-image img").attr("src", "https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_300,w_250/v1587872991/" + Thumbnail_2 + ".jpg");
 
-            $("#quick-view-thumbnail-1").attr("data-lens-image", "https://res.cloudinary.com/daaycakkk/image/upload/c_limit/v1587872991/" + Thumbnail_1 + ".jpg");
+            $("#quick-view-thumbnail-1").attr("data-lens-image", "https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_1024,w_900/v1587872991/" + Thumbnail_1 + ".jpg");
             $("#quick-view-thumbnail-1").attr("data-big-image", "https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_300,w_250/v1587872991/" + Thumbnail_1 + ".jpg");
             $("#quick-view-thumbnail-1 img").attr("src", "https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_55,w_45/v1587872991/" + Thumbnail_1 + ".jpg");
 
-            $("#quick-view-thumbnail-2").attr("data-lens-image", "https://res.cloudinary.com/daaycakkk/image/upload/c_limit/v1587872991/" + Thumbnail_3 + ".jpg");
+            $("#quick-view-thumbnail-2").attr("data-lens-image", "https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_1024,w_900/v1587872991/" + Thumbnail_3 + ".jpg");
             $("#quick-view-thumbnail-2").attr("data-big-image", "https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_300,w_250/v1587872991/" + Thumbnail_3 + ".jpg");
             $("#quick-view-thumbnail-2 img").attr("src", "https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_55,w_45/v1587872991/" + Thumbnail_3 + ".jpg");
 
-            $("#quick-view-thumbnail-3").attr("data-lens-image", "https://res.cloudinary.com/daaycakkk/image/upload/c_limit/v1587872991/" + Thumbnail_4 + ".jpg");
+            $("#quick-view-thumbnail-3").attr("data-lens-image", "https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_1024,w_900/v1587872991/" + Thumbnail_4 + ".jpg");
             $("#quick-view-thumbnail-3").attr("data-big-image", "https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_300,w_250/v1587872991/" + Thumbnail_4 + ".jpg");
             $("#quick-view-thumbnail-3 img").attr("src", "https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_55,w_45/v1587872991/" + Thumbnail_4 + ".jpg");
 
             $(".aa-product-view-content h3").html(Name);
             if (PromotionPrice > 0) {
-                $(".aa-product-view-price").html(PromotionPrice);
+                $(".aa-product-view-price").html("$" + PromotionPrice);
             } else {
-                $(".aa-product-view-price").html(UnitPrice);
+                $(".aa-product-view-price").html("$" + UnitPrice);
             }
 
             $("#quick-view-description").html(Description);

@@ -20,7 +20,7 @@ namespace FinalArtsShop.Models
         public int Active { get; set; }
         public FulfillmentStatusEnum FulfillmentStatus { get; set; }
         public PaymentStatusEnum PaymentStatus { get; set; }
-        public int? isReturn { get; set; }
+        public ReturnStatusEnum ReturnStatus { get; set; }
         public DateTime? CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
         [ForeignKey("City")]
@@ -35,6 +35,8 @@ namespace FinalArtsShop.Models
         public string CustomerEmail { get; set; }
         public string Note { get; set; }
         public string Otp { get; set; }
+        public DateTime? ShippedAt { get; set; }
+        public DateTime? ReturnedAt { get; set; }
 
         //Order Items
         public Dictionary<string, OrderItem> Items { get; set; }
@@ -45,6 +47,14 @@ namespace FinalArtsShop.Models
         {
             Items = new Dictionary<string, OrderItem>();
         }
+    }
+
+    public enum ReturnStatusEnum
+    {
+        Void = 0,
+        Returning = 1,
+        Returned = 2,
+        Failed = 3
     }
 
     public enum PaymentMethodEnum

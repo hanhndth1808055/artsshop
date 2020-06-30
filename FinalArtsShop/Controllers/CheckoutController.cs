@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Diagnostics;
 using System.Linq;
 using System.Security.Cryptography;
@@ -106,7 +107,7 @@ namespace FinalArtsShop.Controllers
                     Otp = "12345",
                     Status = 1,
                     UserId = user.Id,
-                    isReturn = 0,
+                    ReturnStatus = ReturnStatusEnum.Void,
                     TotalPrice = shoppingCart.TotalPrice
                 };
                 Debug.WriteLine("Order Id " + order.Id);
@@ -141,6 +142,48 @@ namespace FinalArtsShop.Controllers
             var random = new Random();
             var value = random.Next();
             return value;
+        }
+
+        [Authorize]
+        public void returnOrder(string orderId)
+        {
+            var userManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            ApplicationUser user = userManager.FindByNameAsync(User.Identity.Name).Result;
+
+            var order = HttpContext.GetOwinContext().Get<ApplicationDbContext>().Orders.Find(orderId);
+
+            if (order == null)
+            {
+                return;
+            }
+
+            if (order.ShippedAt == null)
+            {
+                order.ReturnStatus = ReturnStatusEnum.Returned;
+                if (ModelState.IsValid)
+                {
+                    HttpContext.GetOwinContext().Get<ApplicationDbContext>().Entry(order).State = EntityState.Modified;
+                    HttpContext.GetOwinContext().Get<ApplicationDbContext>().SaveChanges();
+                }
+            }
+
+            var now = new DateTime();
+
+            var timeDiff = now.Subtract( (DateTime) order.ShippedAt).TotalDays;
+
+            if (order != null && timeDiff > 7)
+            {
+                return;
+            }
+            {
+                order.ReturnStatus = ReturnStatusEnum.Returning;
+                if (ModelState.IsValid)
+                {
+                    HttpContext.GetOwinContext().Get<ApplicationDbContext>().Entry(order).State = EntityState.Modified;
+                    HttpContext.GetOwinContext().Get<ApplicationDbContext>().SaveChanges();
+                }
+            }
+
         }
     }
 

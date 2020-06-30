@@ -129,12 +129,23 @@ namespace FinalArtsShop.Controllers
                 } else if (optionsRadios == 2)
                 {
                     return VppPayment(order);
+                } else if (optionsRadios == 3)
+                {
+                    return ChequePayment(order);
                 }
+
+                Session["ShoppingCartName"] = new ShoppingCart();
                 return RedirectToAction("Home", "Home");
             }
 
             // return HttpNotFound();
             return View();
+        }
+
+        private ActionResult ChequePayment(Order order)
+        {
+            ViewBag.Message = order;
+            return View("~/Views/Checkout/ConfirmCheque.cshtml");
         }
 
         private ActionResult VppPayment(Order order)

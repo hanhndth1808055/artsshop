@@ -241,10 +241,6 @@
     <Compile Include="Migrations\202006291458580_UpdateOrderReturn.Designer.cs">
       <DependentUpon>202006291458580_UpdateOrderReturn.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202006291551570_UpdateOrders1.cs" />
-    <Compile Include="Migrations\202006291551570_UpdateOrders1.Designer.cs">
-      <DependentUpon>202006291551570_UpdateOrders1.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\202006300337095_TestBaseTimeStamps.cs" />
     <Compile Include="Migrations\202006300337095_TestBaseTimeStamps.Designer.cs">
       <DependentUpon>202006300337095_TestBaseTimeStamps.cs</DependentUpon>
@@ -937,6 +933,7 @@
     <Content Include="Views\Checkout\PaypalError.cshtml" />
     <Content Include="Views\Checkout\PaypalSuccess.cshtml" />
     <Content Include="Views\Checkout\confirmVpp.cshtml" />
+    <Content Include="Views\Checkout\ConfirmCheque.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -995,9 +992,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202006291458580_UpdateOrderReturn.resx">
       <DependentUpon>202006291458580_UpdateOrderReturn.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202006291551570_UpdateOrders1.resx">
-      <DependentUpon>202006291551570_UpdateOrders1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202006300337095_TestBaseTimeStamps.resx">
       <DependentUpon>202006300337095_TestBaseTimeStamps.cs</DependentUpon>

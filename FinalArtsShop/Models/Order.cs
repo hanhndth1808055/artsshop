@@ -20,7 +20,7 @@ namespace FinalArtsShop.Models
         public int Active { get; set; }
         public FulfillmentStatusEnum FulfillmentStatus { get; set; }
         public PaymentStatusEnum PaymentStatus { get; set; }
-        public ReturnStatusEnum ReturnStatus { get; set; }
+        public int? isReturnable;
         [ForeignKey("City")]
         public int? CityId { get; set; }
         public virtual City City { get; set; }             
@@ -44,15 +44,27 @@ namespace FinalArtsShop.Models
         public Order()
         {
             Items = new Dictionary<string, OrderItem>();
-        }
-    }
+            var now = new DateTime();
 
-    public enum ReturnStatusEnum
-    {
-        Void = 0,
-        Returning = 1,
-        Returned = 2,
-        Failed = 3
+            if (this.ShippedAt == null)
+            {
+                this.isReturnable = 1;
+                return;
+            }
+
+            var timeDiff = now.Subtract((DateTime)this.ShippedAt).TotalDays;
+
+            if (timeDiff > 7)
+            {
+                this.isReturnable = 0;
+                return;
+            }
+            else
+            {
+                this.isReturnable = 1;
+                return;
+            }
+        }
     }
 
     public enum PaymentMethodEnum
@@ -79,7 +91,9 @@ namespace FinalArtsShop.Models
         Pending = 1,
         Fulfilled = 2,
         NotReturned = 3,
-        Returned = 4,
-        NeverReturn = 5
+        Returning = 4,
+        Returned = 5,
+        ReturnFailed = 6,
+        NeverReturn = 6
     }
 }

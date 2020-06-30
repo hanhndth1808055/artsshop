@@ -109,7 +109,6 @@ namespace FinalArtsShop.Controllers
                     Otp = "12345",
                     Status = 1,
                     UserId = user.Id,
-                    ReturnStatus = ReturnStatusEnum.Void,
                     TotalPrice = shoppingCart.TotalPrice
                 };
                 Debug.WriteLine("Order Id " + order.Id);
@@ -182,7 +181,7 @@ namespace FinalArtsShop.Controllers
 
             if (order.ShippedAt == null)
             {
-                order.ReturnStatus = ReturnStatusEnum.Returned;
+                order.FulfillmentStatus = FulfillmentStatusEnum.Returned;
                 if (ModelState.IsValid)
                 {
                     HttpContext.GetOwinContext().Get<ApplicationDbContext>().Entry(order).State = EntityState.Modified;
@@ -199,7 +198,7 @@ namespace FinalArtsShop.Controllers
                 return;
             }
             {
-                order.ReturnStatus = ReturnStatusEnum.Returning;
+                order.FulfillmentStatus = FulfillmentStatusEnum.Returning;
                 if (ModelState.IsValid)
                 {
                     HttpContext.GetOwinContext().Get<ApplicationDbContext>().Entry(order).State = EntityState.Modified;

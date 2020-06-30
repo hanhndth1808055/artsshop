@@ -52,6 +52,13 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-12 form-group">
+                                        @Html.LabelFor(model => model.PromotionPrice, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            @Html.EditorFor(model => model.PromotionPrice, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.PromotionPrice, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 form-group">
                                         @Html.LabelFor(model => model.Thumbnail, htmlAttributes: new { @class = "control-label col-md-2" })
                                         <div class="col-md-10 uploaded">
                                             <button type="button" id="upload_widget" class="btn btn-primary">Upload files</button>

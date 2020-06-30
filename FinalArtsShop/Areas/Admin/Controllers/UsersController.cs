@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -28,8 +29,9 @@ namespace FinalArtsShop.Areas.Admin.Controllers
                                       Email = applicationUser.Email,
                                       PhoneNumber = applicationUser.PhoneNumber,
                                       Role = role.Name,
-                                      Status = applicationUser.LockoutEnabled
-                                  }).ToList();
+                                      Status = applicationUser.LockoutEnabled,
+                                  });
+            var activeUser = usersWithRoles.Where(u => u.Status == false);
             return View(usersWithRoles);
         }
 
@@ -209,6 +211,23 @@ namespace FinalArtsShop.Areas.Admin.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        [HttpPost]
+        public JsonResult UsersDeleteWithAjax(string[] idArray)
+        {
+            foreach (string id in idArray)
+            {
+                ApplicationUser applicationUser = db.Users.Find(id);
+                if (applicationUser != null && applicationUser.LockoutEnabled != true)
+                {
+                    applicationUser.LockoutEnabled = true;
+                    db.Users.AddOrUpdate(applicationUser);
+                }
+            }
+            db.SaveChanges();
+            var data = "Success";
+            return Json(data, JsonRequestBehavior.AllowGet);
         }
     }
 }

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -18,7 +20,8 @@ namespace FinalArtsShop.Areas.Admin.Controllers
         // GET: Cities
         public ActionResult Index()
         {
-            return View(db.Cities.ToList());
+            var cities = db.Cities.Where(p => p.Active == 1);
+            return View(cities.ToList());
         }
 
         // GET: Cities/Details/5
@@ -123,6 +126,36 @@ namespace FinalArtsShop.Areas.Admin.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        [HttpPost]
+        public JsonResult CitiesDeleteWithAjax(string[] idArray)
+        {
+            foreach (string id in idArray)
+            {
+                int tranformId = int.Parse(id);
+                City city = db.Cities.Find(tranformId);
+                if (city != null && city.Active != 0)
+                {
+                    city.Active = 0;
+                    var listDistrictHaveId = db.Districts
+                        .Include(p => p.City)
+                        .Where(p => p.CityId == tranformId)
+                        .Where(p => p.Active != 0).ToList();
+                    if(listDistrictHaveId != null)
+                    {
+                        foreach (var district in listDistrictHaveId)
+                        {
+                            district.Active = 0;
+                            db.Districts.AddOrUpdate(district);
+                        };
+                    }
+                    db.Cities.AddOrUpdate(city);
+                }
+            }
+            db.SaveChanges();
+            var data = "Success";
+            return Json(data, JsonRequestBehavior.AllowGet);
         }
     }
 }

@@ -16,7 +16,7 @@ namespace FinalArtsShop.Areas.Admin.Controllers
         // GET: Admin/Orders
         public ActionResult Index()
         {
-            return View(db.Orders.ToList());
+            return View(db.Orders.OrderByDescending(order => order.Id).ToList());
         }
 
         public ActionResult Create()

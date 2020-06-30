@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using FinalArtsShop.Areas.Admin.Controllers;
 using FinalArtsShop.Models;
+using Microsoft.Ajax.Utilities;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.BuilderProperties;
@@ -27,7 +28,8 @@ namespace FinalArtsShop.Controllers
             ViewCheckoutClient viewCheckoutClient = new ViewCheckoutClient() {
                 User = user,
                 Cities = HttpContext.GetOwinContext().Get<ApplicationDbContext>().Cities.ToList(),
-                Districts = HttpContext.GetOwinContext().Get<ApplicationDbContext>().Districts.ToList()
+                Districts = HttpContext.GetOwinContext().Get<ApplicationDbContext>().Districts.ToList(),
+                DeliveryTypes = HttpContext.GetOwinContext().Get<ApplicationDbContext>().DeliveryTypes.ToList()
             };
             return View(viewCheckoutClient);
         }
@@ -124,6 +126,9 @@ namespace FinalArtsShop.Controllers
                 if (optionsRadios == 1)
                 {
                     return paypalPayment(order);
+                } else if (optionsRadios == 2)
+                {
+                    return VppPayment(order);
                 }
                 return RedirectToAction("Home", "Home");
             }
@@ -131,6 +136,13 @@ namespace FinalArtsShop.Controllers
             // return HttpNotFound();
             return View();
         }
+
+        private ActionResult VppPayment(Order order)
+        {
+            ViewBag.Message = order;
+            return View("~/Views/Checkout/ConfirmVpp.cshtml");
+        }
+
         private ActionResult paypalPayment(Order order)
         {
             ViewBag.Message = order;

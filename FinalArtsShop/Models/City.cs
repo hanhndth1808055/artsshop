@@ -7,7 +7,7 @@ using System.Web;
 
 namespace FinalArtsShop.Models
 {
-    public class City
+    public class City : BaseEntity
     {
         public int Id { get; set; }
         [Required]

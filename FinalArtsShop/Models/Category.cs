@@ -7,7 +7,7 @@ using System.Web;
 
 namespace FinalArtsShop.Models
 {
-    public class Category
+    public class Category : BaseEntity
     {
         public int Id { get; set; }
         [Required]
@@ -18,7 +18,5 @@ namespace FinalArtsShop.Models
         [Required]
         public string Abbreviation { get; set; }
         public int Active { get; set; } = 1;
-        public DateTime? CreatedAt { get; set; }
-        public DateTime? UpdatedAt { get; set; }
     }
 }

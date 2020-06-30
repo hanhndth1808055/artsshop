@@ -6,7 +6,7 @@ using System.Web;
 
 namespace FinalArtsShop.Models
 {
-    public class Order
+    public class Order : BaseEntity
     {
         public string Id { get; set; }
         [ForeignKey("ApplicationUser")]
@@ -21,8 +21,6 @@ namespace FinalArtsShop.Models
         public FulfillmentStatusEnum FulfillmentStatus { get; set; }
         public PaymentStatusEnum PaymentStatus { get; set; }
         public ReturnStatusEnum ReturnStatus { get; set; }
-        public DateTime? CreatedAt { get; set; }
-        public DateTime? UpdatedAt { get; set; }
         [ForeignKey("City")]
         public int? CityId { get; set; }
         public virtual City City { get; set; }             

@@ -180,6 +180,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductsController.cs" />
+    <Compile Include="Controllers\PaypalController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\ShoppingCartController.cs" />
@@ -187,6 +188,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Logger\NLogger.cs" />
     <Compile Include="Migrations\202006181256371_InitialCreate.cs" />
     <Compile Include="Migrations\202006181256371_InitialCreate.Designer.cs">
       <DependentUpon>202006181256371_InitialCreate.cs</DependentUpon>
@@ -243,8 +245,13 @@
     <Compile Include="Migrations\202006291551570_UpdateOrders1.Designer.cs">
       <DependentUpon>202006291551570_UpdateOrders1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202006300337095_TestBaseTimeStamps.cs" />
+    <Compile Include="Migrations\202006300337095_TestBaseTimeStamps.Designer.cs">
+      <DependentUpon>202006300337095_TestBaseTimeStamps.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\BaseEntity.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\City.cs" />
     <Compile Include="Models\Comment.cs" />
@@ -926,6 +933,10 @@
     <Content Include="Views\Home\Account\VerifyCode.cshtml" />
     <Content Include="Views\Checkout\Index.cshtml" />
     <Content Include="Views\Checkout\PlaceOrder.cshtml" />
+    <Content Include="Views\Checkout\confirm.cshtml" />
+    <Content Include="Views\Checkout\PaypalError.cshtml" />
+    <Content Include="Views\Checkout\PaypalSuccess.cshtml" />
+    <Content Include="Views\Checkout\confirmVpp.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -987,6 +998,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202006291551570_UpdateOrders1.resx">
       <DependentUpon>202006291551570_UpdateOrders1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006300337095_TestBaseTimeStamps.resx">
+      <DependentUpon>202006300337095_TestBaseTimeStamps.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

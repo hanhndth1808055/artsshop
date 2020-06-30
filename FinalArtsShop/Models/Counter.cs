@@ -5,7 +5,7 @@ using System.Web;
 
 namespace FinalArtsShop.Models
 {
-    public class Counter
+    public class Counter : BaseEntity
     {
         public int Id { get; set; }
         public int? CountProduct { get; set; }

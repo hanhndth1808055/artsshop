@@ -8,7 +8,7 @@ using System.Web;
 
 namespace FinalArtsShop.Models
 {
-    public class Comment
+    public class Comment : BaseEntity
     {
         public int Id { get; set; }
 
@@ -25,7 +25,5 @@ namespace FinalArtsShop.Models
         [Required]
         public string Message { get; set; }
         public int Active { get; set; } = 1;
-        public DateTime? CreatedAt { get; set; }
-        public DateTime? UpdatedAt { get; set; }
     }
 }

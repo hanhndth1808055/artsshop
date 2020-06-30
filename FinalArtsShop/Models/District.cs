@@ -8,7 +8,7 @@ using System.Web;
 
 namespace FinalArtsShop.Models
 {
-    public class District
+    public class District : BaseEntity
     {
         public int Id { get; set; }
         [ForeignKey("City")]
@@ -20,7 +20,5 @@ namespace FinalArtsShop.Models
         [Display(Name = "Shipping Fee")]
         public double ShippingFee { get; set; }
         public int Active { get; set; } = 1;
-        public DateTime? CreatedAt { get; set; }
-        public DateTime? UpdatedAt { get; set; }
     }
 }

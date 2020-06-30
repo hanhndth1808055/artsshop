@@ -1,5 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
@@ -64,5 +66,33 @@ namespace FinalArtsShop.Models
         public System.Data.Entity.DbSet<FinalArtsShop.Models.Product> Products { get; set; }
         public System.Data.Entity.DbSet<FinalArtsShop.Models.Slide> Slides { get; set; }
         public System.Data.Entity.DbSet<FinalArtsShop.Models.OrderItem> OrderItems { get; set; }
+        public override int SaveChanges()
+        {
+            AddTimestamps();
+            return base.SaveChanges();
+        }
+
+        public override async Task<int> SaveChangesAsync()
+        {
+            AddTimestamps();
+            return await base.SaveChangesAsync();
+        }
+
+        private void AddTimestamps()
+        {
+            var entities = ChangeTracker.Entries()
+                .Where(x => x.Entity is BaseEntity && (x.State == EntityState.Added || x.State == EntityState.Modified));
+
+            foreach (var entity in entities)
+            {
+                var now = DateTime.UtcNow; // current datetime
+
+                if (entity.State == EntityState.Added)
+                {
+                    ((BaseEntity)entity.Entity).CreatedAt = now;
+                }
+                ((BaseEntity)entity.Entity).UpdatedAt = now;
+            }
+        }
     }
 }

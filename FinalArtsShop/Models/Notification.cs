@@ -6,7 +6,7 @@ using System.Web;
 
 namespace FinalArtsShop.Models
 {
-    public class Notification
+    public class Notification : BaseEntity
     {
         public int Id { get; set; }
         [Required]
@@ -16,7 +16,5 @@ namespace FinalArtsShop.Models
         [Required]
         public string Link { get; set; }
         public int Seen { get; set; }
-        public DateTime? CreatedAt { get; set; }
-        public DateTime? UpdatedAt { get; set; }
     }
 }

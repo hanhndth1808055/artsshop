@@ -9,7 +9,7 @@ using System.Web;
 
 namespace FinalArtsShop.Models
 {
-    public class Product
+    public class Product : BaseEntity
     {
         public string Id { get; set; }
         [ForeignKey("Category")]
@@ -31,8 +31,6 @@ namespace FinalArtsShop.Models
         public int Unit { get; set; }
         public int isNew { get; set; }
         public int isActive { get; set; } = 1;
-        public DateTime? CreatedAt { get; set; }
-        public DateTime? UpdatedAt { get; set; }
         public int isFeature { get; set; }
         public int SellIndex { get; set; }
 

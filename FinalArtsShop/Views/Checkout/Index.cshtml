@@ -106,7 +106,11 @@
                                                             <div class="aa-checkout-single-bill">
                                                                 <select name="deliveryType">
                                                                     <option value="0">Select Type Delivery</option>
-                                                                    <option value="1">AhaMove</option>
+                                                                    @foreach (var item in Model.DeliveryTypes)
+                                                                    {
+                                                                        <option value="@item.Id">@item.Name</option>
+
+                                                                    }
                                                                 </select>
                                                             </div>
                                                         </div>

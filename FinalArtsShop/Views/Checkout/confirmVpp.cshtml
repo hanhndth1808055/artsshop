@@ -1,0 +1,41 @@
+﻿
+@{
+    ViewBag.Title = "Confirm";
+    Layout = "~/Views/Home/Layout/_Layout.cshtml";
+}
+@{
+    var data = ViewBag.Message;
+}
+<h1>Confirm Payment</h1>
+<h3>OderId:@data.Id</h3>
+<h3>:@data.Id</h3>
+<h3>Total:@data.TotalPrice</h3>
+<h3>CustomerName:@data.CustomerName</h3>
+<h3>CustomerPhoneNumber:@data.CustomerPhoneNumber</h3>
+<h3>address:</h3>
+    <h4>@data.City.Name</h4>
+<h4>@data.District.Name</h4>
+
+<form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
+    <input type="hidden" name="cmd" value="_xclick">
+    <input type="hidden" name="business" value="sb-i43wci1645672@business.example.com">
+    <input type="hidden" name="item_name" value="payment @data.Id">
+    <input type="hidden" name="item_number" value="@data.Id">
+    <input type="hidden" name="amount" value="@data.TotalPrice">
+    <input type="hidden" name="tax" value="0">
+    <input type="hidden" name="quantity" value="1">
+    <input type="hidden" name="currency_code" value="USD">
+
+    <!-- Enable override of buyers's address stored with PayPal . -->
+    <input type="hidden" name="address_override" value="1">
+    <!-- Set variables that override the address stored with PayPal. -->
+    <input type="hidden" name="first_name" value="@data.CustomerName">
+    @*<input type="hidden" name="last_name" value="Doe">*@
+    <input type="hidden" name="address1" value="345 Lark Ave">
+    <input type="hidden" name="city" value="@data.City.Name">
+    <input type="hidden" name="state" value="@data.District.Name">
+    <input type="hidden" name="zip" value="10000">
+    <input type="hidden" name="country" value="VN">
+    <input type="image" name="submit" src="#" alt="VPP - COD">
+</form>
+

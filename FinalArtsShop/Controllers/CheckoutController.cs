@@ -120,12 +120,20 @@ namespace FinalArtsShop.Controllers
                     HttpContext.GetOwinContext().Get<ApplicationDbContext>().Orders.Add(order);
                     HttpContext.GetOwinContext().Get<ApplicationDbContext>().SaveChanges();
                 }
-
+                if (optionsRadios == 1)
+                {
+                    return paypalPayment(order);
+                }
                 return RedirectToAction("Home", "Home");
             }
 
             // return HttpNotFound();
             return View();
+        }
+        private ActionResult paypalPayment(Order order)
+        {
+            ViewBag.Message = order;
+            return View("~/Views/Checkout/Confirm.cshtml");
         }
 
         public int randomNum()

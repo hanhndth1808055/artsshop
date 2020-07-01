@@ -125,7 +125,7 @@
                                                             <!-- start single product item -->
                                                             <li>
                                                                 <figure>
-                                                                    <a class="aa-product-img" href="/Product/Index?id=@data.Products[j].Id"><img src="@("https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_300,w_250/v1587872991/" + @data.Products[j].GetThubnailIds()[0] + ".jpg")" alt="" width="250px" height="300px"></a>
+                                                                    <a class="aa-product-img" href="/Product/Index?id=@data.Products[j].Id"><img src="@("https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_300,w_250/v1587872991/" + @data.Products[j].GetThubnailIds()[0] + ".jpg")" alt=""></a>
                                                                     <a class="aa-add-card-btn" href="/ShoppingCart/AddToCart?productId=@data.Products[j].Id&quantity=1"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
                                                                     <figcaption>
                                                                         <h4 class="aa-product-title"><a href="/Product/Index?id=@data.Products[j].Id">@data.Products[j].Name</a></h4>
@@ -188,7 +188,7 @@
                                                             <div class="simpleLens-container">
                                                                 <div class="simpleLens-big-image-container">
                                                                     <a id="quick-view-image" class="simpleLens-lens-image" data-lens-image="../../MarkUps-dailyShop/dailyShop/img/view-slider/large/polo-shirt-1.png">
-                                                                        <img src="~/MarkUps-dailyShop/dailyShop/img/view-slider/medium/polo-shirt-1.png" class="simpleLens-big-image" width="250px" height="300px">
+                                                                        <img src="~/MarkUps-dailyShop/dailyShop/img/view-slider/medium/polo-shirt-1.png" class="simpleLens-big-image">
                                                                     </a>
                                                                 </div>
                                                             </div>
@@ -295,7 +295,7 @@
                                             <!-- start single product item -->
                                             <li>
                                                 <figure>
-                                                    <a class="aa-product-img" href="/Product/Index?id=@prod.Id"><img src="@("https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_300,w_250/v1587872991/" + @prod.GetThubnailIds()[0] + ".jpg")" alt="" width="250px" height="300px"></a>
+                                                    <a class="aa-product-img" href="/Product/Index?id=@prod.Id"><img src="@("https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_300,w_250/v1587872991/" + @prod.GetThubnailIds()[0] + ".jpg")" alt="" style="display: unset"></a>
                                                     <a class="aa-add-card-btn" href="/ShoppingCart/AddToCart?productId=@prod.Id&quantity=1"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
                                                     <figcaption>
                                                         <h4 class="aa-product-title"><a href="/Product/Index?id=@prod.Id">@prod.Name</a></h4>
@@ -318,20 +318,19 @@
                                                 </div>
                                                 <!-- product badge -->
                                                 @{
-                                                    if (prod.Unit <= prod.SellIndex)
+                                                    if (@prod.Unit <= @prod.SellIndex)
                                                     {
                                                         <span class="aa-badge aa-sold-out">Sold Out!</span>
                                                     }
-                                                    else if (prod.isFeature <= 0 && prod.isNew > 0 && prod.Unit >= prod.SellIndex)
+                                                    else if (@prod.isFeature <= 0 && @prod.isNew > 0 && @prod.Unit >= @prod.SellIndex)
                                                     {
                                                         <span class="aa-badge aa-sale">NEW!</span>
                                                     }
-                                                    else if (prod.isFeature > 0 && prod.Unit >= prod.SellIndex)
+                                                    else if (@prod.isFeature > 0 && @prod.Unit >= @prod.SellIndex)
                                                     {
                                                         <span class="aa-badge aa-hot">HOT!</span>
                                                     }
                                                 }
-
                                             </li>
                                         }
                                     }
@@ -348,7 +347,7 @@
                                             <!-- start single product item -->
                                             <li>
                                                 <figure>
-                                                    <a class="aa-product-img" href="/Product/Index?id=@prod.Id"><img src="@("https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_300,w_250/v1587872991/" + @prod.GetThubnailIds()[0] + ".jpg")" alt="" width="250px" height="300px"></a>
+                                                    <a class="aa-product-img" href="/Product/Index?id=@prod.Id"><img src="@("https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_300,w_250/v1587872991/" + @prod.GetThubnailIds()[0] + ".jpg")" alt="" style="display: unset"></a>
                                                     <a class="aa-add-card-btn" href="/ShoppingCart/AddToCart?productId=@prod.Id&quantity=1"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
                                                     <figcaption>
                                                         <h4 class="aa-product-title"><a href="/Product/Index?id=@prod.Id">@prod.Name</a></h4>
@@ -401,7 +400,7 @@
                                             <!-- start single product item -->
                                             <li>
                                                 <figure>
-                                                    <a class="aa-product-img" href="/Product/Index?id=@prod.Id"><img src="@("https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_300,w_250/v1587872991/" + @prod.GetThubnailIds()[0] + ".jpg")" alt="" width="250px" height="300px"></a>
+                                                    <a class="aa-product-img" href="/Product/Index?id=@prod.Id"><img src="@("https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_300,w_250/v1587872991/" + @prod.GetThubnailIds()[0] + ".jpg")" alt="" style="display: unset"></a>
                                                     <a class="aa-add-card-btn" href="/ShoppingCart/AddToCart?productId=@prod.Id&quantity=1"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
                                                     <figcaption>
                                                         <h4 class="aa-product-title"><a href="/Product/Index?id=@prod.Id">@prod.Name</a></h4>
@@ -652,18 +651,18 @@
             parseInt(CateId);
             String(Image);
 
-            $("#quick-view-image").attr("data-lens-image", "https://res.cloudinary.com/daaycakkk/image/upload/c_limit/v1587872991/" + Thumbnail_2 + ".jpg");
+            $("#quick-view-image").attr("data-lens-image", "https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_1024,w_900/v1587872991/" + Thumbnail_2 + ".jpg");
             $("#quick-view-image img").attr("src", "https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_300,w_250/v1587872991/" + Thumbnail_2 + ".jpg");
 
-            $("#quick-view-thumbnail-1").attr("data-lens-image", "https://res.cloudinary.com/daaycakkk/image/upload/c_limit/v1587872991/" + Thumbnail_1 + ".jpg");
+            $("#quick-view-thumbnail-1").attr("data-lens-image", "https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_1024,w_900/v1587872991/" + Thumbnail_1 + ".jpg");
             $("#quick-view-thumbnail-1").attr("data-big-image", "https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_300,w_250/v1587872991/" + Thumbnail_1 + ".jpg");
             $("#quick-view-thumbnail-1 img").attr("src", "https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_55,w_45/v1587872991/" + Thumbnail_1 + ".jpg");
 
-            $("#quick-view-thumbnail-2").attr("data-lens-image", "https://res.cloudinary.com/daaycakkk/image/upload/c_limit/v1587872991/" + Thumbnail_3 + ".jpg");
+            $("#quick-view-thumbnail-2").attr("data-lens-image", "https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_1024,w_900/v1587872991/" + Thumbnail_3 + ".jpg");
             $("#quick-view-thumbnail-2").attr("data-big-image", "https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_300,w_250/v1587872991/" + Thumbnail_3 + ".jpg");
             $("#quick-view-thumbnail-2 img").attr("src", "https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_55,w_45/v1587872991/" + Thumbnail_3 + ".jpg");
 
-            $("#quick-view-thumbnail-3").attr("data-lens-image", "https://res.cloudinary.com/daaycakkk/image/upload/c_limit/v1587872991/" + Thumbnail_4 + ".jpg");
+            $("#quick-view-thumbnail-3").attr("data-lens-image", "https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_1024,w_900/v1587872991/" + Thumbnail_4 + ".jpg");
             $("#quick-view-thumbnail-3").attr("data-big-image", "https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_300,w_250/v1587872991/" + Thumbnail_4 + ".jpg");
             $("#quick-view-thumbnail-3 img").attr("src", "https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_55,w_45/v1587872991/" + Thumbnail_4 + ".jpg");
 

@@ -20,7 +20,7 @@ namespace FinalArtsShop.Models
         public int Active { get; set; }
         public FulfillmentStatusEnum FulfillmentStatus { get; set; }
         public PaymentStatusEnum PaymentStatus { get; set; }
-        public int? isReturnable;
+        public int? isReturnable { get; set; }
         [ForeignKey("City")]
         public int? CityId { get; set; }
         public virtual City City { get; set; }             
@@ -94,6 +94,6 @@ namespace FinalArtsShop.Models
         Returning = 4,
         Returned = 5,
         ReturnFailed = 6,
-        NeverReturn = 6
+        NeverReturn = 7
     }
 }

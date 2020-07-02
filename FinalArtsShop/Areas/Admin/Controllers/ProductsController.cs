@@ -188,39 +188,5 @@ namespace FinalArtsShop.Areas.Admin.Controllers
             }
             base.Dispose(disposing);
         }
-
-        //// POST: Products/Delete/5
-        //public JsonResult ProductsDeleteItemWithAjax(string id)
-        //{
-        //    Product product = db.Products.Find(id);
-        //    if (product != null && product.isActive != 0)
-        //    {
-        //        product.isActive = 0;
-        //    }    
-        //    db.Products.AddOrUpdate(product);
-        //    db.SaveChanges();
-        //    var products = db.Products.Include(p => p.Category).Where(p => p.isActive == 1);
-        //    var data = "";
-        //    foreach (var prod in products)
-        //    {
-        //        data += "<tr data-index='0'>" +
-        //                "< td class='bs-checkbox'>" +
-        //                "<input data-index='0' name='btSelectItem' type='checkbox'>" +
-        //                "</td>" + 
-        //                "<td style = ''>" + prod.Id + "</td>" +
-        //                "<td style=''>" + prod.Category.Name + "</td>" +
-        //                "<td style = ''>" + prod.Name + "</td>" +
-        //                "<td style=''>" + prod.Unit + "</td>" +
-        //                "<td style = ''>" + prod.UnitPrice + "</td>" +
-        //                "<td style = ''>" + prod.isActive + "</td>" +
-        //                "<td class='datatable-ct' style=''>" +
-        //                "<a class='glyphicon glyphicon-info-sign' href='/Admin/Products/Details/'" + prod.Id + "></a> | " +
-        //                "<a class='glyphicon glyphicon-edit' href='/Admin/Products/Edit/'" + prod.Id + "> </a> | " +
-        //                "<a class='glyphicon glyphicon-trash checkDel' data-id=" + prod.Id + "></a>" +
-        //                "</td>" +
-        //                "</tr>";
-        //    }
-        //    return Json(data, JsonRequestBehavior.AllowGet);
-        //}
     }
 }

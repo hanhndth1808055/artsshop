@@ -63,7 +63,7 @@ namespace FinalArtsShop.Migrations
             //context.Database.ExecuteSqlCommand("TRUNCATE TABLE dbo.AspNetUserRoles");
             //context.Database.ExecuteSqlCommand("TRUNCATE TABLE dbo.AspNetRoles");
             //context.Database.ExecuteSqlCommand("TRUNCATE TABLE dbo.AspNetUsers");
-            context.Database.ExecuteSqlCommand("TRUNCATE TABLE Products");
+            //context.Database.ExecuteSqlCommand("TRUNCATE TABLE Products");
 
         }
 

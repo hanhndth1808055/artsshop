@@ -25,7 +25,8 @@ namespace FinalArtsShop.Controllers
         {
             var userManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
             ApplicationUser user = userManager.FindByNameAsync(User.Identity.Name).Result;
-            ViewCheckoutClient viewCheckoutClient = new ViewCheckoutClient() {
+            ViewCheckoutClient viewCheckoutClient = new ViewCheckoutClient()
+            {
                 User = user,
                 Cities = HttpContext.GetOwinContext().Get<ApplicationDbContext>().Cities.ToList(),
                 Districts = HttpContext.GetOwinContext().Get<ApplicationDbContext>().Districts.ToList(),
@@ -36,14 +37,6 @@ namespace FinalArtsShop.Controllers
 
         public ActionResult PlaceOrder(string email, string phoneNumber, int city, int district, string address, int deliveryType, string note, int optionsRadios)
         {
-            // Debug.WriteLine("abc" + email);
-            // Debug.WriteLine("abc" + phoneNumber);
-            // Debug.WriteLine("abc" + city);
-            // Debug.WriteLine("abc" + district);
-            // Debug.WriteLine("abc" + deliveryType);
-            // Debug.WriteLine("abc" + note);
-            // Debug.WriteLine("abc" + optionsRadios);
-
             if (Session["ShoppingCartName"] != null)
             {
 
@@ -125,11 +118,13 @@ namespace FinalArtsShop.Controllers
                 if (optionsRadios == 1)
                 {
                     return paypalPayment(order);
-                } else if (optionsRadios == 2)
+                }
+                else if (optionsRadios == 2)
                 {
                     Session["ShoppingCartName"] = new ShoppingCart();
                     return VppPayment(order);
-                } else if (optionsRadios == 3)
+                }
+                else if (optionsRadios == 3)
                 {
                     Session["ShoppingCartName"] = new ShoppingCart();
                     return ChequePayment(order);
@@ -195,7 +190,7 @@ namespace FinalArtsShop.Controllers
 
             var now = new DateTime();
 
-            var timeDiff = now.Subtract( (DateTime) order.ShippedAt).TotalDays;
+            var timeDiff = now.Subtract((DateTime)order.ShippedAt).TotalDays;
 
             if (order != null && timeDiff > 7)
             {
@@ -231,6 +226,27 @@ namespace FinalArtsShop.Controllers
             ViewBag.Message = HttpContext.GetOwinContext().Get<ApplicationDbContext>().Orders.Find(ViewBag.OrderId);
             return View("~/Views/Checkout/Confirm.cshtml");
         }
-    }
 
+        public JsonResult getDistrictWithAjax(int idCity)
+        {
+            var data = "";
+            if (idCity > 0)
+            {
+                var districts = HttpContext.GetOwinContext().Get<ApplicationDbContext>().Districts
+                    .Where(d => d.CityId == idCity)
+                    .Where(d => d.Active == 1)
+                    .ToList();
+
+                if (districts.Count() > 0)
+                {
+                    data += "<option selected value='0'>Select Your District</option>";
+                    foreach (var district in districts)
+                    {
+                        data += "<option data-num=" + district.ShippingFee + " value=" + district.Id + ">" + district.Name + "</option>";
+                    }
+                }
+            }
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+    }
 }

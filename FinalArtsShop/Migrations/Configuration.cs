@@ -21,9 +21,9 @@
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
             //  to avoid creating duplicate seed data.
 
-            SeedingCategories(context);
-            SeedingProduct(context);
-            SeedingCouters(context);
+            //SeedingCategories(context);
+            //SeedingProduct(context);
+            //SeedingCouters(context);
         }
 
         private void Truncate(FinalArtsShop.Models.ApplicationDbContext context)
@@ -34,7 +34,7 @@
             //context.Database.ExecuteSqlCommand("TRUNCATE TABLE dbo.AspNetUserRoles");
             //context.Database.ExecuteSqlCommand("TRUNCATE TABLE dbo.AspNetRoles");
             //context.Database.ExecuteSqlCommand("TRUNCATE TABLE dbo.AspNetUsers");
-            context.Database.ExecuteSqlCommand("TRUNCATE TABLE Products");
+            //context.Database.ExecuteSqlCommand("TRUNCATE TABLE Products");
 
         }
 

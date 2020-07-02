@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using System.Diagnostics;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace FinalArtsShop.Migrations
@@ -32,6 +33,7 @@ namespace FinalArtsShop.Migrations
 
         private void SeedingUsers(ApplicationDbContext context)
         {
+           
             if (!context.Roles.Any(r => r.Name == "Admin"))
             {
                 var store = new RoleStore<ApplicationRole>(context);
@@ -40,7 +42,7 @@ namespace FinalArtsShop.Migrations
                 manager.Create(role);
             }
             
-            if (!context.Users.Any(u => u.UserName == "newsfeedvn"))
+            if (!context.Users.Any(u => u.UserName == "artsshop"))
             {
                 var store = new UserStore<ApplicationUser>(context);
                 var manager = new UserManager<ApplicationUser>(store);

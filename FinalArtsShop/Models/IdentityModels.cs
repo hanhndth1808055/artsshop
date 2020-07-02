@@ -76,6 +76,7 @@ namespace FinalArtsShop.Models
         public System.Data.Entity.DbSet<FinalArtsShop.Models.Product> Products { get; set; }
         public System.Data.Entity.DbSet<FinalArtsShop.Models.Slide> Slides { get; set; }
         public System.Data.Entity.DbSet<FinalArtsShop.Models.OrderItem> OrderItems { get; set; }
+        public System.Data.Entity.DbSet<FinalArtsShop.Models.ChequeInfo> ChequeInfos { get; set; }
         public override int SaveChanges()
         {
             AddTimestamps();

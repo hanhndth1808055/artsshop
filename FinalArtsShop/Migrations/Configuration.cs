@@ -1,4 +1,7 @@
-﻿namespace FinalArtsShop.Migrations
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+
+namespace FinalArtsShop.Migrations
 {
     using FinalArtsShop.Models;
     using System;
@@ -21,9 +24,35 @@
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
             //  to avoid creating duplicate seed data.
 
-            //SeedingCategories(context);
-            //SeedingProduct(context);
-            //SeedingCouters(context);
+            SeedingCategories(context);
+            SeedingProduct(context);
+            SeedingCouters(context);
+            SeedingUsers(context);
+        }
+
+        private void SeedingUsers(ApplicationDbContext context)
+        {
+            if (!context.Roles.Any(r => r.Name == "Admin"))
+            {
+                var store = new RoleStore<ApplicationRole>(context);
+                var manager = new RoleManager<ApplicationRole>(store);
+                var role = new ApplicationRole {Name = "Admin"};
+                manager.Create(role);
+            }
+            
+            if (!context.Users.Any(u => u.UserName == "newsfeedvn"))
+            {
+                var store = new UserStore<ApplicationUser>(context);
+                var manager = new UserManager<ApplicationUser>(store);
+                var user = new ApplicationUser
+                {
+                    UserName = "artsshop",
+                    Email = "artsshop@yopmail.com"
+                };
+            
+                manager.Create(user, "Abc123@");
+                manager.AddToRole(user.Id, "Admin");
+            }
         }
 
         private void Truncate(FinalArtsShop.Models.ApplicationDbContext context)

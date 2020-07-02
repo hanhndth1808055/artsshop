@@ -949,7 +949,7 @@
     <Content Include="Views\Checkout\PaypalSuccess.cshtml" />
     <Content Include="Views\Checkout\confirmVpp.cshtml" />
     <Content Include="Views\Checkout\ConfirmCheque.cshtml" />
-    <Content Include="Views\Account\MyOrder.cshtml" />
+    <Content Include="Views\Checkout\ChequeFinish.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

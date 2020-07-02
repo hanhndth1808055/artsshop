@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 
@@ -49,6 +50,7 @@ namespace FinalArtsShop.Models
             if (this.ShippedAt == null)
             {
                 this.isReturnable = 1;
+                Debug.WriteLine("abc");
                 return;
             }
 
@@ -57,11 +59,13 @@ namespace FinalArtsShop.Models
             if (timeDiff > 7)
             {
                 this.isReturnable = 0;
+                Debug.WriteLine("abc1");
                 return;
             }
             else
             {
                 this.isReturnable = 1;
+                Debug.WriteLine("abc2");
                 return;
             }
         }

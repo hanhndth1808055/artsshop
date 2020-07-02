@@ -1,6 +1,7 @@
 ﻿using FinalArtsShop.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -16,7 +17,37 @@ namespace FinalArtsShop.Areas.Admin.Controllers
         // GET: Admin/Orders
         public ActionResult Index()
         {
+            ViewBag.PaymentStatusList = Enum.GetValues(typeof(PaymentStatusEnum)).Cast<PaymentStatusEnum>().ToList();
+            ViewBag.FulfillmentStatusList = Enum.GetValues(typeof(FulfillmentStatusEnum)).Cast<FulfillmentStatusEnum>().ToList();
             return View(db.Orders.OrderByDescending(order => order.Id).ToList());
+        }
+
+        public JsonResult UpdatePaymentStatus(int paymentStatusVal, string idOrder)
+        {
+            var data = "";
+            Order order = db.Orders.Find(idOrder);
+            order.PaymentStatus = (PaymentStatusEnum)Enum.GetValues(typeof(PaymentStatusEnum)).GetValue(paymentStatusVal);
+            db.SaveChanges();
+            //var updateSelected = "";
+            //foreach(var status in Enum.GetValues(typeof(PaymentStatusEnum)).Cast<PaymentStatusEnum>().ToList())
+            //{
+            //    if ((Int32)status == paymentStatusVal)
+            //    {
+            //        updateSelected = "selected";
+            //    }
+            //    data += "<option " + updateSelected + " value ='"+ (Int32)status +"'>" + status + "</option>";
+            //    updateSelected = "";
+            //}
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult UpdateFullfillmentStatus(int fullfillmentStatusVal, string idOrder)
+        {
+            var data = "";
+            Order order = db.Orders.Find(idOrder);
+            order.FulfillmentStatus = (FulfillmentStatusEnum)Enum.GetValues(typeof(FulfillmentStatusEnum)).GetValue(fullfillmentStatusVal);
+            db.SaveChanges();
+            return Json(data, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult Create()
@@ -39,7 +70,6 @@ namespace FinalArtsShop.Areas.Admin.Controllers
                     return HttpNotFound();
                 }
                 OrderItem orderItem;
-                Order order;
                 foreach (CartItem item in items.Values)
                 {
                     orderItem = new OrderItem
@@ -51,10 +81,6 @@ namespace FinalArtsShop.Areas.Admin.Controllers
                         ProductId = item.ProductId,
                     };
                 }
-                order = new Order()
-                {
-
-                };
                 return RedirectToAction("");
             }
 

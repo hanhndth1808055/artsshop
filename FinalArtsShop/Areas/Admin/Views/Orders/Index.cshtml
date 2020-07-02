@@ -24,7 +24,7 @@
                 <div class="sparkline13-list">
                     <div class="sparkline13-hd">
                         <div class="main-sparkline13-hd">
-                            <h1>Categories</h1>
+                            <h1>Orders</h1>
                             <p>
                                 @Html.ActionLink("Create New", "Create")
                             </p>
@@ -45,13 +45,13 @@
                                 <thead>
                                     <tr>
                                         <th data-field="state" data-checkbox="true"></th>
-                                        <th data-field="id">ID</th>
-                                        <th data-field="parent">Customer</th>
-                                        <th data-field="name" data-editable="true">Email</th>
-                                        <th data-field="abbreviation">Phone</th>
-                                        <th data-field="description">Total Price</th>
-                                        <th data-field="active">PaymentStatus</th>
-                                        <th data-field="action">FulfillmentStatus</th>
+                                        <th data-field="Id">ID</th>
+                                        <th data-field="CustomerName">Customer Name</th>
+                                        <th data-field="CustomerPhone">Customer Phone</th>
+                                        <th data-field="TotalPrice">Total Price</th>
+                                        <th data-field="PaymentStatus">Payment Status</th>
+                                        <th data-field="FulfillmentStatus">Fulfillment Status</th>
+                                        <th>View Details</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -63,25 +63,38 @@
                                             @Html.DisplayFor(modelItem => item.Id)
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.ApplicationUser.FirstName)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.CustomerEmail)
+                                            @Html.DisplayFor(modelItem => item.CustomerName)
                                         </td>
                                         <td>
                                             @Html.DisplayFor(modelItem => item.CustomerPhoneNumber)
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.TotalPrice)
+                                            $@Html.DisplayFor(modelItem => item.TotalPrice)
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.PaymentStatus)
+                                            <select class="form-control form-control-sm" id="PaymentStatus" data-id="@item.Id">
+                                                @foreach (var payment in ViewBag.PaymentStatusList)
+                                                {
+                                                    <option @if ((FinalArtsShop.Models.PaymentStatusEnum)payment == item.PaymentStatus) { @( "selected") }
+                                                            value="@( (Int32)payment)">
+                                                        @payment
+                                                    </option>
+                                                }
+                                            </select>
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.FulfillmentStatus)
+                                            <select class="form-control form-control-sm" id="FulfillmentStatus" data-id="@item.Id">
+                                                @foreach (var payment in ViewBag.FulfillmentStatusList)
+                                                {
+                                                    <option @if ((FinalArtsShop.Models.FulfillmentStatusEnum)payment == item.FulfillmentStatus) { @("selected") }
+                                                            value="@( (Int32)payment)">
+                                                        @payment
+                                                    </option>
+                                                }
+                                            </select>
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.ShippedAt)
+                                            <a style="color: white" href="#" class="btn btn-primary">View Detail</a>
                                         </td>
                                         @* <td class="datatable-ct"> *@
                                         @*     @Html.ActionLink(" ", "Details", new { Id = item.Id }, new { @class = "glyphicon glyphicon-info-sign" }) | *@
@@ -129,27 +142,7 @@
     <!-- tab JS
     ============================================ -->
     <script src="~/kiaalap-master/js/tab.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function() {
-            var idArray = [];
-
-            $("#deleteAll").click(function() {
-                var myRows = document.querySelectorAll("tr.selected");
-                myRows.forEach(myFunction);
-                if (confirm('Are you sure ?')) {
-                    $.ajax({
-                        type: "POST",
-                        url: '@Url.Action("DeleteArrayConfirmed", "Orders")',
-                        traditional: true,
-                        data: { 'idArray': idArray }
-                    });
-                    $(myRows).remove();
-                };
-            });
-
-            function myFunction(v, i, a) {
-                idArray.push(v.firstChild.nextSibling.nextSibling.nextSibling.innerText);
-            };
-        });
-    </script>
+    <!-- AJAX call for 
+    ============================================ -->
+    <script src="~/Scripts/AjaxCallForOrder.js"></script>
 }

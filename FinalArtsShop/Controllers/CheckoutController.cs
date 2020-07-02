@@ -127,9 +127,11 @@ namespace FinalArtsShop.Controllers
                     return paypalPayment(order);
                 } else if (optionsRadios == 2)
                 {
+                    Session["ShoppingCartName"] = new ShoppingCart();
                     return VppPayment(order);
                 } else if (optionsRadios == 3)
                 {
+                    Session["ShoppingCartName"] = new ShoppingCart();
                     return ChequePayment(order);
                 }
 
@@ -144,6 +146,8 @@ namespace FinalArtsShop.Controllers
         private ActionResult ChequePayment(Order order)
         {
             ViewBag.Message = order;
+            ViewBag.OrderId = new SelectList(HttpContext.GetOwinContext().Get<ApplicationDbContext>().Orders.Where(o=>o.Id == order.Id), "Id", "CreatedAt");
+
             return View("~/Views/Checkout/ConfirmCheque.cshtml");
         }
 
@@ -208,10 +212,24 @@ namespace FinalArtsShop.Controllers
 
         }
 
-        public ActionResult ChequeStore()
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ChequeStore([Bind(Include = "Id,OrderId,Name,Address,City,State, ZipCode, Payer, ChequeCode, Amount, AmountByWord, BankName, Receiver, Image,CreatedAt,UpdatedAt")] ChequeInfo chequeInfo)
         {
+            var orderId = chequeInfo.OrderId;
 
-            return HttpNotFound();
+            if (ModelState.IsValid)
+            {
+                HttpContext.GetOwinContext().Get<ApplicationDbContext>().ChequeInfos.Add(chequeInfo);
+                HttpContext.GetOwinContext().Get<ApplicationDbContext>().SaveChanges();
+                ViewBag.Message = HttpContext.GetOwinContext().Get<ApplicationDbContext>().Orders.Find(orderId);
+                return View("ChequeFinish");
+            }
+
+            Debug.WriteLine(orderId);
+            ViewBag.OrderId = new SelectList(HttpContext.GetOwinContext().Get<ApplicationDbContext>().Orders.Where(o => o.Id == orderId), "Id", "CreatedAt");
+            ViewBag.Message = HttpContext.GetOwinContext().Get<ApplicationDbContext>().Orders.Find(ViewBag.OrderId);
+            return View("~/Views/Checkout/Confirm.cshtml");
         }
     }
 

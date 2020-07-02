@@ -773,17 +773,6 @@
     <Content Include="Scripts\AjaxCallForOrder.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="MarkUps-dailyShop\dailyShop\.sass-cache\3fcd99d0c8b91f50f06b0715ce73ad297a6fc258\_base.scssc" />
-    <Content Include="MarkUps-dailyShop\dailyShop\.sass-cache\3fcd99d0c8b91f50f06b0715ce73ad297a6fc258\_mixins.scssc" />
-    <Content Include="MarkUps-dailyShop\dailyShop\.sass-cache\3fcd99d0c8b91f50f06b0715ce73ad297a6fc258\_variables.scssc" />
-    <Content Include="MarkUps-dailyShop\dailyShop\.sass-cache\58d96aa2f3ca6831ea65d734678a63e337572170\style.scssc" />
-    <Content Include="MarkUps-dailyShop\dailyShop\.sass-cache\8d96c3a14a0bb8e118b2f4f0ff234b926fa1678e\_buttons.scssc" />
-    <Content Include="MarkUps-dailyShop\dailyShop\.sass-cache\8d96c3a14a0bb8e118b2f4f0ff234b926fa1678e\_responsive.scssc" />
-    <Content Include="MarkUps-dailyShop\dailyShop\.sass-cache\8d96c3a14a0bb8e118b2f4f0ff234b926fa1678e\_sections.scssc" />
-    <Content Include="MarkUps-dailyShop\dailyShop\.sass-cache\8d96c3a14a0bb8e118b2f4f0ff234b926fa1678e\_typography.scssc" />
-    <Content Include="MarkUps-dailyShop\dailyShop\.sass-cache\ef29edb4d21face4cdada241cd6b836dafbe5b2a\_footer.scssc" />
-    <Content Include="MarkUps-dailyShop\dailyShop\.sass-cache\ef29edb4d21face4cdada241cd6b836dafbe5b2a\_header.scssc" />
-    <Content Include="MarkUps-dailyShop\dailyShop\.sass-cache\ef29edb4d21face4cdada241cd6b836dafbe5b2a\_nav.scssc" />
     <Content Include="MarkUps-dailyShop\dailyShop\fonts\fontawesome-webfont.eot" />
     <Content Include="MarkUps-dailyShop\dailyShop\fonts\fontawesome-webfont.ttf" />
     <Content Include="MarkUps-dailyShop\dailyShop\fonts\fontawesome-webfont.woff" />

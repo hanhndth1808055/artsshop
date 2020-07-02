@@ -207,6 +207,12 @@ namespace FinalArtsShop.Controllers
             }
 
         }
+
+        public ActionResult ChequeStore()
+        {
+
+            return HttpNotFound();
+        }
     }
 
 }

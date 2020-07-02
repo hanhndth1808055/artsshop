@@ -253,9 +253,14 @@
     <Compile Include="Migrations\202006301230405_UpdateDB1.Designer.cs">
       <DependentUpon>202006301230405_UpdateDB1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202006301403327_AddChequeInfo.cs" />
+    <Compile Include="Migrations\202006301403327_AddChequeInfo.Designer.cs">
+      <DependentUpon>202006301403327_AddChequeInfo.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BaseEntity.cs" />
+    <Compile Include="Models\ChequeInfo.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\City.cs" />
     <Compile Include="Models\Comment.cs" />
@@ -1010,6 +1015,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202006301230405_UpdateDB1.resx">
       <DependentUpon>202006301230405_UpdateDB1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006301403327_AddChequeInfo.resx">
+      <DependentUpon>202006301403327_AddChequeInfo.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

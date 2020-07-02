@@ -218,7 +218,7 @@ namespace FinalArtsShop.Controllers
                     data += "<option selected value='0'>Select Your District</option>";
                     foreach (var district in districts)
                     {
-                        data += "<option data-num=" + district.ShippingFee + "value=" + district.Id + ">" + district.Name + "</option>";
+                        data += "<option data-num=" + district.ShippingFee + " value=" + district.Id + ">" + district.Name + "</option>";
                     }
                 }
             }

@@ -229,7 +229,7 @@ namespace FinalArtsShop.Controllers
             }
             return Json(data, JsonRequestBehavior.AllowGet);
 
-        public ActionResult ChequeStore()
+         public ActionResult ChequeStore()
         {
 
             return HttpNotFound();

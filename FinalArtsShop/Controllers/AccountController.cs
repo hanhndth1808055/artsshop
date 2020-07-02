@@ -423,6 +423,14 @@ namespace FinalArtsShop.Controllers
             base.Dispose(disposing);
         }
 
+        public ActionResult MyOrder()
+        {
+            var userManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            ApplicationUser user = userManager.FindByNameAsync(User.Identity.Name).Result;
+            var userOrder = HttpContext.GetOwinContext().Get<ApplicationDbContext>().Orders.Where(o => o.UserId == user.Id).ToList();
+            return View(userOrder);
+        }
+
         #region Helpers
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";

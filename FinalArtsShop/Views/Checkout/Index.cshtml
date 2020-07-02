@@ -114,7 +114,7 @@
                                                     <div class="row">
                                                         <div class="col-md-6">
                                                             <div class="aa-checkout-single-bill">
-                                                                <select name="city">
+                                                                <select id="city" name="city">
                                                                     <option value="0">Select Your City</option>
                                                                     @foreach (var item in Model.Cities)
                                                                     {
@@ -126,11 +126,11 @@
                                                         </div>
                                                         <div class="col-md-6">
                                                             <div class="aa-checkout-single-bill">
-                                                                <select name="district">
+                                                                <select id="district" name="district">
                                                                     <option value="0">Select Your District</option>
                                                                     @foreach (var item in Model.Districts)
                                                                     {
-                                                                        <option value="@item.Id">@item.Name</option>
+                                                                        <option data-num="@item.ShippingFee" value="@item.Id">@item.Name</option>
 
                                                                     }
                                                                 </select>
@@ -140,11 +140,11 @@
                                                     <div class="row">
                                                         <div class="col-md-6">
                                                             <div class="aa-checkout-single-bill">
-                                                                <select name="deliveryType">
+                                                                <select id="deliveryType" name="deliveryType">
                                                                     <option value="0">Select Type Delivery</option>
                                                                     @foreach (var item in Model.DeliveryTypes)
                                                                     {
-                                                                        <option value="@item.Id">@item.Name</option>
+                                                                        <option data-num="@item.Factor" value="@item.Id">@item.Name</option>
 
                                                                     }
                                                                 </select>
@@ -183,7 +183,6 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-
                                                 @foreach (var item in shoppingCart.Items)
                                                 {
                                                     <tr>
@@ -195,17 +194,25 @@
                                             </tbody>
                                             <tfoot>
                                                 <tr>
-                                                    <th>Total</th>
-                                                    <td>$ @shoppingCart.TotalPrice</td>
+                                                    <th>Subtotal</th>
+                                                    <td>
+                                                        <span id="subtotal">$ @shoppingCart.TotalPrice</span>
+                                                        <input type="hidden" value="@shoppingCart.TotalPrice" id="inputSubTotal">
+                                                    </td>
                                                 </tr>
-                                                @* <tr> *@
-                                                @*     <th>Tax</th> *@
-                                                @*     <td>$35</td> *@
-                                                @* </tr> *@
-                                                @* <tr> *@
-                                                @*     <th>Total</th> *@
-                                                @*     <td>$785</td> *@
-                                                @* </tr> *@
+                                                <tr>
+                                                    <th>Shipping fee</th>
+                                                    <td>
+                                                        <span id="shippingfee">$ 0</span>
+
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Total</th>
+                                                    <td>
+                                                        <span id="total">$ 0</span>
+                                                    </td>
+                                                </tr>
                                             </tfoot>
                                         </table>
                                     </div>
@@ -216,7 +223,6 @@
                                         <img src="https://www.paypalobjects.com/webstatic/mktg/logo/AM_mc_vs_dc_ae.jpg" border="0" alt="PayPal Acceptance Mark">
                                         <label for="check"><input type="radio" id="check" name="optionsRadios" checked value="3"> Cheque </label>
                                         <label for="dd"><input type="radio" id="dd" name="optionsRadios" checked value="3"> Direct Deposit </label>
-
                                         <input type="submit" value="Place Order" class="aa-browse-btn">
                                     </div>
                                 </div>
@@ -228,4 +234,7 @@
         </div>
     </div>
 </section>
-<!-- / Cart view section -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- AJAX call
+   ============================================ -->
+<script src="~/Scripts/ShippingFeeAjax.js"></script>

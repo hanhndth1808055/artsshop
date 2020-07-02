@@ -18,7 +18,7 @@
             $('#district').val(0);
             $('#district').html('<option selected value="0">Select Your District</option>');
             $('#shippingfee').val(0);
-            $('#shippingfee').html(0 + '$');
+            $('#shippingfee').html('$ ' + 0);
         };
         var _token = $('input[name="_token"]').val();
         $.ajax({
@@ -47,8 +47,8 @@ function counting(x) {
     if (isNaN(x) == false) {
         var z = x + y;
         $('#shippingfee').val(x);
-        $('#shippingfee').html(x + '$');
+        $('#shippingfee').html('$ ' + x);
         $('#total').val(z);
-        $('#total').html(z + '$');
+        $('#total').html('$ ' + z );
     }
 }

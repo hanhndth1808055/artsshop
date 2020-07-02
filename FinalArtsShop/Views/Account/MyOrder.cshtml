@@ -1,0 +1,67 @@
+﻿@model IEnumerable<FinalArtsShop.Models.Order>
+@{
+    Layout = "~/Views/Home/Layout/_Layout.cshtml";
+
+}
+<section id="checkout">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="checkout-area">
+                    <div class="row">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-10">
+                            <div class="checkout-left">
+                                <div class="panel-group" id="accordion">
+                                    <div class="panel panel-default aa-checkout-login">
+                                        <div class="panel-heading">
+                                            <h4 class="panel-title">
+                                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                                                    History Order
+                                                </a>
+                                            </h4>
+                                        </div>
+                                        <div id="collapseTwo" class="panel-collapse collapse in">
+                                            <div class="panel-body">
+                                                <table class="table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Order Number</th>
+                                                            <th>Name</th>
+                                                            <th>Address</th>
+                                                            <th>Total</th>
+                                                            <th>See Detail</th>
+                                                            <th>Back Order</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach (var order in Model)
+                                                        {
+                                                            <tr>
+                                                                <td>@order.Id</td>
+                                                                <td>@order.CustomerName</td>
+                                                                <td>
+                                                                    @order.City.Name, @order.District.Name,  @order.Address
+                                                                </td>
+                                                                <td>$@order.TotalPrice</td>
+                                                                <td><a id="BackOrder" href="#" class="btn btn btn-warning">See Detail</a></td>
+                                                                <td><a id="BackOrder" href="#" class="btn btn btn-warning">Back Order</a></td>
+                                                            </tr>
+                                                          }
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+</script>
+

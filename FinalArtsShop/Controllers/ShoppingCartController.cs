@@ -168,5 +168,7 @@ namespace FinalArtsShop.Controllers
             };
             return View("ShowCart", viewShoppingCart);
         }
+
+       
     }
 }

@@ -242,21 +242,21 @@ jQuery(function($){
        var skipSlider = document.getElementById('skipstep');
         noUiSlider.create(skipSlider, {
             range: {
-                'min': 0,
-                '10%': 10,
-                '20%': 20,
-                '30%': 30,
-                '40%': 40,
-                '50%': 50,
-                '60%': 60,
-                '70%': 70,
-                '80%': 80,
-                '90%': 90,
-                'max': 100
+                'min': 1,
+                '10%': 5,
+                '20%': 10,
+                '30%': 15,
+                '40%': 20,
+                '50%': 25,
+                '60%': 30,
+                '70%': 35,
+                '80%': 40,
+                '90%': 45,
+                'max': 50
             },
             snap: true,
             connect: true,
-            start: [20, 70]
+            start: [1, 10]
         });
         // for value print
         var skipValues = [

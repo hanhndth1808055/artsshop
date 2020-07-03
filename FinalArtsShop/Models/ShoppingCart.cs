@@ -38,7 +38,7 @@ namespace FinalArtsShop.Models
                 Price = (product.PromotionPrice == null || product.PromotionPrice == 0) ? product.UnitPrice : product.PromotionPrice,
                 Name = product.Name,
                 Quantity = quantity,
-                Thumbnail = product.Thumbnail
+                Thumbnail = product.GetThubnailIds()[0]
             };
 
             var existKey = Items.ContainsKey(product.Id);

@@ -6,22 +6,6 @@
     int index = 1;
 }
 
-
-<!-- catg header banner section -->
-<section id="aa-catg-head-banner">
-    <img src="img/fashion/fashion-header-bg-8.jpg" alt="fashion img">
-    <div class="aa-catg-head-banner-area">
-        <div class="container">
-            <div class="aa-catg-head-banner-content">
-                <h2>Cart Page</h2>
-                <ol class="breadcrumb">
-                    <li><a href="index.html">Home</a></li>
-                    <li class="active">Cart</li>
-                </ol>
-            </div>
-        </div>
-    </div>
-</section>
 <!-- / catg header banner section -->
 <!-- Cart view section -->
 <section id="cart-view">
@@ -43,17 +27,17 @@
                                             <th>Total</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody id="bodyCon">
                                         @{
                                             foreach (var item in Model.shoppingCart.Items.Values)
                                             {
                                                 <tr>
-                                                    <td><a class="remove" href="/ShoppingCart/RemoveCartItem?productId=@item.ProductId"><fa class="fa fa-close"></fa></a></td>
+                                                    <td><a data-id="@item.ProductId" class="removeItem"><fa class="fa fa-close"></fa></a></td>
                                                     <td><a href="#"><img src="@("https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_300,w_250/v1587872991/" + item.Thumbnail + ".jpg")" alt="img"></a></td>
                                                     <td><a class="aa-cart-title" href="#">@item.Name</a></td>
                                                     <td>$@item.Price</td>
-                                                    <td><input class="aa-cart-quantity" type="number" value="@item.Quantity"></td>
-                                                    <td>$@item.TotalItemPrice</td>
+                                                    <td><input data-id="@item.ProductId" min="1" class="aa-cart-quantity" type="number" value="@item.Quantity"></td>
+                                                    <td id=@("ItemPrice" + item.ProductId)>$@item.TotalItemPrice</td>
                                                 </tr>
                                             }
                                         }
@@ -68,11 +52,11 @@
                                 <tbody>
                                     <tr>
                                         <th>Total</th>
-                                        <td>$@Model.shoppingCart.TotalPrice</td>
+                                        <td id="TotalPrice">$@Model.shoppingCart.TotalPrice</td>
                                     </tr>
                                 </tbody>
                             </table>
-                            <a href="#" class="aa-cart-view-btn">Proced to Checkout</a>
+                            <a href="/Checkout/Index" class="aa-cart-view-btn">Proced to Checkout</a>
                         </div>
                     </div>
                 </div>
@@ -80,54 +64,14 @@
         </div>
     </div>
 </section>
-<!-- / Cart view section -->
-
-
-@*<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Back To Home", "Home", "Home")
-</p>
-<table class="table">
-    <tr>
-        <th>No.</th>
-        <th>
-            Name
-        </th>
-        <th>
-            Thumbnail
-        </th>
-        <th>
-            Price
-        </th>
-        <th>Quantity</th>
-        <th>Item Total</th>
-        <th>Description</th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model.shoppingCart.Items.Values)
-    {
-        <tr>
-            <td>@index</td>
-            <td>@item.Name</td>
-            <td><img src="@item.Thumbnail" style="width: 150px" /> </td>
-            <td>@item.Price </td>
-            <td>
-                <span>
-                    @Html.ActionLink(" ", "RemoveOneItem", new { productId = item.ProductId }, new { @class = "glyphicon glyphicon-triangle-left" }) |
-                </span> @item.Quantity <span>
-                    | @Html.ActionLink(" ", "AddToCart", new { productId = item.ProductId, quantity = 1 }, new { @class = "glyphicon glyphicon-triangle-right" })
-                </span>
-            </td>
-            <td>@item.TotalItemPrice</td>
-            <td>@item.Name</td>
-            <td>
-                @Html.ActionLink(" ", "RemoveCartItem", new { productId = item.ProductId }, new { @class = "glyphicon glyphicon-trash" })
-            </td>
-        </tr>
-        index++;
+<style>
+    .removeItem{
+        cursor: pointer !important;
     }
-</table>
-<strong>Total Price: @Model.shoppingCart.TotalPrice (VND)</strong>
-@Html.ActionLink("Clear Cart", "ClearShoppingCart")*@
+</style>
+<!-- / Cart view section -->
+@section scripts{
+    <!-- SWEET ALERT -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+    <script src="~/Scripts/CartWithAjax.js"></script>s
+}

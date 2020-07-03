@@ -25,10 +25,10 @@ namespace FinalArtsShop.Migrations
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
             //  to avoid creating duplicate seed data.
 
-            SeedingCategories(context);
-            SeedingProduct(context);
-            SeedingCouters(context);
-            SeedingUsers(context);
+            //SeedingCategories(context);
+            //SeedingProduct(context);
+            //SeedingCouters(context);
+            //SeedingUsers(context);
         }
 
         private void SeedingUsers(ApplicationDbContext context)

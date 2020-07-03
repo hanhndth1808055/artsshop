@@ -13,6 +13,8 @@ namespace FinalArtsShop.Models
 
         public double TotalPrice => Items.Values.Sum(i => i.TotalItemPrice);
 
+        public int TotalItem => Items.Values.Sum(i => i.Quantity);
+
         public ShoppingCart()
         {
             Items = new Dictionary<string, CartItem>();
@@ -35,10 +37,10 @@ namespace FinalArtsShop.Models
             {
                 ProductId = product.Id,
                 Product = product,
-                Price = (product.PromotionPrice == null || product.PromotionPrice == 0) ? product.UnitPrice : product.PromotionPrice,
+                Price = (product.PromotionPrice == 0) ? product.UnitPrice : product.PromotionPrice,
                 Name = product.Name,
                 Quantity = quantity,
-                Thumbnail = product.Thumbnail
+                Thumbnail = product.GetThubnailIds()[0]
             };
 
             var existKey = Items.ContainsKey(product.Id);

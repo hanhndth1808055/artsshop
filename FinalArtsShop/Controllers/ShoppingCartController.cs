@@ -52,7 +52,8 @@ namespace FinalArtsShop.Controllers
                 LatestProducts = getLastestProduct()
             };
             ViewBag.Message = viewHomeClient;
-            ViewShoppingCart viewShoppingCart = new ViewShoppingCart() {
+            ViewShoppingCart viewShoppingCart = new ViewShoppingCart()
+            {
                 shoppingCart = GetShoppingCart()
             };
 
@@ -73,7 +74,7 @@ namespace FinalArtsShop.Controllers
         }
         public ShoppingCart GetShoppingCart()
         {
-            ShoppingCart shoppingCart = null;
+            ShoppingCart shoppingCart = new ShoppingCart();
             if (Session[ShoppingCartName] != null)
             {
                 try
@@ -85,12 +86,6 @@ namespace FinalArtsShop.Controllers
                     Console.WriteLine(e);
                 }
             }
-
-            if (shoppingCart == null)
-            {
-                shoppingCart = new ShoppingCart();
-            }
-
             return shoppingCart;
         }
 
@@ -110,7 +105,6 @@ namespace FinalArtsShop.Controllers
 
             return RedirectToAction("ShowCart");
         }
-
         private void SetShoppingCart(ShoppingCart shoppingCart)
         {
             Session[ShoppingCartName] = shoppingCart;
@@ -169,6 +163,97 @@ namespace FinalArtsShop.Controllers
             return View("ShowCart", viewShoppingCart);
         }
 
-       
+        public JsonResult AddToCartWithAjax(string productId, int quantity)
+        {
+            var existingProduct = HttpContext.GetOwinContext().Get<ApplicationDbContext>().Products.FirstOrDefault(p => p.Id == productId);
+            var data = "";
+            if (existingProduct != null)
+            {
+                ShoppingCart shoppingCart = GetShoppingCart();
+                shoppingCart.Add(existingProduct, quantity, false);
+                SetShoppingCart(shoppingCart);
+                foreach (var cartItem in shoppingCart.Items.Values)
+                {
+                    data += "<li>";
+                    data += "<a class='aa-cartbox-img' href='#'><img src='/MarkUps-dailyShop/dailyShop/img/electronics/" + @cartItem.Product.Image + "'alt='img'></a>";
+                    data += "<div class='aa-cartbox-info'>";
+                    data += "<h4><a href='#'>" + @cartItem.Name + "</a></h4>";
+                    data += "<p>" + @cartItem.Quantity + " x $" + @cartItem.Price + "</p>";
+                    data += "</div>";
+                    data += "<a class='aa-remove-product' href='/ShoppingCart/RemoveCartItem?productId=" + @cartItem.ProductId + "'><span class='fa fa-times'></span></a>";
+                    data += "</li>";
+                }
+                data += "<input type='hidden' id='hiddenCartNum' value=" + shoppingCart.TotalItem + " />";
+            }
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult RemoveItemWithAjax(string productId)
+        {
+            String[] dataArr = new string[4];
+            var data = "";
+            var dataForHeader = "";
+            if (productId != null)
+            {
+                RemoveCartItem(productId);
+                ShoppingCart shoppingCart = GetShoppingCart();
+                SetShoppingCart(shoppingCart);
+                foreach (var cartItem in shoppingCart.Items.Values)
+                {
+                    data += "<tr>";
+                    data += "<td><a data-id='" + cartItem.ProductId + "class='removeItem'><fa class='fa fa-close'></fa></a></td>";
+                    data += "<td><a href='#'><img src='https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_300,w_250/v1587872991/" + cartItem.Thumbnail + ".jpg' alt='img'></a></td>";
+                    data += "<td><a class='aa-cart-title' href='#'>" + cartItem.Name + "</a></td>";
+                    data += "<td>$" + cartItem.Price + "</td>";
+                    data += "<td><input data-id='" + cartItem.ProductId + "' min ='1' class='aa-cart-quantity' type='number' value=" + cartItem.Quantity + "></td>";
+                    data += "<td id='ItemPrice" + cartItem.ProductId + "'>$" + cartItem.TotalItemPrice + "</td>";
+                    data += "</tr>";
+                    dataForHeader += "<li>";
+                    dataForHeader += "<a class='aa-cartbox-img' href='#'><img src='/MarkUps-dailyShop/dailyShop/img/electronics/" + @cartItem.Product.Image + "'alt='img'></a>";
+                    dataForHeader += "<div class='aa-cartbox-info'>";
+                    dataForHeader += "<h4><a href='#'>" + @cartItem.Name + "</a></h4>";
+                    dataForHeader += "<p>" + @cartItem.Quantity + " x $" + @cartItem.Price + "</p>";
+                    dataForHeader += "</div>";
+                    dataForHeader += "<a class='aa-remove-product' href='/ShoppingCart/RemoveCartItem?productId=" + @cartItem.ProductId + "'><span class='fa fa-times'></span></a>";
+                    dataForHeader += "</li>";
+                }
+                dataArr[0] = data;
+                dataArr[1] = dataForHeader;
+                dataArr[2] = "$" + shoppingCart.TotalPrice.ToString();
+                dataArr[3] = shoppingCart.TotalItem.ToString();
+            }
+            return Json(dataArr, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult UpdateNumOfProductWithAjax(string productId, int quantity)
+        {
+            var existingProduct = HttpContext.GetOwinContext().Get<ApplicationDbContext>().Products.FirstOrDefault(p => p.Id == productId);
+            String[] dataArr = new string[4];
+            var dataForHeader = "";
+            if (existingProduct != null)
+            {
+                ShoppingCart shoppingCart = GetShoppingCart();
+                shoppingCart.Update(existingProduct, quantity);
+                SetShoppingCart(shoppingCart);
+                foreach (var cartItem in shoppingCart.Items.Values)
+                {
+                    dataForHeader += "<li>";
+                    dataForHeader += "<a class='aa-cartbox-img' href='#'><img src='/MarkUps-dailyShop/dailyShop/img/electronics/" + @cartItem.Product.Image + "'alt='img'></a>";
+                    dataForHeader += "<div class='aa-cartbox-info'>";
+                    dataForHeader += "<h4><a href='#'>" + @cartItem.Name + "</a></h4>";
+                    dataForHeader += "<p>" + @cartItem.Quantity + " x $" + @cartItem.Price + "</p>";
+                    dataForHeader += "</div>";
+                    dataForHeader += "<a class='aa-remove-product' href='/ShoppingCart/RemoveCartItem?productId=" + @cartItem.ProductId + "'><span class='fa fa-times'></span></a>";
+                    dataForHeader += "</li>";
+                }
+                dataArr[0] = dataForHeader;
+                dataArr[1] = "$" + shoppingCart.TotalPrice.ToString();
+                dataArr[2] = shoppingCart.TotalItem.ToString();
+                dataArr[3] = "$" + shoppingCart.Items[productId].TotalItemPrice.ToString();
+            }
+            return Json(dataArr, JsonRequestBehavior.AllowGet);
+
+
+        }
     }
 }

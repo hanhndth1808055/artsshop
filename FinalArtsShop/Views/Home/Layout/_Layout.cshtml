@@ -42,7 +42,7 @@
     <!-- price picker slider -->
     <link rel="stylesheet" type="text/css" href="~/MarkUps-dailyShop/dailyShop/css/nouislider.css">
     <!-- Theme color -->
-    <link id="switcher" href="~/MarkUps-dailyShop/dailyShop/css/theme-color/default-theme.css" rel="stylesheet">
+    <link id="switcher" href="~/MarkUps-dailyShop/dailyShop/css/theme-color/green-theme.css" rel="stylesheet">
     <!-- <link id="switcher" href="~/MarkUps-dailyShop/dailyShop/css/theme-color/bridge-theme.css" rel="stylesheet"> -->
     <!-- Top Slider CSS -->
     <link href="~/MarkUps-dailyShop/dailyShop/css/sequence-theme.modern-slide-in.css" rel="stylesheet" media="all">
@@ -125,7 +125,6 @@
                             <div class="aa-header-top-right">
                                 <ul class="aa-head-top-nav-right">
                                     <li><a href="~/MarkUps-dailyShop/dailyShop/account.html">My Account</a></li>
-                                    <li class="hidden-xs"><a href="~/MarkUps-dailyShop/dailyShop/wishlist.html">Wishlist</a></li>
                                     <li class="hidden-xs"><a href="/Account/MyOrder">My Order</a></li>
                                     <li class="hidden-xs"><a href="/ShoppingCart/ShowCart">My Cart</a></li>
                                     <li class="hidden-xs"><a href="/Checkout/Index">Checkout</a></li>
@@ -163,10 +162,10 @@
                                 <a class="aa-cart-link" href="/ShoppingCart/ShowCart">
                                     <span class="fa fa-shopping-basket"></span>
                                     <span class="aa-cart-title">SHOPPING CART</span>
-                                    <span class="aa-cart-notify">@shoppingCart.Items.Count</span>
+                                    <span class="aa-cart-notify">@shoppingCart.TotalItem</span>
                                 </a>
                                 <div class="aa-cartbox-summary">
-                                    <ul>
+                                    <ul id="showSummaryCart">
                                         @{
                                             foreach (var cartItem in shoppingCart.Items.Values)
                                             {

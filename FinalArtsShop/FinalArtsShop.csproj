@@ -769,6 +769,7 @@
     <Content Include="MarkUps-dailyShop\help\DOCUMENTATION\syntax-highlighter\styles\shThemeMidnight.css" />
     <Content Include="MarkUps-dailyShop\help\DOCUMENTATION\syntax-highlighter\styles\shThemeRDark.css" />
     <Content Include="MarkUps-dailyShop\license.txt" />
+    <Content Include="Scripts\AjaxCallForReturnOrder.js" />
     <Content Include="Scripts\CartWithAjax.js" />
     <Content Include="Scripts\AjaxCall.js" />
     <Content Include="Scripts\AjaxCallForOrder.js" />

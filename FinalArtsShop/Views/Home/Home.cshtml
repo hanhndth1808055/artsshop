@@ -224,13 +224,13 @@
                                                         <p id="quick-view-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officiis animi, veritatis quae repudiandae quod nulla porro quidem, itaque quis quaerat!</p>
                                                         <div class="aa-prod-quantity">
                                                             <form action="">
-                                                                <select name="">
-                                                                    <option value="0" selected="1">1</option>
-                                                                    <option value="1">2</option>
-                                                                    <option value="2">3</option>
-                                                                    <option value="3">4</option>
-                                                                    <option value="4">5</option>
-                                                                    <option value="5">6</option>
+                                                                <select name="select-quantity">
+                                                                    <option value="1" selected>1</option>
+                                                                    <option value="2">2</option>
+                                                                    <option value="3">3</option>
+                                                                    <option value="4">4</option>
+                                                                    <option value="5">5</option>
+                                                                    <option value="6">6</option>
                                                                 </select>
                                                             </form>
                                                             <p class="aa-prod-category">
@@ -685,8 +685,16 @@
             $(".aa-prod-category a").html(CateName);
             $(".aa-prod-category a").attr("href", "/Category/Index?id=" + CateId);
 
-            $("#add-cart").attr("href", "/ShoppingCart/AddToCart?productId=" + Id + "&quantity=1");
+            $("#add-cart").attr("href", "/ShoppingCart/AddToCart?productId=" + Id);
             $("#view-detail").attr("href", "/Product/Index?id=" + Id);
+
         }
+
+        $("select[name=select-quantity]").change(function () {
+            var quantity = $("select[name=select-quantity]").val();
+            var href = $("#add-cart").attr("href");
+            $("#add-cart").attr("href", href + "&quantity=" + quantity);
+        });
+
     </script>
 }

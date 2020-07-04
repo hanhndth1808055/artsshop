@@ -66,20 +66,20 @@
                                                     <div class="row">
                                                         <div class="col-md-6">
                                                             <div class="aa-checkout-single-bill">
-                                                                <input name="email" type="email" placeholder="Email Address*" value="@Model.User.Email">
+                                                                <input name="email" type="email" placeholder="Email Address*" value="@Model.User.Email" required=" ">
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6">
                                                             <div class="aa-checkout-single-bill">
-                                                                <input name="phoneNumber" type="tel" placeholder="Phone*" value="@Model.User.PhoneNumber">
+                                                                <input name="phoneNumber" type="tel" placeholder="Phone*" value="@Model.User.PhoneNumber" required=" ">
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="row">
                                                         <div class="col-md-6">
                                                             <div class="aa-checkout-single-bill">
-                                                                <select id="city" name="city">
-                                                                    <option value="0">Select Your City</option>
+                                                                <select id="city" name="city" required>
+                                                                    <option value="">Select Your City</option>
                                                                     @foreach (var item in Model.Cities)
                                                                     {
                                                                         <option value="@item.Id">@item.Name</option>
@@ -90,8 +90,8 @@
                                                         </div>
                                                         <div class="col-md-6">
                                                             <div class="aa-checkout-single-bill">
-                                                                <select id="district" name="district">
-                                                                    <option value="0">Select Your District</option>
+                                                                <select id="district" name="district" required>
+                                                                    <option value="">Select Your District</option>
                                                                     @foreach (var item in Model.Districts)
                                                                     {
                                                                         <option data-num="@item.ShippingFee" value="@item.Id">@item.Name</option>
@@ -104,8 +104,8 @@
                                                     <div class="row">
                                                         <div class="col-md-6">
                                                             <div class="aa-checkout-single-bill">
-                                                                <select id="deliveryType" name="deliveryType">
-                                                                    <option value="0">Select Type Delivery</option>
+                                                                <select id="deliveryType" name="deliveryType" required>
+                                                                    <option value="">Select Type Delivery</option>
                                                                     @foreach (var item in Model.DeliveryTypes)
                                                                     {
                                                                         <option data-num="@item.Factor" value="@item.Id">@item.Name</option>

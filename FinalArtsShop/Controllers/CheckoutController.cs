@@ -332,7 +332,7 @@ namespace FinalArtsShop.Controllers
 
                 if (districts.Count() > 0)
                 {
-                    data += "<option selected value='0'>Select Your District</option>";
+                    data += "<option selected value=''>Select Your District</option>";
                     foreach (var district in districts)
                     {
                         data += "<option data-num=" + district.ShippingFee + " value=" + district.Id + ">" + district.Name + "</option>";

@@ -14,11 +14,13 @@
     $('#city').change(function (e) {
         e.preventDefault();
         var idCity = $(this).val();
-        if (idCity == 0) {
-            $('#district').val(0);
-            $('#district').html('<option selected value="0">Select Your District</option>');
+        if (idCity == "") {
+            $('#district').val("");
+            $('#district').html('<option selected value="">Select Your District</option>');
             $('#shippingfee').val(0);
             $('#shippingfee').html('$ ' + 0);
+
+            idCity = 0;
         };
         var _token = $('input[name="_token"]').val();
         $.ajax({

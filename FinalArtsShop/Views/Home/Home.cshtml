@@ -110,7 +110,6 @@
                             </ul>
                             <!-- Tab panes -->
                             <div class="tab-content">
-
                                 @{
                                     for (int i = 0; i < @data.CategoriesProduct.Count; i++)
                                     {
@@ -126,7 +125,8 @@
                                                             <li>
                                                                 <figure>
                                                                     <a class="aa-product-img" href="/Product/Index?id=@data.Products[j].Id"><img src="@("https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_300,w_250/v1587872991/" + @data.Products[j].GetThubnailIds()[0] + ".jpg")" alt=""></a>
-                                                                    <a class="aa-add-card-btn" href="/ShoppingCart/AddToCart?productId=@data.Products[j].Id&quantity=1"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
+                                                                    <a class="aa-add-card-btn addCart" data-id="@data.Products[j].Id"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
+                                                                    @*href="/ShoppingCart/AddToCart?productId=@data.Products[j].Id&quantity=1"*@
                                                                     <figcaption>
                                                                         <h4 class="aa-product-title"><a href="/Product/Index?id=@data.Products[j].Id">@data.Products[j].Name</a></h4>
                                                                         @{
@@ -638,8 +638,15 @@
     </div>
 </section>
 <!-- / Client Brand -->
+<style>
+    .addCart {
+        cursor: pointer !important;
+    }
+</style>
 @section scripts{
-
+    <!-- SWEET ALERT -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+    <script src="~/Scripts/CartWithAjax.js"></script>
     <script>
         function quickView(Id, Name, PromotionPrice, UnitPrice, Description, CateName, CateId, Image, Thumbnail_1, Thumbnail_2, Thumbnail_3, Thumbnail_4) {
             String(Id);

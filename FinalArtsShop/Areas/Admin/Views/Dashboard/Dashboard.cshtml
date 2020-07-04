@@ -1,16 +1,28 @@
-﻿this title
-<div class="col-lg-6">
-    <form action="" method="post">
-        <!--  <div style="float:left"> -->
-        <label for="birthday">Search by time:</label>
-        <input type="date" id="fromDate" name="fromDate" data-date-format="DD MMMM YYYY" value="2020-01-01">-
-        <input type="date" id="toDate" name="toDate">
-        <button id="time_submit">Submit</button>
-        <!-- </div> -->
-    </form>
+﻿<div class="container">
+    <div class="row">
+        <div class="col-lg-6">
+            <div style="margin: 10px 10px" class="container col-lg-12">
+                <div class="row">
+                    <div class="col-lg-4">
+                        <input class="input-group" type="date" id="fromDate" name="fromDate" data-date-format="DD MMMM YYYY" value="2020-01-01">
+                    </div>
+                    <div class="col-lg-4">
+                        <input type="date" id="toDate" name="toDate">
+                    </div>
+                    <div class="col-lg-4">
+                        <button id="time_submit" class="btn btn-primary">GET</button>
+                    </div>
+                </div>
+
+            </div>
+            <div style="width: 500px;" id="container"></div>
+        </div>
+
+        <div class="col-lg-6">
+        </div>
+    </div>
 </div>
 
-<div id="container" style="height: 400px; width: 600px"></div>
 
 @section Addscripts{
     <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>

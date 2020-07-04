@@ -26,19 +26,19 @@
 
 <!-- catg header banner section -->
 @*<section id="aa-catg-head-banner">
-    <img src="~/MarkUps-dailyShop/dailyShop/img/fashion/fashion-header-bg-8.jpg" alt="fashion img">
-    <div class="aa-catg-head-banner-area">
-        <div class="container">
-            <div class="aa-catg-head-banner-content">
-                <h2>Checkout Page</h2>
-                <ol class="breadcrumb">
-                    <li><a href="~/MarkUps-dailyShop/dailyShop/index.html">Home</a></li>
-                    <li class="active">Checkout</li>
-                </ol>
+        <img src="~/MarkUps-dailyShop/dailyShop/img/fashion/fashion-header-bg-8.jpg" alt="fashion img">
+        <div class="aa-catg-head-banner-area">
+            <div class="container">
+                <div class="aa-catg-head-banner-content">
+                    <h2>Checkout Page</h2>
+                    <ol class="breadcrumb">
+                        <li><a href="~/MarkUps-dailyShop/dailyShop/index.html">Home</a></li>
+                        <li class="active">Checkout</li>
+                    </ol>
+                </div>
             </div>
         </div>
-    </div>
-</section>*@
+    </section>*@
 <!-- / catg header banner section -->
 <!-- Cart view section -->
 <section id="checkout">
@@ -82,7 +82,7 @@
                                                                     <option value="">Select Your City</option>
                                                                     @foreach (var item in Model.Cities)
                                                                     {
-                                                                        <option value="@item.Id">@item.Name</option>
+                                                                    <option value="@item.Id">@item.Name</option>
 
                                                                     }
                                                                 </select>
@@ -94,7 +94,7 @@
                                                                     <option value="">Select Your District</option>
                                                                     @foreach (var item in Model.Districts)
                                                                     {
-                                                                        <option data-num="@item.ShippingFee" value="@item.Id">@item.Name</option>
+                                                                    <option data-num="@item.ShippingFee" value="@item.Id">@item.Name</option>
 
                                                                     }
                                                                 </select>
@@ -108,7 +108,7 @@
                                                                     <option value="">Select Type Delivery</option>
                                                                     @foreach (var item in Model.DeliveryTypes)
                                                                     {
-                                                                        <option data-num="@item.Factor" value="@item.Id">@item.Name</option>
+                                                                    <option data-num="@item.Factor" value="@item.Id">@item.Name</option>
 
                                                                     }
                                                                 </select>
@@ -149,10 +149,10 @@
                                             <tbody>
                                                 @foreach (var item in shoppingCart.Items)
                                                 {
-                                                    <tr>
-                                                        <td> @item.Value.Name <strong> x @item.Value.Quantity</strong></td>
-                                                        <td>$ @item.Value.TotalItemPrice </td>
-                                                    </tr>
+                                                <tr>
+                                                    <td> @item.Value.Name <strong> x @item.Value.Quantity</strong></td>
+                                                    <td>$ @item.Value.TotalItemPrice </td>
+                                                </tr>
                                                 }
 
                                             </tbody>
@@ -186,7 +186,7 @@
                                         <label for="paypal"><input type="radio" id="paypal" name="optionsRadios" checked value="1"> Via Paypal </label>
                                         <img src="https://www.paypalobjects.com/webstatic/mktg/logo/AM_mc_vs_dc_ae.jpg" border="0" alt="PayPal Acceptance Mark">
                                         <label for="check"><input type="radio" id="check" name="optionsRadios" checked value="3"> Cheque </label>
-                                        <label for="dd"><input type="radio" id="dd" name="optionsRadios" checked value="3"> Direct Deposit </label>
+                                        <label for="creditcard"><input type="radio" id="cd" name="optionsRadios" checked value="4"> Credit Card </label>
                                         <input type="submit" value="Place Order" class="aa-browse-btn">
                                     </div>
                                 </div>
@@ -202,3 +202,5 @@
 <!-- AJAX call
    ============================================ -->
 <script src="~/Scripts/ShippingFeeAjax.js"></script>
+
+

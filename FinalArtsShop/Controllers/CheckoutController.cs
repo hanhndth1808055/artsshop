@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.Entity;
 using System.Diagnostics;
 using System.Linq;
@@ -12,6 +13,9 @@ using Microsoft.Ajax.Utilities;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.BuilderProperties;
+using Stripe;
+using Order = FinalArtsShop.Models.Order;
+using OrderItem = FinalArtsShop.Models.OrderItem;
 
 namespace FinalArtsShop.Controllers
 {
@@ -37,6 +41,12 @@ namespace FinalArtsShop.Controllers
 
         public ActionResult PlaceOrder(string email, string phoneNumber, int city, int district, string address, int deliveryType, string note, int optionsRadios)
         {
+            var currentDistrict = HttpContext.GetOwinContext().Get<ApplicationDbContext>().Districts.Find(district);
+            var currentDeliveryType = HttpContext.GetOwinContext().Get<ApplicationDbContext>().DeliveryTypes
+                .Find(deliveryType);
+
+            double shippingFee = currentDistrict.ShippingFee * currentDeliveryType.Factor;
+
             if (Session["ShoppingCartName"] != null)
             {
 
@@ -92,19 +102,21 @@ namespace FinalArtsShop.Controllers
                     CustomerName = user.FirstName + " " + user.LastName,
                     CustomerPhoneNumber = phoneNumber,
                     DeliveryTypeId = deliveryType,
-                    DeliveryType = HttpContext.GetOwinContext().Get<ApplicationDbContext>().DeliveryTypes.Find(deliveryType),
+                    DeliveryType = currentDeliveryType,
                     DistrictId = district,
-                    District = HttpContext.GetOwinContext().Get<ApplicationDbContext>().Districts.Find(district),
+                    District = currentDistrict,
                     FulfillmentStatus = FulfillmentStatusEnum.Pending,
                     PaymentStatus = PaymentStatusEnum.Pending,
-                    PaymentMethod = optionsRadios == 1 ? PaymentMethodEnum.Paypal : (optionsRadios == 2 ? PaymentMethodEnum.VPP : (optionsRadios == 3 ? PaymentMethodEnum.Check : (optionsRadios == 4 ? PaymentMethodEnum.DD : PaymentMethodEnum.Pending))),
+                    PaymentMethod = optionsRadios == 1 ? PaymentMethodEnum.Paypal : (optionsRadios == 2 ? PaymentMethodEnum.VPP : (optionsRadios == 3 ? PaymentMethodEnum.Check : (optionsRadios == 4 ? PaymentMethodEnum.CreditCard : PaymentMethodEnum.Pending))),
                     Note = note,
                     Otp = "12345",
                     Status = 1,
                     UserId = user.Id,
-                    TotalPrice = shoppingCart.TotalPrice
+                    LineItemsPrice = shoppingCart.TotalPrice,
+                    ShippingFee = shippingFee,
+                    TotalPrice = shoppingCart.TotalPrice + shippingFee
                 };
-                Debug.WriteLine("Order Id " + order.Id);
+                // Debug.WriteLine("Order Id " + order.Id);
                 if (ModelState.IsValid)
                 {
                     foreach (var value in listOrderItem.Values)
@@ -129,15 +141,70 @@ namespace FinalArtsShop.Controllers
                     Session["ShoppingCartName"] = new ShoppingCart();
                     return ChequePayment(order);
                 }
+                else if (optionsRadios == 4)
+                {
+                    Session["ShoppingCartName"] = new ShoppingCart();
+                    return StripePayment(order);
+                }
 
                 Session["ShoppingCartName"] = new ShoppingCart();
                 return RedirectToAction("Home", "Home");
             }
 
-            // return HttpNotFound();
             return View();
         }
 
+        private ActionResult StripePayment(Order order)
+        {
+            var stripePublishKey = ConfigurationManager.AppSettings["stripePublishableKey"];
+            ViewBag.StripePublishKey = stripePublishKey;
+            ViewBag.Message = order;
+            return View("~/Views/Checkout/ConfirmStripe.cshtml");
+        }
+
+        public ActionResult Charge(string stripeEmail, string stripeToken, decimal amount, string orderId)
+        {
+            var customers = new CustomerService();
+            var charges = new Stripe.ChargeService();
+
+            amount = (long) amount;
+
+            var userManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            ApplicationUser user = userManager.FindByNameAsync(User.Identity.Name).Result;
+
+            var customer = customers.Create(options: new Stripe.CustomerCreateOptions
+            {
+                Email = stripeEmail,
+                Source = stripeToken,
+                Name = user.UserName
+            });
+
+            var charge = charges.Create(new Stripe.ChargeCreateOptions
+            {
+                Amount = (long) amount,//charge in cents
+                Description = "Sample Charge",
+                Currency = "usd",
+                Customer = customer.Id
+            });
+
+            if (charge.Status == "succeeded" && charge.Paid == true)
+            {
+                if (ModelState.IsValid)
+                {
+                    var order = HttpContext.GetOwinContext().Get<ApplicationDbContext>().Orders.Find(orderId);
+                    order.PaymentStatus = PaymentStatusEnum.Paid;
+                    HttpContext.GetOwinContext().Get<ApplicationDbContext>().Entry(order).State = EntityState.Modified;
+                    HttpContext.GetOwinContext().Get<ApplicationDbContext>().SaveChanges();
+
+                    ViewBag.Message = order;
+                    ViewBag.Msg = "Payment is successful!";
+                    return View("~/Views/Checkout/StripeCharge.cshtml");
+                }
+            }
+
+            ViewBag.Msg = "Payment is not successful!";
+            return View("~/Views/Checkout/StripeCharge.cshtml");
+        }
         private ActionResult ChequePayment(Order order)
         {
             Debug.WriteLine(order.CustomerName);
@@ -166,46 +233,70 @@ namespace FinalArtsShop.Controllers
             return value;
         }
 
+        //[Authorize]
+        //public void returnOrder(string orderId)
+        //{
+        //    var userManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+        //    ApplicationUser user = userManager.FindByNameAsync(User.Identity.Name).Result;
+
+        //    var order = HttpContext.GetOwinContext().Get<ApplicationDbContext>().Orders.Find(orderId);
+
+        //    if (order == null)
+        //    {
+        //        return;
+        //    }
+
+        //    if (order.ShippedAt == null)
+        //    {
+        //        order.FulfillmentStatus = FulfillmentStatusEnum.Returned;
+        //        if (ModelState.IsValid)
+        //        {
+        //            HttpContext.GetOwinContext().Get<ApplicationDbContext>().Entry(order).State = EntityState.Modified;
+        //            HttpContext.GetOwinContext().Get<ApplicationDbContext>().SaveChanges();
+        //        }
+        //    }
+
+        //    var now = new DateTime();
+
+        //    var timeDiff = now.Subtract((DateTime)order.ShippedAt).TotalDays;
+
+        //    if (order != null && timeDiff > 7)
+        //    {
+        //        return;
+        //    }
+        //    {
+        //        order.FulfillmentStatus = FulfillmentStatusEnum.Returning;
+        //        if (ModelState.IsValid)
+        //        {
+        //            HttpContext.GetOwinContext().Get<ApplicationDbContext>().Entry(order).State = EntityState.Modified;
+        //            HttpContext.GetOwinContext().Get<ApplicationDbContext>().SaveChanges();
+        //        }
+        //    }
+        //}
+
         [Authorize]
-        public void returnOrder(string orderId)
+        public JsonResult ReturnOrderForAjax(string orderId)
         {
-            var userManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            ApplicationUser user = userManager.FindByNameAsync(User.Identity.Name).Result;
-
+            var data = "";
             var order = HttpContext.GetOwinContext().Get<ApplicationDbContext>().Orders.Find(orderId);
-
-            if (order == null)
+            if (order != null)
             {
-                return;
-            }
-
-            if (order.ShippedAt == null)
-            {
-                order.FulfillmentStatus = FulfillmentStatusEnum.Returned;
-                if (ModelState.IsValid)
+                if (order.ShippedAt == null)
                 {
+                    order.FulfillmentStatus = FulfillmentStatusEnum.Returned;
                     HttpContext.GetOwinContext().Get<ApplicationDbContext>().Entry(order).State = EntityState.Modified;
                     HttpContext.GetOwinContext().Get<ApplicationDbContext>().SaveChanges();
                 }
-            }
-
-            var now = new DateTime();
-
-            var timeDiff = now.Subtract((DateTime)order.ShippedAt).TotalDays;
-
-            if (order != null && timeDiff > 7)
-            {
-                return;
-            }
-            {
-                order.FulfillmentStatus = FulfillmentStatusEnum.Returning;
-                if (ModelState.IsValid)
+                var timeDiff = DateTime.Now.Subtract((DateTime)order.ShippedAt).TotalDays;
+                if (timeDiff < 7)
                 {
+                    order.FulfillmentStatus = FulfillmentStatusEnum.Returning;
                     HttpContext.GetOwinContext().Get<ApplicationDbContext>().Entry(order).State = EntityState.Modified;
                     HttpContext.GetOwinContext().Get<ApplicationDbContext>().SaveChanges();
+                    data = "success";
                 }
             }
-
+            return Json(data, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -240,7 +331,7 @@ namespace FinalArtsShop.Controllers
 
                 if (districts.Count() > 0)
                 {
-                    data += "<option selected value=''>Select Your District</option>";
+                    data += "<option selected value='0'>Select Your District</option>";
                     foreach (var district in districts)
                     {
                         data += "<option data-num=" + district.ShippingFee + " value=" + district.Id + ">" + district.Name + "</option>";

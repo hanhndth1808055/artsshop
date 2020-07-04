@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc.Routing.Constraints;
 
 namespace FinalArtsShop.Models
 {
@@ -42,6 +43,8 @@ namespace FinalArtsShop.Models
 
         public double TotalPrice { get; set; }
 
+        public double ShippingFee { get; set; }
+        public double LineItemsPrice { get; set; }
         public Order()
         {
             Items = new Dictionary<string, OrderItem>();
@@ -77,7 +80,7 @@ namespace FinalArtsShop.Models
         Paypal = 1,
         VPP = 2,
         Check = 3,
-        DD = 4,
+        CreditCard = 4,
         Pending = 5
     }
 

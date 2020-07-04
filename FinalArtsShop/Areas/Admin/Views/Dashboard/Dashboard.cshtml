@@ -1,0 +1,104 @@
+﻿this title
+<div class="col-lg-6">
+    <form action="" method="post">
+        <!--  <div style="float:left"> -->
+        <label for="birthday">Search by time:</label>
+        <input type="date" id="fromDate" name="fromDate" data-date-format="DD MMMM YYYY" value="2020-01-01">-
+        <input type="date" id="toDate" name="toDate">
+        <button id="time_submit">Submit</button>
+        <!-- </div> -->
+    </form>
+</div>
+
+<div id="container" style="height: 400px; width: 600px"></div>
+
+@section Addscripts{
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+    <script src="https://code.highcharts.com/stock/highstock.js"></script>
+    <script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
+    <script type="text/javascript">
+        var date = new Date();
+        var day = date.getDate();
+        var month = date.getMonth() + 1;
+        var year = date.getFullYear();
+        if (month < 10) month = "0" + month;
+        if (day < 10) day = "0" + day;
+        var today = year + "-" + month + "-" + day;
+        // var endday = year + "-" + month + "-" + day2;
+        document.getElementById('toDate').value = today;
+        // document.getElementById('fromDate').value = endday;
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(function () {
+                var date = new Date();
+                var day = date.getDate();
+                var month = date.getMonth() + 1;
+                var year = date.getFullYear();
+                var today = year + "-" + month + "-" + day;
+                $.getJSON("https://localhost:44333/api/ChartApi/Data?fromDate=2020-01-01&toDate=" + today + "&typeDate=day", function (data) {
+                    getdatachart(data);
+                });
+                function getdatachart(data) {
+                    // Create the chart
+                    window.chart = new Highcharts.StockChart({
+                        chart: {
+                            renderTo: 'container'
+                        },
+                        rangeSelector: {
+                            selected: 1,
+                            inputDateFormat: '%Y-%m-%d'
+                        },
+
+                        title: {
+                            text: 'Number of order'
+                        },
+
+                        series: [{
+                            name: 'Order Number',
+                            data: data,
+                            tooltip: {
+                                valueDecimals: 2
+                            }
+                        }]
+
+                    }, function (chart) {
+
+                        // apply the date pickers
+                        setTimeout(function () {
+                            $('input.highcharts-range-selector', $('#' + chart.options.chart.renderTo)).datepicker()
+                        }, 0)
+                    });
+                }
+                $("#time_submit").click(function (e) {
+                    console.log($("#toDate").val())
+                    e.preventDefault();
+                    $.ajax({
+                        type: "GET",
+                        url: "https://localhost:44333/api/ChartApi/Data?fromDate=" + $("#fromDate").val() + "&toDate=" + $("#toDate").val() + "&typeDate=day",
+                        success: function (data) {
+                            // alert(result);
+                            getdatachart(data);
+                        },
+                        error: function (data) {
+                            alert('error');
+                        }
+                    });
+                });
+
+                // Set the datepicker's date format
+                $.datepicker.setDefaults({
+                    dateFormat: 'yy-dd-mm',
+                    onSelect: function (dateText) {
+                        chart.xAxis[0].setExtremes($('input.highcharts-range-selector:eq(0)').datepicker("getDate").getTime(), $('input.highcharts-range-selector:eq(1)').datepicker("getDate").getTime());
+                        //this.onchange();
+                        this.onblur();
+                    }
+                });
+
+            });
+        });
+    </script>
+}
+

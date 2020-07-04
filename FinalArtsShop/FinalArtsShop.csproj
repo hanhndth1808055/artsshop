@@ -45,10 +45,27 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.1.1.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Stripe.net, Version=37.15.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Stripe.net.37.15.0\lib\net461\Stripe.net.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.2\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.InteropServices.RuntimeInformation.4.3.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.2\lib\netstandard2.0\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -256,6 +273,10 @@
     <Compile Include="Migrations\202006301403327_AddChequeInfo.cs" />
     <Compile Include="Migrations\202006301403327_AddChequeInfo.Designer.cs">
       <DependentUpon>202006301403327_AddChequeInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202007030359007_UpdateOrderShippingFee.cs" />
+    <Compile Include="Migrations\202007030359007_UpdateOrderShippingFee.Designer.cs">
+      <DependentUpon>202007030359007_UpdateOrderShippingFee.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -943,6 +964,8 @@
     <Content Include="Views\Checkout\confirmVpp.cshtml" />
     <Content Include="Views\Checkout\ConfirmCheque.cshtml" />
     <Content Include="Views\Checkout\ChequeFinish.cshtml" />
+    <Content Include="Views\Checkout\ConfirmStripe.cshtml" />
+    <Content Include="Views\Checkout\StripeCharge.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1013,6 +1036,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202006301403327_AddChequeInfo.resx">
       <DependentUpon>202006301403327_AddChequeInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007030359007_UpdateOrderShippingFee.resx">
+      <DependentUpon>202007030359007_UpdateOrderShippingFee.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

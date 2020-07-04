@@ -165,46 +165,70 @@ namespace FinalArtsShop.Controllers
             return value;
         }
 
+        //[Authorize]
+        //public void returnOrder(string orderId)
+        //{
+        //    var userManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+        //    ApplicationUser user = userManager.FindByNameAsync(User.Identity.Name).Result;
+
+        //    var order = HttpContext.GetOwinContext().Get<ApplicationDbContext>().Orders.Find(orderId);
+
+        //    if (order == null)
+        //    {
+        //        return;
+        //    }
+
+        //    if (order.ShippedAt == null)
+        //    {
+        //        order.FulfillmentStatus = FulfillmentStatusEnum.Returned;
+        //        if (ModelState.IsValid)
+        //        {
+        //            HttpContext.GetOwinContext().Get<ApplicationDbContext>().Entry(order).State = EntityState.Modified;
+        //            HttpContext.GetOwinContext().Get<ApplicationDbContext>().SaveChanges();
+        //        }
+        //    }
+
+        //    var now = new DateTime();
+
+        //    var timeDiff = now.Subtract((DateTime)order.ShippedAt).TotalDays;
+
+        //    if (order != null && timeDiff > 7)
+        //    {
+        //        return;
+        //    }
+        //    {
+        //        order.FulfillmentStatus = FulfillmentStatusEnum.Returning;
+        //        if (ModelState.IsValid)
+        //        {
+        //            HttpContext.GetOwinContext().Get<ApplicationDbContext>().Entry(order).State = EntityState.Modified;
+        //            HttpContext.GetOwinContext().Get<ApplicationDbContext>().SaveChanges();
+        //        }
+        //    }
+        //}
+
         [Authorize]
-        public void returnOrder(string orderId)
+        public JsonResult ReturnOrderForAjax(string orderId)
         {
-            var userManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            ApplicationUser user = userManager.FindByNameAsync(User.Identity.Name).Result;
-
+            var data = "";
             var order = HttpContext.GetOwinContext().Get<ApplicationDbContext>().Orders.Find(orderId);
-
-            if (order == null)
+            if (order != null)
             {
-                return;
-            }
-
-            if (order.ShippedAt == null)
-            {
-                order.FulfillmentStatus = FulfillmentStatusEnum.Returned;
-                if (ModelState.IsValid)
+                if (order.ShippedAt == null)
                 {
+                    order.FulfillmentStatus = FulfillmentStatusEnum.Returned;
                     HttpContext.GetOwinContext().Get<ApplicationDbContext>().Entry(order).State = EntityState.Modified;
                     HttpContext.GetOwinContext().Get<ApplicationDbContext>().SaveChanges();
                 }
-            }
-
-            var now = new DateTime();
-
-            var timeDiff = now.Subtract((DateTime)order.ShippedAt).TotalDays;
-
-            if (order != null && timeDiff > 7)
-            {
-                return;
-            }
-            {
-                order.FulfillmentStatus = FulfillmentStatusEnum.Returning;
-                if (ModelState.IsValid)
+                var timeDiff = DateTime.Now.Subtract((DateTime)order.ShippedAt).TotalDays;
+                if (timeDiff < 7)
                 {
+                    order.FulfillmentStatus = FulfillmentStatusEnum.Returning;
                     HttpContext.GetOwinContext().Get<ApplicationDbContext>().Entry(order).State = EntityState.Modified;
                     HttpContext.GetOwinContext().Get<ApplicationDbContext>().SaveChanges();
+                    data = "success";
                 }
             }
-
+            return Json(data, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -239,7 +263,7 @@ namespace FinalArtsShop.Controllers
 
                 if (districts.Count() > 0)
                 {
-                    data += "<option selected value=''>Select Your District</option>";
+                    data += "<option selected value='0'>Select Your District</option>";
                     foreach (var district in districts)
                     {
                         data += "<option data-num=" + district.ShippingFee + " value=" + district.Id + ">" + district.Name + "</option>";

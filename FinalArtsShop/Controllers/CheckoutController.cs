@@ -129,6 +129,7 @@ namespace FinalArtsShop.Controllers
                 }
                 if (optionsRadios == 1)
                 {
+                    Session["ShoppingCartName"] = new ShoppingCart();
                     return paypalPayment(order);
                 }
                 else if (optionsRadios == 2)

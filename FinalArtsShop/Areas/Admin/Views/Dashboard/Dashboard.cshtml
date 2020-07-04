@@ -38,7 +38,7 @@
                 var month = date.getMonth() + 1;
                 var year = date.getFullYear();
                 var today = year + "-" + month + "-" + day;
-                $.getJSON("https://localhost:44333/api/ChartApi/Data?fromDate=2020-01-01&toDate=" + today + "&typeDate=day", function (data) {
+                $.getJSON("http://artsshop.azurewebsites.net/"+"api/ChartApi/Data?fromDate=2020-01-01&toDate=" + today + "&typeDate=day", function (data) {
                     getdatachart(data);
                 });
                 function getdatachart(data) {
@@ -77,7 +77,7 @@
                     e.preventDefault();
                     $.ajax({
                         type: "GET",
-                        url: "https://localhost:44333/api/ChartApi/Data?fromDate=" + $("#fromDate").val() + "&toDate=" + $("#toDate").val() + "&typeDate=day",
+                        url: "http://artsshop.azurewebsites.net/"+"api/ChartApi/Data?fromDate=" + $("#fromDate").val() + "&toDate=" + $("#toDate").val() + "&typeDate=day",
                         success: function (data) {
                             // alert(result);
                             getdatachart(data);

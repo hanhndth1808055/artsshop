@@ -6,15 +6,64 @@
 @{
     var data = ViewBag.Message;
 }
-<h1>Confirm Payment</h1>
-<h3>OderId:@data.Id</h3>
-<h3>:@data.Id</h3>
-<h3>Total:@data.TotalPrice</h3>
-<h3>CustomerName:@data.CustomerName</h3>
-<h3>CustomerPhoneNumber:@data.CustomerPhoneNumber</h3>
-<h3>address:</h3>
-    <h4>@data.City.Name</h4>
-<h4>@data.District.Name</h4>
+    <div style="margin-top: 15vh" class="container">
+        <div class="product-tab-list tab-pane" id="reviews">
+            <div class="row">
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"></div>
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <h2 class="">Confirm Payment</h2>
+                    <hr />
+                    <div class="review-content-section">
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div class="devit-card-custom">
+                                    <dl class="dl-horizontal">
+                                        <dt>
+                                            OrderId
+                                        </dt>
+                                        <dd>
+                                            @data.Id
+                                        </dd>
+                                        <dt>
+                                            Total
+                                        </dt>
+                                        <dd>
+                                            @data.Id
+                                        </dd>
+                                        <dt>
+                                            OrderId
+                                        </dt>
+                                        <dd>
+                                            @data.TotalPrice
+                                        </dd>
+                                        <dt>
+                                            Customer Name
+                                        </dt>
+                                        <dd>
+                                            @data.CustomerName
+                                        </dd>
+                                        <dt>
+                                            Customer Phone Number
+                                        </dt>
+                                        <dd>
+                                            @data.CustomerPhoneNumber
+                                        </dd>
+                                        <dt>
+                                            Address
+                                        </dt>
+                                        <dd>
+                                                @data.City.Name - @data.District.Name
+                                        </dd>
+
+                                    </dl>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
     <input type="hidden" name="cmd" value="_xclick">

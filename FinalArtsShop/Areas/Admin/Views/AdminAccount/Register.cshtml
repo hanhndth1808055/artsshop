@@ -1,0 +1,255 @@
+﻿@model FinalArtsShop.Models.RegisterViewModel
+@{
+    ViewBag.Title = "Register";
+    Layout = "";
+}
+
+@*<h2>@ViewBag.Title.</h2>
+
+@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    <h4>Create a new account.</h4>
+    <hr />
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" class="btn btn-default" value="Register" />
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}*@
+
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Register | Kiaalap - Kiaalap Admin Template</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- favicon
+        ============================================ -->
+    <link rel="shortcut icon" type="~/kiaalap-master/image/x-icon" href="~/kiaalap-master/img/favicon.ico">
+    <!-- Google Fonts
+        ============================================ -->
+    <link href="https://fonts.googleapis.com/css?family=Play:400,700" rel="stylesheet">
+    <!-- Bootstrap CSS
+        ============================================ -->
+    <link rel="stylesheet" href="~/kiaalap-master/css/bootstrap.min.css">
+    <!-- Bootstrap CSS
+        ============================================ -->
+    <link rel="stylesheet" href="~/kiaalap-master/css/font-awesome.min.css">
+    <!-- owl.carousel CSS
+        ============================================ -->
+    <link rel="stylesheet" href="~/kiaalap-master/css/owl.carousel.css">
+    <link rel="stylesheet" href="~/kiaalap-master/css/owl.theme.css">
+    <link rel="stylesheet" href="~/kiaalap-master/css/owl.transitions.css">
+    <!-- animate CSS
+        ============================================ -->
+    <link rel="stylesheet" href="~/kiaalap-master/css/animate.css">
+    <!-- normalize CSS
+        ============================================ -->
+    <link rel="stylesheet" href="~/kiaalap-master/css/normalize.css">
+    <!-- main CSS
+        ============================================ -->
+    <link rel="stylesheet" href="~/kiaalap-master/css/main.css">
+    <!-- morrisjs CSS
+        ============================================ -->
+    <link rel="stylesheet" href="~/kiaalap-master/css/morrisjs/morris.css">
+    <!-- mCustomScrollbar CSS
+        ============================================ -->
+    <link rel="stylesheet" href="~/kiaalap-master/css/scrollbar/jquery.mCustomScrollbar.min.css">
+    <!-- metisMenu CSS
+        ============================================ -->
+    <link rel="stylesheet" href="~/kiaalap-master/css/metisMenu/metisMenu.min.css">
+    <link rel="stylesheet" href="~/kiaalap-master/css/metisMenu/metisMenu-vertical.css">
+    <!-- calendar CSS
+        ============================================ -->
+    <link rel="stylesheet" href="~/kiaalap-master/css/calendar/fullcalendar.min.css">
+    <link rel="stylesheet" href="~/kiaalap-master/css/calendar/fullcalendar.print.min.css">
+    <!-- forms CSS
+        ============================================ -->
+    <link rel="stylesheet" href="~/kiaalap-master/css/form/all-type-forms.css">
+    <!-- style CSS
+        ============================================ -->
+    <link rel="stylesheet" href="~/kiaalap-master/style.css">
+    <!-- responsive CSS
+        ============================================ -->
+    <link rel="stylesheet" href="~/kiaalap-master/css/responsive.css">
+    <!-- modernizr JS
+        ============================================ -->
+    <script src="~/kiaalap-master/js/vendor/modernizr-2.8.3.min.js"></script>
+</head>
+
+<body>
+    <!--[if lt IE 8]>
+        <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+    <div class="error-pagewrap">
+        <div class="error-page-int">
+            <div class="text-center custom-login">
+                <h3>Registration</h3>
+                <p>This is the best app ever!</p>
+            </div>
+            <div class="content-error">
+                <div class="hpanel">
+                    <div class="panel-body">
+                        @using (Html.BeginForm("Register", "AdminAccount", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary("", new { @class = "text-danger" })
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    @Html.LabelFor(m => m.Email, new { @class = "control-label", @style = "margin-bottom: 5px; margin-left: 5px" })
+                                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    @Html.LabelFor(m => m.UserName, new { @class = " control-label", @style = "margin-bottom: 5px; margin-left: 5px" })
+                                    @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    @Html.LabelFor(m => m.Password, new { @class = " control-label", @style = "margin-bottom: 5px; margin-left: 5px" })
+                                    @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    @Html.LabelFor(m => m.ConfirmPassword, new { @class = " control-label", @style = "margin-bottom: 5px; margin-left: 5px" })
+                                    @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="text-center">
+                                <div class="">
+                                    <input type="submit" class="btn btn-success loginbtn" value="Register" />
+                                    <a href="/Admin/AdminAccount/Login" class="btn btn-default" style="background-color: #ffffff; color: black; padding: 6px 20px">Cancel</a>
+                                </div>
+                            </div>
+                        }
+
+                        @*<form action="#" id="loginForm">
+                                <div class="row">
+                                    <div class="form-group col-lg-12">
+                                        <label>Username</label>
+                                        <input class="form-control">
+                                    </div>
+                                    <div class="form-group col-lg-6">
+                                        <label>Password</label>
+                                        <input type="password" class="form-control">
+                                    </div>
+                                    <div class="form-group col-lg-6">
+                                        <label>Repeat Password</label>
+                                        <input type="password" class="form-control">
+                                    </div>
+                                    <div class="form-group col-lg-6">
+                                        <label>Email Address</label>
+                                        <input class="form-control">
+                                    </div>
+                                    <div class="form-group col-lg-6">
+                                        <label>Repeat Email Address</label>
+                                        <input class="form-control">
+                                    </div>
+                                    <div class="checkbox col-lg-12">
+                                        <input type="checkbox" class="i-checks" checked> Sigh up for our newsletter
+                                    </div>
+                                </div>
+                                <div class="text-center">
+                                    <button class="btn btn-success loginbtn">Register</button>
+                                    <button class="btn btn-default">Cancel</button>
+                                </div>
+                            </form>*@
+                    </div>
+                </div>
+            </div>
+            <div class="text-center login-footer">
+                <p>Copyright © 2018. All rights reserved. Template by <a href="https://colorlib.com/wp/templates/">Colorlib</a></p>
+            </div>
+        </div>
+    </div>
+    <!-- jquery
+        ============================================ -->
+    <script src="~/kiaalap-master/js/vendor/jquery-1.12.4.min.js"></script>
+    <!-- bootstrap JS
+        ============================================ -->
+    <script src="~/kiaalap-master/js/bootstrap.min.js"></script>
+    <!-- wow JS
+        ============================================ -->
+    <script src="~/kiaalap-master/js/wow.min.js"></script>
+    <!-- price-slider JS
+        ============================================ -->
+    <script src="~/kiaalap-master/js/jquery-price-slider.js"></script>
+    <!-- meanmenu JS
+        ============================================ -->
+    <script src="~/kiaalap-master/js/jquery.meanmenu.js"></script>
+    <!-- owl.carousel JS
+        ============================================ -->
+    <script src="~/kiaalap-master/js/owl.carousel.min.js"></script>
+    <!-- sticky JS
+        ============================================ -->
+    <script src="~/kiaalap-master/js/jquery.sticky.js"></script>
+    <!-- scrollUp JS
+        ============================================ -->
+    <script src="~/kiaalap-master/js/jquery.scrollUp.min.js"></script>
+    <!-- mCustomScrollbar JS
+        ============================================ -->
+    <script src="~/kiaalap-master/js/scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="~/kiaalap-master/js/scrollbar/mCustomScrollbar-active.js"></script>
+    <!-- metisMenu JS
+        ============================================ -->
+    <script src="~/kiaalap-master/js/metisMenu/metisMenu.min.js"></script>
+    <script src="~/kiaalap-master/js/metisMenu/metisMenu-active.js"></script>
+    <!-- tab JS
+        ============================================ -->
+    <script src="~/kiaalap-master/js/tab.js"></script>
+    <!-- icheck JS
+        ============================================ -->
+    <script src="~/kiaalap-master/js/icheck/icheck.min.js"></script>
+    <script src="~/kiaalap-master/js/icheck/icheck-active.js"></script>
+    <!-- plugins JS
+        ============================================ -->
+    <script src="~/kiaalap-master/js/plugins.js"></script>
+    <!-- main JS
+        ============================================ -->
+    <script src="~/kiaalap-master/js/main.js"></script>
+    <!-- tawk chat JS
+        ============================================ -->
+    <script src="~/kiaalap-master/js/tawk-chat.js"></script>
+</body>
+
+</html>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

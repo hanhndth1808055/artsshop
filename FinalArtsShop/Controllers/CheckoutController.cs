@@ -140,6 +140,7 @@ namespace FinalArtsShop.Controllers
 
         private ActionResult ChequePayment(Order order)
         {
+            Debug.WriteLine(order.CustomerName);
             ViewBag.Message = order;
             ViewBag.OrderId = new SelectList(HttpContext.GetOwinContext().Get<ApplicationDbContext>().Orders.Where(o=>o.Id == order.Id), "Id", "CreatedAt");
 

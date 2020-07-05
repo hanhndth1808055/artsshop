@@ -193,6 +193,7 @@
     <Compile Include="Areas\Admin\Controllers\AdminAccountController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeAdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\OrdersController.cs" />
+    <Compile Include="Areas\Admin\Controllers\PostsAdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\UsersController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Areas\Admin\Controllers\CategoriesController.cs" />
@@ -285,6 +286,14 @@
     <Compile Include="Migrations\202007030359007_UpdateOrderShippingFee.cs" />
     <Compile Include="Migrations\202007030359007_UpdateOrderShippingFee.Designer.cs">
       <DependentUpon>202007030359007_UpdateOrderShippingFee.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202007051409037_UpdatePost.cs" />
+    <Compile Include="Migrations\202007051409037_UpdatePost.Designer.cs">
+      <DependentUpon>202007051409037_UpdatePost.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202007051457337_UpdatePost2.cs" />
+    <Compile Include="Migrations\202007051457337_UpdatePost2.Designer.cs">
+      <DependentUpon>202007051457337_UpdatePost2.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -896,6 +905,11 @@
     <Content Include="Areas\Admin\Views\AdminAccount\SendCode.cshtml" />
     <Content Include="Areas\Admin\Views\AdminAccount\VerifyCode.cshtml" />
     <Content Include="Areas\Admin\Views\AdminAccount\_ExternalLoginsListPartial.cshtml" />
+    <Content Include="Areas\Admin\Views\PostsAdmin\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\PostsAdmin\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\PostsAdmin\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\PostsAdmin\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\PostsAdmin\Index.cshtml" />
     <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\artsshop - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\artsshop - ReadOnly - FTP.pubxml" />
@@ -1065,6 +1079,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202007030359007_UpdateOrderShippingFee.resx">
       <DependentUpon>202007030359007_UpdateOrderShippingFee.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007051409037_UpdatePost.resx">
+      <DependentUpon>202007051409037_UpdatePost.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007051457337_UpdatePost2.resx">
+      <DependentUpon>202007051457337_UpdatePost2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

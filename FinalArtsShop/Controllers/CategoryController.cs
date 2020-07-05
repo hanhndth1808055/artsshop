@@ -13,7 +13,7 @@ namespace FinalArtsShop.Controllers
         // GET: Category
         public ActionResult Index(int? id, string sortBy,float? minPrice, float? maxPrice, int?page, int? limit)
         {
-            int defaultLimit = 2;
+            int defaultLimit = 9;
             int defaultPage = 1;
             ViewBag.SortBy = "Default";
             ViewCategoryClient viewCategoryClient;

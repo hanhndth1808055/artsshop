@@ -374,8 +374,8 @@
         var url = new URL(url_string);
         var id = url.searchParams.get('id');
         var initSortBy = url.searchParams.get('sortBy');
-        var minPrice = parseFloat($("#skip-value-lower").html());
-        var maxPrice = parseFloat($("#skip-value-upper").html());
+        var minPrice = url.searchParams.get('minPrice');;
+        var maxPrice = url.searchParams.get('maxPrice');;
         var href = "";
         if (id != null) {
             href = "/Category/Index?id=" + id + "&";
@@ -385,21 +385,21 @@
 
         $("#filter-price").click(function (e) {
             e.preventDefault();
+            minPrice = parseFloat($("#skip-value-lower").html());
+            maxPrice = parseFloat($("#skip-value-upper").html());
             //$("#filter-price").attr("href", "/Category/Index?minPrice=");
-            window.location.href = href + "sortBy=" + $('select[name=sortBy] option:selected').text() + "&" + "minPrice=" + minPrice + "&maxPrice=" + maxPrice + $("#active-page a").html();
+            window.location.href = href + "sortBy=" + $('select[name=sortBy] option:selected').text() + "&" + "minPrice=" + minPrice + "&maxPrice=" + maxPrice + "&page=" + $("#active-page a").html();
         });
 
         $('.paginate-number').click(function (e) {
             e.preventDefault();
             var page = parseInt($(this).attr('title'));
-            alert(page + " - " + minPrice + " - " + maxPrice + " - " + href);
             window.location.href = href + "sortBy=" + $('select[name=sortBy] option:selected').text() + "&" + "minPrice=" + minPrice + "&maxPrice=" + maxPrice + "&page=" + page;
         });
 
         $('select[name=sortBy]').change(function () {
             var sortBy = $('select[name=sortBy] option:selected').text();
-            alert(sortBy + " - " + href);
-            window.location.href = href + "sortBy=" + sortBy + "&minPrice=" + minPrice + "&maxPrice=" + maxPrice + "&page=" + $("#active-page a").html();
+            window.location.href = href + "sortBy=" + sortBy + "&minPrice=" + minPrice + "&maxPrice=" + maxPrice;
         });
     </script>
 }

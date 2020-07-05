@@ -207,6 +207,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductsController.cs" />
     <Compile Include="Controllers\PaypalController.cs" />
+    <Compile Include="Controllers\PostController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\ShoppingCartController.cs" />
@@ -320,6 +321,7 @@
     <Compile Include="Models\ViewCheckoutClient.cs" />
     <Compile Include="Models\ViewHomeClient.cs" />
     <Compile Include="Models\ViewLayoutClient.cs" />
+    <Compile Include="Models\ViewPostClient.cs" />
     <Compile Include="Models\ViewProductClient.cs" />
     <Compile Include="Models\ViewShoppingCart.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -1019,6 +1021,7 @@
     <Content Include="Views\Checkout\ConfirmStripe.cshtml" />
     <Content Include="Views\Checkout\StripeCharge.cshtml" />
     <Content Include="Views\Account\MyOrder.cshtml" />
+    <Content Include="Views\Post\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

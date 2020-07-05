@@ -1,0 +1,99 @@
+﻿@model FinalArtsShop.Models.ViewPostClient
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Home/Layout/_Layout.cshtml";
+}
+
+<!-- Blog Archive -->
+<section id="aa-blog-archive">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="aa-blog-archive-area">
+                    <div class="row">
+                        <div class="col-md-9">
+                            <!-- Blog details -->
+                            <div class="aa-blog-content aa-blog-details">
+                                <article class="aa-blog-content-single">
+                                    <h2 style="color: #3FC35F">@Model.Post.Title</h2>
+                                    <div class="aa-article-bottom">
+                                        @*<div class="aa-post-author">
+                                            Posted By <a href="#">Jackson</a>
+                                        </div>*@
+                                        <div class="aa-post-date">
+                                            March <b>@Model.Post.CreatedAt</b>
+                                        </div>
+                                    </div>
+                                    <figure class="aa-blog-img">
+                                        <a href="#"><img src="@("https://res.cloudinary.com/daaycakkk/image/upload/c_crop,h_500,w_1024/v1587872991/" + Model.Post.GetThubnailIds()[0] + ".jpg")" alt="fashion img"></a>
+                                    </figure>
+                                    <hr />
+                                    <p>
+                                        @Model.Post.Body
+                                    </p>
+                                    
+                                </article>
+                                <!-- blog navigation -->
+                                <div class="aa-blog-navigation">
+                                    <a class="aa-blog-prev" href="/Post/Index?id=@Model.IdPrev"><span class="fa fa-arrow-left"></span>Prev Post</a>
+                                    <a class="aa-blog-next" href="/Post/Index?id=@Model.IdNext">Next Post<span class="fa fa-arrow-right"></span></a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- blog sidebar -->
+                        <div class="col-md-3">
+                            <aside class="aa-blog-sidebar">
+                                <div class="aa-sidebar-widget">
+                                    <h3>Category</h3>
+                                    <ul class="aa-catg-nav">
+                                        @{
+                                            foreach (var cat in Model.CategoriesMenu)
+                                            {
+                                                if (cat.Parent == 0)
+                                                {
+                                                    <li><a href="/Category/Index?id=@cat.Id">@cat.Name</a></li>
+                                                }
+                                            }
+                                        }
+                                    </ul>
+                                </div>
+                                
+                                <div class="aa-sidebar-widget">
+                                    <h3>Top Rated Products</h3>
+                                    <div class="aa-recently-views">
+                                        <ul>
+                                            @{
+                                                foreach (var prodRate in Model.FeatureProducts)
+                                                {
+                                                    <li>
+                                                        <a href="/Product/Index?id=@prodRate.Id" class="aa-cartbox-img"><img alt="img" src="@("https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_150,w_150/v1587872991/" + prodRate.GetThubnailIds()[1] + ".jpg")"></a>
+                                                        <div class="aa-cartbox-info">
+                                                            <h4><a href="/Product/Index?id=@prodRate.Id">@prodRate.Name</a></h4>
+                                                            @{
+                                                                if (prodRate.PromotionPrice > 0)
+                                                                {
+                                                                    <p>1 x $@prodRate.PromotionPrice</p>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <p>1 x $@prodRate.UnitPrice</p>
+                                                                }
+                                                            }
+                                                        </div>
+                                                    </li>
+                                                }
+                                            }
+                                        </ul>
+                                    </div>
+                                </div>
+                            </aside>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- / Blog Archive -->

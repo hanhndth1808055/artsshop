@@ -106,8 +106,6 @@
                                                                     </figcaption>
                                                                 </figure>
                                                                 <div class="aa-product-hvr-content">
-                                                                    <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
-                                                                    <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
                                                                     <a onclick="quickView('@data.Products[j].Id', '@data.Products[j].Name', @data.Products[j].PromotionPrice, @data.Products[j].UnitPrice, '@data.Products[j].Description', '@data.Products[j].Category.Name', '@data.Products[j].Category.Id', '@data.Products[j].Image', '@data.Products[j].GetThubnailIds()[0]', '@data.Products[j].GetThubnailIds()[1]', '@data.Products[j].GetThubnailIds()[2]')" href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
                                                                 </div>
                                                                 <!-- product badge -->
@@ -276,8 +274,6 @@
                                                     </figcaption>
                                                 </figure>
                                                 <div class="aa-product-hvr-content">
-                                                    <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
-                                                    <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
                                                     <a onclick="quickView('@prod.Id', '@prod.Name', @prod.PromotionPrice, @prod.UnitPrice, '@prod.Description', '@prod.Category.Name', '@prod.Category.Id', '@prod.Image', '@prod.GetThubnailIds()[0]', '@prod.GetThubnailIds()[1]', '@prod.GetThubnailIds()[2]')" href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
                                                 </div>
                                                 <!-- product badge -->
@@ -328,8 +324,6 @@
                                                     </figcaption>
                                                 </figure>
                                                 <div class="aa-product-hvr-content">
-                                                    <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
-                                                    <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
                                                     <a onclick="quickView('@prod.Id', '@prod.Name', @prod.PromotionPrice, @prod.UnitPrice, '@prod.Description', '@prod.Category.Name', '@prod.Category.Id', '@prod.Image', '@prod.GetThubnailIds()[0]', '@prod.GetThubnailIds()[1]', '@prod.GetThubnailIds()[2]')" href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
                                                 </div>
                                                 <!-- product badge -->
@@ -381,8 +375,6 @@
                                                     </figcaption>
                                                 </figure>
                                                 <div class="aa-product-hvr-content">
-                                                    <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
-                                                    <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
                                                     <a onclick="quickView('@prod.Id', '@prod.Name', @prod.PromotionPrice, @prod.UnitPrice, '@prod.Description', '@prod.Category.Name', '@prod.Category.Id', '@prod.Image', '@prod.GetThubnailIds()[0]', '@prod.GetThubnailIds()[1]', '@prod.GetThubnailIds()[2]')" href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
                                                 </div>
                                                 <!-- product badge -->
@@ -511,65 +503,38 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="aa-latest-blog-area">
-                    <h2>LATEST BLOG</h2>
+                    <h2>FEATURED BLOG</h2>
                     <div class="row">
-                        <!-- single latest blog -->
-                        <div class="col-md-4 col-sm-4">
-                            <div class="aa-latest-blog-single">
-                                <figure class="aa-blog-img">
-                                    <a href="#"><img src="~/MarkUps-dailyShop/dailyShop/img/promo-banner-1.jpg" alt="img"></a>
-                                    <figcaption class="aa-blog-img-caption">
-                                        <span href="#"><i class="fa fa-eye"></i>5K</span>
-                                        <a href="#"><i class="fa fa-thumbs-o-up"></i>426</a>
-                                        <a href="#"><i class="fa fa-comment-o"></i>20</a>
-                                        <span href="#"><i class="fa fa-clock-o"></i>June 26, 2016</span>
-                                    </figcaption>
-                                </figure>
-                                <div class="aa-blog-info">
-                                    <h3 class="aa-blog-title"><a href="#">Lorem ipsum dolor sit amet</a></h3>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda, ad? Autem quos natus nisi aperiam, beatae, fugiat odit vel impedit dicta enim repellendus animi. Expedita quas reprehenderit incidunt, voluptates corporis.</p>
-                                    <a href="#" class="aa-read-mor-btn">Read more <span class="fa fa-long-arrow-right"></span></a>
+                        @{
+                            string description = "";
+                            foreach (var post in data.ListPost)
+                            {
+                                <!-- single latest blog -->
+                                <div class="col-md-4 col-sm-4">
+                                    <div class="aa-latest-blog-single">
+                                        <figure class="aa-blog-img">
+                                            <a href="/Post/Index?id=@post.Id"><img src="@("https://res.cloudinary.com/daaycakkk/image/upload/c_crop,h_450,w_450/v1587872991/" + post.GetThubnailIds()[0] + ".jpg")" alt="img"></a>
+                                            <figcaption class="aa-blog-img-caption">
+                                                <span id="view-post"><i class="fa fa-eye"></i>@post.View</span>
+                                                <span id="like-post" onclick="likePost(@post.Id)" style="cursor: pointer"><i class="fa fa-thumbs-o-up"></i>@post.Like</span>
+                                                <a href="/Post/Index?id=@post.Id"><i class="fa fa-clock-o"></i>@post.CreatedAt</a>
+                                            </figcaption>
+                                        </figure>
+                                        <div class="aa-blog-info">
+                                            <h3 class="aa-blog-title"><a href="/Post/Index?id=@post.Id">@post.Title</a></h3>
+                                            <p>
+                                                @{
+                                                    description = post.Description;
+                                                    description = description.Substring(0, 250) + "...";
+                                                }
+                                                @description
+                                            </p>
+                                            <a href="/Post/Index?id=@post.Id" class="aa-read-mor-btn">Read more <span class="fa fa-long-arrow-right"></span></a>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                        <!-- single latest blog -->
-                        <div class="col-md-4 col-sm-4">
-                            <div class="aa-latest-blog-single">
-                                <figure class="aa-blog-img">
-                                    <a href="#"><img src="~/MarkUps-dailyShop/dailyShop/img/promo-banner-3.jpg" alt="img"></a>
-                                    <figcaption class="aa-blog-img-caption">
-                                        <span href="#"><i class="fa fa-eye"></i>5K</span>
-                                        <a href="#"><i class="fa fa-thumbs-o-up"></i>426</a>
-                                        <a href="#"><i class="fa fa-comment-o"></i>20</a>
-                                        <span href="#"><i class="fa fa-clock-o"></i>June 26, 2016</span>
-                                    </figcaption>
-                                </figure>
-                                <div class="aa-blog-info">
-                                    <h3 class="aa-blog-title"><a href="#">Lorem ipsum dolor sit amet</a></h3>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda, ad? Autem quos natus nisi aperiam, beatae, fugiat odit vel impedit dicta enim repellendus animi. Expedita quas reprehenderit incidunt, voluptates corporis.</p>
-                                    <a href="#" class="aa-read-mor-btn">Read more <span class="fa fa-long-arrow-right"></span></a>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- single latest blog -->
-                        <div class="col-md-4 col-sm-4">
-                            <div class="aa-latest-blog-single">
-                                <figure class="aa-blog-img">
-                                    <a href="#"><img src="~/MarkUps-dailyShop/dailyShop/img/promo-banner-1.jpg" alt="img"></a>
-                                    <figcaption class="aa-blog-img-caption">
-                                        <span href="#"><i class="fa fa-eye"></i>5K</span>
-                                        <a href="#"><i class="fa fa-thumbs-o-up"></i>426</a>
-                                        <a href="#"><i class="fa fa-comment-o"></i>20</a>
-                                        <span href="#"><i class="fa fa-clock-o"></i>June 26, 2016</span>
-                                    </figcaption>
-                                </figure>
-                                <div class="aa-blog-info">
-                                    <h3 class="aa-blog-title"><a href="#">Lorem ipsum dolor sit amet</a></h3>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda, ad? Autem quos natus nisi aperiam, beatae, fugiat odit vel impedit dicta enim repellendus animi. Expedita quas reprehenderit incidunt, voluptates corporis.</p>
-                                    <a href="#" class="aa-read-mor-btn">Read more <span class="fa fa-long-arrow-right"></span></a>
-                                </div>
-                            </div>
-                        </div>
+                            }
+                        }
                     </div>
                 </div>
             </div>
@@ -679,6 +644,19 @@
             href = href.substr(0, (href.indexOf("&quantity=") + 10));
             $("#add-cart").attr("href", href + quantity);
         });
+
+
+        function likePost(id) {
+            var id = parseInt(id);
+            $.ajax({
+                url: "/Post/AjaxPostLike?id=" + id,
+                type: "get",
+                success: function (result) {
+                    var html = '<i class="fa fa-thumbs-o-up"></i>' + result;
+                    $('#like-post').html(html);
+                }
+            });
+        }
 
     </script>
 }

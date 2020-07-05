@@ -12,6 +12,8 @@ namespace FinalArtsShop.Areas.Admin.Controllers
     {
         public ActionResult Index()
         {
+            string api = ApiConfig.api;
+            ViewBag.api = api;
             return View("~/Areas/Admin/Views/Dashboard/Dashboard.cshtml");
         }
     }

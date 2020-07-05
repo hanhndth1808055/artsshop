@@ -105,6 +105,17 @@ namespace FinalArtsShop.Controllers
             }
         }
 
+        [Route("api/ChartApi/totalorder")]
+        [HttpGet]
+        public IHttpActionResult TotalOrder()
+        {
+            //List<Order> listOrder = db.Orders
+            //                .SqlQuery("Select count(id) from Orders;")
+            //                .ToList<Order>();
+            string sql = "Select count(id) from Orders;";
+            var total = db.Database.SqlQuery<int>(sql).Single();
+            return Ok(total);
+        }
         private IHttpActionResult Exception(string message)
         {
             throw new NotImplementedException();

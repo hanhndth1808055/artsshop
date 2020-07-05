@@ -2,6 +2,10 @@
 @{
     ViewBag.Title = "Search";
     Layout = "~/Views/Home/Layout/_Layout.cshtml";
+    var totalItem = (int)ViewBag.totalItem;
+    var totalPage = (int)ViewBag.totalPage;
+    var currentPage = (int)ViewBag.currentPage;
+    var sortBy = (string)ViewBag.SortBy;
 }
 
 @section bodyClass {
@@ -35,11 +39,11 @@
                         <div class="aa-product-catg-head-left">
                             <form action="" class="aa-sort-form">
                                 <label for="">Sort by</label>
-                                <select name="">
-                                    <option value="1" selected="Default">Default</option>
-                                    <option value="2">Name</option>
-                                    <option value="3">Price</option>
-                                    <option value="4">Date</option>
+                                <select name="sortBy">
+                                    <option value="Default" @{ if (sortBy == "Default") { @Html.Raw("selected")  } }>Default</option>
+                                    <option value="Name" @{ if (sortBy == "Name") { @Html.Raw("selected")  } }>Name</option>
+                                    <option value="Price" @{ if (sortBy == "Price") { @Html.Raw("selected")  } }>Price</option>
+                                    <option value="Date" @{ if (sortBy == "Date") { @Html.Raw("selected")  } }>Date</option>
                                 </select>
                             </form>
                             @*<form action="" class="aa-show-form">
@@ -85,7 +89,7 @@
                                             <div class="aa-product-hvr-content">
                                                 <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
                                                 <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
-                                                <a onclick="quickView('@prod.Id', '@prod.Name', @prod.PromotionPrice, @prod.UnitPrice, '@prod.Description', '@prod.Category.Name', '@prod.Category.Id', '@prod.Image', '@prod.GetThubnailIds()[0]', '@prod.GetThubnailIds()[1]', '@prod.GetThubnailIds()[2]', '@prod.GetThubnailIds()[3]')" href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
+                                                <a onclick="quickView('@prod.Id', '@prod.Name', @prod.PromotionPrice, @prod.UnitPrice, '@prod.Description', '@prod.Category.Name', '@prod.Category.Id', '@prod.Image', '@prod.GetThubnailIds()[0]', '@prod.GetThubnailIds()[1]', '@prod.GetThubnailIds()[2]')" href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
                                             </div>
                                             <!-- product badge -->
                                             @{
@@ -159,13 +163,13 @@
                                                     <p id="quick-view-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officiis animi, veritatis quae repudiandae quod nulla porro quidem, itaque quis quaerat!</p>
                                                     <div class="aa-prod-quantity">
                                                         <form action="">
-                                                            <select name="">
-                                                                <option value="0" selected="1">1</option>
-                                                                <option value="1">2</option>
-                                                                <option value="2">3</option>
-                                                                <option value="3">4</option>
-                                                                <option value="4">5</option>
-                                                                <option value="5">6</option>
+                                                            <select name="select-quantity">
+                                                                <option value="1" selected>1</option>
+                                                                <option value="2">2</option>
+                                                                <option value="3">3</option>
+                                                                <option value="4">4</option>
+                                                                <option value="5">5</option>
+                                                                <option value="6">6</option>
                                                             </select>
                                                         </form>
                                                         <p class="aa-prod-category">
@@ -188,21 +192,40 @@
                     <div class="aa-product-catg-pagination">
                         <nav>
                             <ul class="pagination">
-                                <li>
-                                    <a href="#" aria-label="Previous">
-                                        <span aria-hidden="true">&laquo;</span>
-                                    </a>
-                                </li>
-                                <li><a href="#">1</a></li>
-                                <li><a href="#">2</a></li>
-                                <li><a href="#">3</a></li>
-                                <li><a href="#">4</a></li>
-                                <li><a href="#">5</a></li>
-                                <li>
-                                    <a href="#" aria-label="Next">
-                                        <span aria-hidden="true">&raquo;</span>
-                                    </a>
-                                </li>
+
+                                @if (currentPage > 1)
+                                {
+                                    <li title="1" class="paginate-number">
+                                        <a href="#" aria-label="Previous">
+                                            <span aria-hidden="true">&laquo;</span>
+                                        </a>
+                                    </li>
+                                }
+                                @if ((currentPage - 2) > 0)
+                                {
+                                    <li title="@(currentPage - 2)" class="paginate-number"><a href="#">@(currentPage - 2)</a></li>
+                                }
+                                @if ((currentPage - 1) > 0)
+                                {
+                                    <li title="@(currentPage - 1)" class="paginate-number"><a href="#">@(currentPage - 1)</a></li>
+                                }
+                                <li id="active-page"><a href="#" style="color: #FF6666">@(currentPage)</a></li>
+                                @if (totalPage - currentPage > 0)
+                                {
+                                    <li title="@(currentPage + 1)" class="paginate-number"><a href="#">@(currentPage + 1)</a></li>
+                                }
+                                @if (totalPage - currentPage > 1)
+                                {
+                                    <li title="@(currentPage + 2)" class="paginate-number"><a href="#">@(currentPage + 2)</a></li>
+                                }
+                                @if (currentPage < totalPage)
+                                {
+                                    <li title="@(totalPage)" class="paginate-number">
+                                        <a href="#" aria-label="Next">
+                                            <span aria-hidden="true">&raquo;</span>
+                                        </a>
+                                    </li>
+                                }
                             </ul>
                         </nav>
                     </div>
@@ -227,7 +250,7 @@
                     </div>
                     <!-- single sidebar -->
                     <!-- single sidebar -->
-                    <div class="aa-sidebar-widget">
+                    <div class="aa-sidebar-widget" style="display: none">
                         <h3>Shop By Price</h3>
                         <!-- price range -->
                         <div class="aa-sidebar-price-range">
@@ -310,7 +333,7 @@
 @section scripts{
 
     <script>
-        function quickView(Id, Name, PromotionPrice, UnitPrice, Description, CateName, CateId, Image, Thumbnail_1, Thumbnail_2, Thumbnail_3, Thumbnail_4) {
+        function quickView(Id, Name, PromotionPrice, UnitPrice, Description, CateName, CateId, Image, Thumbnail_1, Thumbnail_2, Thumbnail_3) {
             String(Id);
             String(Name);
             parseFloat(PromotionPrice);
@@ -320,20 +343,20 @@
             parseInt(CateId);
             String(Image);
 
-            $("#quick-view-image").attr("data-lens-image", "https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_1024,w_900/v1587872991/" + Thumbnail_2 + ".jpg");
-            $("#quick-view-image img").attr("src", "https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_300,w_250/v1587872991/" + Thumbnail_2 + ".jpg");
+            $("#quick-view-image").attr("data-lens-image", "https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_1024,w_900/v1587872991/" + Thumbnail_1 + ".jpg");
+            $("#quick-view-image img").attr("src", "https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_300,w_250/v1587872991/" + Thumbnail_1 + ".jpg");
 
             $("#quick-view-thumbnail-1").attr("data-lens-image", "https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_1024,w_900/v1587872991/" + Thumbnail_1 + ".jpg");
             $("#quick-view-thumbnail-1").attr("data-big-image", "https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_300,w_250/v1587872991/" + Thumbnail_1 + ".jpg");
             $("#quick-view-thumbnail-1 img").attr("src", "https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_55,w_45/v1587872991/" + Thumbnail_1 + ".jpg");
 
-            $("#quick-view-thumbnail-2").attr("data-lens-image", "https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_1024,w_900/v1587872991/" + Thumbnail_3 + ".jpg");
-            $("#quick-view-thumbnail-2").attr("data-big-image", "https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_300,w_250/v1587872991/" + Thumbnail_3 + ".jpg");
-            $("#quick-view-thumbnail-2 img").attr("src", "https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_55,w_45/v1587872991/" + Thumbnail_3 + ".jpg");
+            $("#quick-view-thumbnail-2").attr("data-lens-image", "https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_1024,w_900/v1587872991/" + Thumbnail_2 + ".jpg");
+            $("#quick-view-thumbnail-2").attr("data-big-image", "https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_300,w_250/v1587872991/" + Thumbnail_2 + ".jpg");
+            $("#quick-view-thumbnail-2 img").attr("src", "https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_55,w_45/v1587872991/" + Thumbnail_2 + ".jpg");
 
-            $("#quick-view-thumbnail-3").attr("data-lens-image", "https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_1024,w_900/v1587872991/" + Thumbnail_4 + ".jpg");
-            $("#quick-view-thumbnail-3").attr("data-big-image", "https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_300,w_250/v1587872991/" + Thumbnail_4 + ".jpg");
-            $("#quick-view-thumbnail-3 img").attr("src", "https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_55,w_45/v1587872991/" + Thumbnail_4 + ".jpg");
+            $("#quick-view-thumbnail-3").attr("data-lens-image", "https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_1024,w_900/v1587872991/" + Thumbnail_3 + ".jpg");
+            $("#quick-view-thumbnail-3").attr("data-big-image", "https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_300,w_250/v1587872991/" + Thumbnail_3 + ".jpg");
+            $("#quick-view-thumbnail-3 img").attr("src", "https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_55,w_45/v1587872991/" + Thumbnail_3 + ".jpg");
 
             $(".aa-product-view-content h3").html(Name);
             if (PromotionPrice > 0) {
@@ -350,6 +373,45 @@
             $("#add-cart").attr("href", "/ShoppingCart/AddToCart?productId=" + Id + "&quantity=1");
             $("#view-detail").attr("href", "/Product/Index?id=" + Id);
         }
+
+        $("select[name=select-quantity]").change(function () {
+            var quantity = $("select[name=select-quantity]").val();
+            var href = $("#add-cart").attr("href");
+            href = href.substr(0, (href.indexOf("&quantity=") + 10));
+            $("#add-cart").attr("href", href + quantity);
+        });
+
+        var url_string = location.href;
+        var url = new URL(url_string);
+        var keyword = url.searchParams.get('keyword');
+        var initSortBy = url.searchParams.get('sortBy');
+        var href = "";
+        if (keyword != null) {
+            href = "/Search/Search?keyword=" + keyword + "&";
+        } else {
+            href = "/Search/Search?keyword=&";
+        }
+
+
+        $('.paginate-number').click(function (e) {
+            e.preventDefault();
+            if (keyword != null) {
+                var page = parseInt($(this).attr('title'));
+                window.location.href = href + "sortBy=" + $('select[name=sortBy] option:selected').text() + "&page=" + page;
+            } else {
+                window.location.href = href;
+            }
+        });
+
+        $('select[name=sortBy]').change(function () {
+            alert($('select[name=sortBy] option:selected').text());
+            if (keyword != null) {
+                var sortBy = $('select[name=sortBy] option:selected').text();
+                window.location.href = href + "sortBy=" + sortBy;
+            } else {
+                window.location.href = href;
+            }
+        });
     </script>
 }
 

@@ -7,7 +7,7 @@ namespace FinalArtsShop
 {
     public static class ApiConfig
     {
-        //public static string api = "http://artsshop.azurewebsites.net/";
-        public static string api = "https://localhost:44333/";
+        public static string api = "http://artsshop.azurewebsites.net/";
+        //public static string api = "https://localhost:44333/";
     }
 }

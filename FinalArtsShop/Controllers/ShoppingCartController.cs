@@ -174,8 +174,9 @@ namespace FinalArtsShop.Controllers
                 SetShoppingCart(shoppingCart);
                 foreach (var cartItem in shoppingCart.Items.Values)
                 {
+        
                     data += "<li>";
-                    data += "<a class='aa-cartbox-img' href='#'><img src='/MarkUps-dailyShop/dailyShop/img/electronics/" + @cartItem.Product.Image + "'alt='img'></a>";
+                    data += "<a class='aa-cartbox-img' href='#'><img src='https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_300,w_250/v1587872991/" + @cartItem.Thumbnail + "'alt='img'></a>";
                     data += "<div class='aa-cartbox-info'>";
                     data += "<h4><a href='#'>" + @cartItem.Name + "</a></h4>";
                     data += "<p>" + @cartItem.Quantity + " x $" + @cartItem.Price + "</p>";

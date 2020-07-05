@@ -182,6 +182,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApiConfig.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
@@ -316,6 +317,7 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include=".gitignore" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -797,6 +799,7 @@
     <Content Include="MarkUps-dailyShop\help\DOCUMENTATION\syntax-highlighter\styles\shThemeMidnight.css" />
     <Content Include="MarkUps-dailyShop\help\DOCUMENTATION\syntax-highlighter\styles\shThemeRDark.css" />
     <Content Include="MarkUps-dailyShop\license.txt" />
+    <Content Include="Scripts\AjaxCallForReturnOrder.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\CartWithAjax.js" />
@@ -898,6 +901,7 @@
     <None Include="Properties\PublishProfiles\artsshop - ReadOnly - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\artsshop - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\hightcharts.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.js" />
@@ -908,6 +912,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\MyChart.js" />
     <Content Include="Scripts\ShippingFeeAjax.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

@@ -4,26 +4,20 @@
     Layout = "~/Views/Home/Layout/_Layout.cshtml";
 }
 
-<!-- catg header banner section -->
-<section id="aa-catg-head-banner">
-    <img src="~/MarkUps-dailyShop/dailyShop/img/fashion/fashion-header-bg-8.jpg" alt="fashion img">
-    <div class="aa-catg-head-banner-area">
-        <div class="container">
-            <div class="aa-catg-head-banner-content">
-                <h2>@Model.Product.Name</h2>
-                <ol class="breadcrumb">
-                    <li><a href="~/MarkUps-dailyShop/dailyShop/index.html">Home</a></li>
-                    <li><a href="#">Product</a></li>
-                    <li class="active">@Model.Product.Name</li>
-                </ol>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- / catg header banner section -->
+
 <!-- product category -->
 <section id="aa-product-details">
     <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <br />
+                <ol class="breadcrumb">
+                    <li><a href="/Home/Home">Home</a></li>
+                    <li><a href="/Category/Index">Product</a></li>
+                    <li class="active" style="color: #3FC35F">@Model.Product.Name</li>
+                </ol>
+            </div>
+        </div>
         <div class="row">
             <div class="col-md-12">
                 <div class="aa-product-details-area">
@@ -34,17 +28,17 @@
                                 <div class="aa-product-view-slider">
                                     <div id="demo-1" class="simpleLens-gallery-container">
                                         <div class="simpleLens-container">
-                                            <div class="simpleLens-big-image-container"><a data-lens-image="@("https://res.cloudinary.com/daaycakkk/image/upload/c_limit/v1587872991/" + @Model.Product.GetThubnailIds()[1] + ".jpg")" class="simpleLens-lens-image"><img src="@("https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_300,w_250/v1587872991/" + @Model.Product.GetThubnailIds()[1] + ".jpg")" class="simpleLens-big-image" width="250px" height="300px"></a></div>
+                                            <div class="simpleLens-big-image-container"><a data-lens-image="@("https://res.cloudinary.com/daaycakkk/image/upload/c_limit/v1587872991/" + @Model.Product.GetThubnailIds()[0] + ".jpg")" class="simpleLens-lens-image"><img src="@("https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_300,w_250/v1587872991/" + @Model.Product.GetThubnailIds()[0] + ".jpg")" class="simpleLens-big-image"></a></div>
                                         </div>
                                         <div class="simpleLens-thumbnails-container">
                                             <a data-big-image="@("https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_300,w_250/v1587872991/" + @Model.Product.GetThubnailIds()[0] + ".jpg")" data-lens-image="@("https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_1024,w_900/v1587872991/" + @Model.Product.GetThubnailIds()[0] + ".jpg")" class="simpleLens-thumbnail-wrapper" href="#">
                                                 <img src="@("https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_300,w_250/v1587872991/" + @Model.Product.GetThubnailIds()[0] + ".jpg")" width="45px" height="55px">
                                             </a>
+                                            <a data-big-image="@("https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_300,w_250/v1587872991/" + @Model.Product.GetThubnailIds()[1] + ".jpg")" data-lens-image="@("https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_1024,w_900/v1587872991/" + @Model.Product.GetThubnailIds()[1] + ".jpg")" class="simpleLens-thumbnail-wrapper" href="#">
+                                                <img src="@("https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_300,w_250/v1587872991/" + @Model.Product.GetThubnailIds()[1] + ".jpg")" width="45px" height="55px">
+                                            </a>
                                             <a data-big-image="@("https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_300,w_250/v1587872991/" + @Model.Product.GetThubnailIds()[2] + ".jpg")" data-lens-image="@("https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_1024,w_900/v1587872991/" + @Model.Product.GetThubnailIds()[2] + ".jpg")" class="simpleLens-thumbnail-wrapper" href="#">
                                                 <img src="@("https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_300,w_250/v1587872991/" + @Model.Product.GetThubnailIds()[2] + ".jpg")" width="45px" height="55px">
-                                            </a>
-                                            <a data-big-image="@("https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_300,w_250/v1587872991/" + @Model.Product.GetThubnailIds()[3] + ".jpg")" data-lens-image="@("https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_1024,w_900/v1587872991/" + @Model.Product.GetThubnailIds()[3] + ".jpg")" class="simpleLens-thumbnail-wrapper" href="#">
-                                                <img src="@("https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_300,w_250/v1587872991/" + @Model.Product.GetThubnailIds()[3] + ".jpg")" width="45px" height="55px">
                                             </a>
                                         </div>
                                     </div>
@@ -58,11 +52,11 @@
                                         @{
                                             if (@Model.Product.PromotionPrice > 0)
                                             {
-                                                <span class="aa-product-view-price">$@Model.Product.PromotionPrice</span>
+                                                <span class="aa-product-view-price" style="font-size: 22px ;color: #3FC35F"; !important>$@Model.Product.PromotionPrice</span>
                                             }
                                             else
                                             {
-                                                <span class="aa-product-view-price">$@Model.Product.UnitPrice</span>
+                                                <span class="aa-product-view-price" style="font-size: 22px ;color: #3FC35F"; !important>$@Model.Product.UnitPrice</span>
                                             }
                                         }
                                         @{
@@ -79,13 +73,13 @@
                                     <p>@Model.Product.Description</p>
                                     <div class="aa-prod-quantity">
                                         <form action="">
-                                            <select id="" name="">
-                                                <option selected="1" value="0">1</option>
-                                                <option value="1">2</option>
-                                                <option value="2">3</option>
-                                                <option value="3">4</option>
-                                                <option value="4">5</option>
-                                                <option value="5">6</option>
+                                            <select name="select-quantity-detail">
+                                                <option value="1" selected>1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                                <option value="6">6</option>
                                             </select>
                                         </form>
                                         <p class="aa-prod-category">
@@ -93,9 +87,7 @@
                                         </p>
                                     </div>
                                     <div class="aa-prod-view-bottom">
-                                        <a class="aa-add-to-cart-btn" href="/ShoppingCart/AddToCart?productId=@Model.Product.Id&quantity=1">Add To Cart</a>
-                                        <a class="aa-add-to-cart-btn" href="#">Wishlist</a>
-                                        <a class="aa-add-to-cart-btn" href="#">Compare</a>
+                                        <a id="add-cart-detail" class="aa-add-to-cart-btn" href="/ShoppingCart/AddToCart?productId=@Model.Product.Id&quantity=1">Add To Cart</a>
                                     </div>
                                 </div>
                             </div>
@@ -197,7 +189,7 @@
                                     <!-- start single product item -->
                                     <li>
                                         <figure>
-                                            <a class="aa-product-img" href="/Product/Index?id=@prod.Id"><img src="@("https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_300,w_250/v1587872991/" + @prod.GetThubnailIds()[0] + ".jpg")" alt=""></a>
+                                            <a class="aa-product-img" href="/Product/Index?id=@prod.Id"><img src="@("https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_300,w_250/v1587872991/" + @prod.GetThubnailIds()[0] + ".jpg")" alt="" style="display: unset"></a>
                                             <a class="aa-add-card-btn" href="/ShoppingCart/AddToCart?productId=@prod.Id&quantity=1"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
                                             <figcaption>
                                                 <h4 class="aa-product-title"><a href="/Product/Index?id=@prod.Id">@prod.Name</a></h4>
@@ -216,7 +208,7 @@
                                         <div class="aa-product-hvr-content">
                                             <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
                                             <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
-                                            <a onclick="quickView('@prod.Id', '@prod.Name', @prod.PromotionPrice, @prod.UnitPrice, '@prod.Description', '@prod.Category.Name', '@prod.Category.Id', '@prod.Image', '@prod.GetThubnailIds()[0]', '@prod.GetThubnailIds()[1]', '@prod.GetThubnailIds()[2]', '@prod.GetThubnailIds()[3]')" href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
+                                            <a onclick="quickView('@prod.Id', '@prod.Name', @prod.PromotionPrice, @prod.UnitPrice, '@prod.Description', '@prod.Category.Name', '@prod.Category.Id', '@prod.Image', '@prod.GetThubnailIds()[0]', '@prod.GetThubnailIds()[1]', '@prod.GetThubnailIds()[2]')" href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
                                         </div>
                                         <!-- product badge -->
                                         @{
@@ -289,13 +281,13 @@
                                                     <p id="quick-view-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officiis animi, veritatis quae repudiandae quod nulla porro quidem, itaque quis quaerat!</p>
                                                     <div class="aa-prod-quantity">
                                                         <form action="">
-                                                            <select name="">
-                                                                <option value="0" selected="1">1</option>
-                                                                <option value="1">2</option>
-                                                                <option value="2">3</option>
-                                                                <option value="3">4</option>
-                                                                <option value="4">5</option>
-                                                                <option value="5">6</option>
+                                                            <select name="select-quantity">
+                                                                <option value="1" selected>1</option>
+                                                                <option value="2">2</option>
+                                                                <option value="3">3</option>
+                                                                <option value="4">4</option>
+                                                                <option value="5">5</option>
+                                                                <option value="6">6</option>
                                                             </select>
                                                         </form>
                                                         <p class="aa-prod-category">
@@ -324,7 +316,7 @@
 @section scripts{
 
     <script>
-        function quickView(Id, Name, PromotionPrice, UnitPrice, Description, CateName, CateId, Image, Thumbnail_1, Thumbnail_2, Thumbnail_3, Thumbnail_4) {
+        function quickView(Id, Name, PromotionPrice, UnitPrice, Description, CateName, CateId, Image, Thumbnail_1, Thumbnail_2, Thumbnail_3) {
             String(Id);
             String(Name);
             parseFloat(PromotionPrice);
@@ -334,20 +326,20 @@
             parseInt(CateId);
             String(Image);
 
-            $("#quick-view-image").attr("data-lens-image", "https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_1024,w_900/v1587872991/" + Thumbnail_2 + ".jpg");
-            $("#quick-view-image img").attr("src", "https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_300,w_250/v1587872991/" + Thumbnail_2 + ".jpg");
+            $("#quick-view-image").attr("data-lens-image", "https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_1024,w_900/v1587872991/" + Thumbnail_1 + ".jpg");
+            $("#quick-view-image img").attr("src", "https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_300,w_250/v1587872991/" + Thumbnail_1 + ".jpg");
 
             $("#quick-view-thumbnail-1").attr("data-lens-image", "https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_1024,w_900/v1587872991/" + Thumbnail_1 + ".jpg");
             $("#quick-view-thumbnail-1").attr("data-big-image", "https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_300,w_250/v1587872991/" + Thumbnail_1 + ".jpg");
             $("#quick-view-thumbnail-1 img").attr("src", "https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_55,w_45/v1587872991/" + Thumbnail_1 + ".jpg");
 
-            $("#quick-view-thumbnail-2").attr("data-lens-image", "https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_1024,w_900/v1587872991/" + Thumbnail_3 + ".jpg");
-            $("#quick-view-thumbnail-2").attr("data-big-image", "https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_300,w_250/v1587872991/" + Thumbnail_3 + ".jpg");
-            $("#quick-view-thumbnail-2 img").attr("src", "https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_55,w_45/v1587872991/" + Thumbnail_3 + ".jpg");
+            $("#quick-view-thumbnail-2").attr("data-lens-image", "https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_1024,w_900/v1587872991/" + Thumbnail_2 + ".jpg");
+            $("#quick-view-thumbnail-2").attr("data-big-image", "https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_300,w_250/v1587872991/" + Thumbnail_2 + ".jpg");
+            $("#quick-view-thumbnail-2 img").attr("src", "https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_55,w_45/v1587872991/" + Thumbnail_2 + ".jpg");
 
-            $("#quick-view-thumbnail-3").attr("data-lens-image", "https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_1024,w_900/v1587872991/" + Thumbnail_4 + ".jpg");
-            $("#quick-view-thumbnail-3").attr("data-big-image", "https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_300,w_250/v1587872991/" + Thumbnail_4 + ".jpg");
-            $("#quick-view-thumbnail-3 img").attr("src", "https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_55,w_45/v1587872991/" + Thumbnail_4 + ".jpg");
+            $("#quick-view-thumbnail-3").attr("data-lens-image", "https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_1024,w_900/v1587872991/" + Thumbnail_3 + ".jpg");
+            $("#quick-view-thumbnail-3").attr("data-big-image", "https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_300,w_250/v1587872991/" + Thumbnail_3 + ".jpg");
+            $("#quick-view-thumbnail-3 img").attr("src", "https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_55,w_45/v1587872991/" + Thumbnail_3 + ".jpg");
 
             $(".aa-product-view-content h3").html(Name);
             if (PromotionPrice > 0) {
@@ -363,6 +355,21 @@
 
             $("#add-cart").attr("href", "/ShoppingCart/AddToCart?productId=" + Id + "&quantity=1");
             $("#view-detail").attr("href", "/Product/Index?id=" + Id);
+
         }
+
+        $("select[name=select-quantity]").change(function () {
+            var quantity = $("select[name=select-quantity]").val();
+            var href = $("#add-cart").attr("href");
+            href = href.substr(0, (href.indexOf("&quantity=") + 10));
+            $("#add-cart").attr("href", href + quantity);
+        });
+
+        $("select[name=select-quantity-detail]").change(function () {
+            var quantity = $("select[name=select-quantity-detail]").val();
+            var href = $("#add-cart-detail").attr("href");
+            href = href.substr(0, (href.indexOf("&quantity=") + 10));
+            $("#add-cart-detail").attr("href", href + quantity);
+        });
     </script>
 }

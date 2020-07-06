@@ -23,7 +23,7 @@
                     );
                 } else {
                     Swal.fire(
-                        'Your email is still in list!',
+                        'Your email is still in list subscribers!',
                         '',
                         'success',
                     );

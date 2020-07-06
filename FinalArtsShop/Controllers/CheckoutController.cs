@@ -69,7 +69,6 @@ namespace FinalArtsShop.Controllers
                 Dictionary<string, OrderItem> listOrderItem = new Dictionary<string, OrderItem>();
                 Order order;
                 OrderItem orderItem = null;
-
                 foreach (ShoppingCart.CartItem item in items.Values)
                 {
                     orderItem = new OrderItem
@@ -82,7 +81,6 @@ namespace FinalArtsShop.Controllers
                     };
 
                     listOrderItem.Add(orderItem.ProductId, orderItem);
-
                     orderItem = null;
                 }
 
@@ -206,10 +204,8 @@ namespace FinalArtsShop.Controllers
         }
         private ActionResult ChequePayment(Order order)
         {
-            Debug.WriteLine(order.CustomerName);
             ViewBag.Message = order;
             ViewBag.OrderId = new SelectList(HttpContext.GetOwinContext().Get<ApplicationDbContext>().Orders.Where(o => o.Id == order.Id), "Id", "CreatedAt");
-
             return View("~/Views/Checkout/ConfirmCheque.cshtml");
         }
 
@@ -231,47 +227,6 @@ namespace FinalArtsShop.Controllers
             var value = random.Next();
             return value;
         }
-
-        //[Authorize]
-        //public void returnOrder(string orderId)
-        //{
-        //    var userManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-        //    ApplicationUser user = userManager.FindByNameAsync(User.Identity.Name).Result;
-
-        //    var order = HttpContext.GetOwinContext().Get<ApplicationDbContext>().Orders.Find(orderId);
-
-        //    if (order == null)
-        //    {
-        //        return;
-        //    }
-
-        //    if (order.ShippedAt == null)
-        //    {
-        //        order.FulfillmentStatus = FulfillmentStatusEnum.Returned;
-        //        if (ModelState.IsValid)
-        //        {
-        //            HttpContext.GetOwinContext().Get<ApplicationDbContext>().Entry(order).State = EntityState.Modified;
-        //            HttpContext.GetOwinContext().Get<ApplicationDbContext>().SaveChanges();
-        //        }
-        //    }
-
-        //    var now = new DateTime();
-
-        //    var timeDiff = now.Subtract((DateTime)order.ShippedAt).TotalDays;
-
-        //    if (order != null && timeDiff > 7)
-        //    {
-        //        return;
-        //    }
-        //    {
-        //        order.FulfillmentStatus = FulfillmentStatusEnum.Returning;
-        //        if (ModelState.IsValid)
-        //        {
-        //            HttpContext.GetOwinContext().Get<ApplicationDbContext>().Entry(order).State = EntityState.Modified;
-        //            HttpContext.GetOwinContext().Get<ApplicationDbContext>().SaveChanges();
-        //        }
-        //    }
-        //}
 
         [Authorize]
         public JsonResult ReturnOrderForAjax(string orderId)

@@ -12,32 +12,36 @@ namespace FinalArtsShop.Areas.Admin.Controllers
     [Authorize]
     public class OrdersController : Controller
     {
-        public readonly String CartSessionName = "cart";
         private ApplicationDbContext db = new ApplicationDbContext();
         // GET: Admin/Orders
         public ActionResult Index()
         {
             ViewBag.PaymentStatusList = Enum.GetValues(typeof(PaymentStatusEnum)).Cast<PaymentStatusEnum>().ToList();
             ViewBag.FulfillmentStatusList = Enum.GetValues(typeof(FulfillmentStatusEnum)).Cast<FulfillmentStatusEnum>().ToList();
-            return View(db.Orders.OrderByDescending(order => order.Id).ToList());
+            return View(db.Orders
+                .OrderByDescending(o => o.CreatedAt)
+                .ToList());
+        }
+
+        [HttpGet]
+        public ActionResult Detail(string orderId)
+        {
+            var order = db.Orders.Find(orderId);
+            var listOrderDetails = order.Items.Values.ToList();
+      
+            return View(listOrderDetails);
         }
 
         public JsonResult UpdatePaymentStatus(int paymentStatusVal, string idOrder)
         {
             var data = "";
             Order order = db.Orders.Find(idOrder);
-            order.PaymentStatus = (PaymentStatusEnum)Enum.GetValues(typeof(PaymentStatusEnum)).GetValue(paymentStatusVal);
-            db.SaveChanges();
-            //var updateSelected = "";
-            //foreach(var status in Enum.GetValues(typeof(PaymentStatusEnum)).Cast<PaymentStatusEnum>().ToList())
-            //{
-            //    if ((Int32)status == paymentStatusVal)
-            //    {
-            //        updateSelected = "selected";
-            //    }
-            //    data += "<option " + updateSelected + " value ='"+ (Int32)status +"'>" + status + "</option>";
-            //    updateSelected = "";
-            //}
+            if (order != null)
+            {
+                order.PaymentStatus = (PaymentStatusEnum)Enum.GetValues(typeof(PaymentStatusEnum)).GetValue(paymentStatusVal);
+                db.SaveChanges();
+                data = order.PaymentStatus.ToString();
+            }
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 
@@ -45,46 +49,13 @@ namespace FinalArtsShop.Areas.Admin.Controllers
         {
             var data = "";
             Order order = db.Orders.Find(idOrder);
-            order.FulfillmentStatus = (FulfillmentStatusEnum)Enum.GetValues(typeof(FulfillmentStatusEnum)).GetValue(fullfillmentStatusVal);
-            db.SaveChanges();
-            return Json(data, JsonRequestBehavior.AllowGet);
-        }
-
-        public ActionResult Create()
-        {
-            //ShoppingCart cart = new ShoppingCart();
-            //Session[CartSessionName] = cart.Items;
-            if (Session[CartSessionName] != null)
+            if (order != null)
             {
-                Dictionary<string, CartItem> items;
-                try
-                {
-                    items = Session[CartSessionName] as Dictionary<string, CartItem>;
-                }
-                catch (Exception e)
-                {
-                    items = new Dictionary<string, CartItem>();
-                }
-                if (items.Count < 0)
-                {
-                    return HttpNotFound();
-                }
-                OrderItem orderItem;
-                foreach (CartItem item in items.Values)
-                {
-                    orderItem = new OrderItem
-                    {
-                        Name = item.Name,
-                        Price = item.Price,
-                        Quantity = item.Quantity,
-                        Thumbnail = item.Thumbnail,
-                        ProductId = item.ProductId,
-                    };
-                }
-                return RedirectToAction("");
+                order.FulfillmentStatus = (FulfillmentStatusEnum)Enum.GetValues(typeof(FulfillmentStatusEnum)).GetValue(fullfillmentStatusVal);
+                db.SaveChanges();
+                data = order.FulfillmentStatus.ToString();
             }
-
-            return HttpNotFound();
+            return Json(data, JsonRequestBehavior.AllowGet);
         }
     }
 }

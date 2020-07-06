@@ -1,5 +1,5 @@
 ﻿$(document).ready(function () {
-    $("#PaymentStatus").change(function (e) {
+    $(".PaymentStatus").change(function (e) {
         e.preventDefault();
         var _token = $('input[name="_token"]').val();
         var paymentStatusVal = $(this).children("option:selected").val();
@@ -16,7 +16,17 @@
             dataType: 'json',
             success: function (data) {
                 if (data != "") {
-                    //this.html(data);
+                    Swal.fire(
+                        'Success!',
+                        'Payment status has just been updated to ' + data,
+                        'success'
+                    )
+                } else {
+                    Swal.fire(
+                        'Can not update payment status now!',
+                        '',
+                        'error',
+                    );
                 }
             },
             error: function (jqXHR, textStatus, errorThrown) {
@@ -31,7 +41,7 @@
         });
     });
 
-    $("#FulfillmentStatus").change(function (e) {
+    $(".FulfillmentStatus").change(function (e) {
         e.preventDefault();
         var _token = $('input[name="_token"]').val();
         var fullfillmentStatusVal = $(this).children("option:selected").val();
@@ -48,18 +58,28 @@
             dataType: 'json',
             success: function (data) {
                 if (data != "") {
-                    //this.html(data);
+                    Swal.fire(
+                        'Success!',
+                        'Fullfillment status has just been updated to ' + data,
+                        'success'
+                    )
+                } else {
+                    Swal.fire(
+                        'Can not update fullfillment status now!',
+                        '',
+                        'error',
+                    );
                 }
             },
-            error: function (jqXHR, textStatus, errorThrown) {
-                $('#result').html('<p>status code: ' + jqXHR.status + '</p><p>errorThrown: ' + errorThrown + '</p><p>jqXHR.responseText:</p><div>' + jqXHR.responseText + '</div>');
-                console.log('jqXHR:');
-                console.log(jqXHR);
-                console.log('textStatus:');
-                console.log(textStatus);
-                console.log('errorThrown:');
-                console.log(errorThrown);
-            },
-        });
+                error: function (jqXHR, textStatus, errorThrown) {
+                    $('#result').html('<p>status code: ' + jqXHR.status + '</p><p>errorThrown: ' + errorThrown + '</p><p>jqXHR.responseText:</p><div>' + jqXHR.responseText + '</div>');
+                    console.log('jqXHR:');
+                    console.log(jqXHR);
+                    console.log('textStatus:');
+                    console.log(textStatus);
+                    console.log('errorThrown:');
+                    console.log(errorThrown);
+                },
+            });
     });
 });

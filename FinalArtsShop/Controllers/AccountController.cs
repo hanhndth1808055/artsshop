@@ -434,6 +434,8 @@ namespace FinalArtsShop.Controllers
             return View(userOrder);
         }
 
+        [HttpPost]
+        [AllowAnonymous]
         public JsonResult AddSubscriber(string email)
         {
             var data = "";

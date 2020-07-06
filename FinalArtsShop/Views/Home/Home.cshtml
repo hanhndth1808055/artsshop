@@ -90,7 +90,6 @@
                                                                 <figure>
                                                                     <a class="aa-product-img" href="/Product/Index?id=@data.Products[j].Id"><img src="@("https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_300,w_250/v1587872991/" + @data.Products[j].GetThubnailIds()[0] + ".jpg")" alt=""></a>
                                                                     <a class="aa-add-card-btn addCart" data-id="@data.Products[j].Id"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
-                                                                    @*href="/ShoppingCart/AddToCart?productId=@data.Products[j].Id&quantity=1"*@
                                                                     <figcaption>
                                                                         <h4 class="aa-product-title"><a href="/Product/Index?id=@data.Products[j].Id">@data.Products[j].Name</a></h4>
                                                                         @{
@@ -128,7 +127,7 @@
                                                     }
                                                 }
                                             </ul>
-                                            <a class="aa-browse-btn" href="/Category/Index" style="margin-bottom: 15px">Browse all Product <span class="fa fa-long-arrow-right"></span></a>
+                                            @*<a class="aa-browse-btn" href="/Category/Index" style="margin-bottom: 15px">Browse all Product <span class="fa fa-long-arrow-right"></span></a>*@
                                         </div>
                                         <!-- / electronic product category -->
                                     }
@@ -186,13 +185,12 @@
                                                         <p id="quick-view-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officiis animi, veritatis quae repudiandae quod nulla porro quidem, itaque quis quaerat!</p>
                                                         <div class="aa-prod-quantity">
                                                             <form action="">
-                                                                <select name="select-quantity">
+                                                                <select id="quantityQuickView" name="select-quantity">
                                                                     <option value="1" selected>1</option>
                                                                     <option value="2">2</option>
                                                                     <option value="3">3</option>
                                                                     <option value="4">4</option>
                                                                     <option value="5">5</option>
-                                                                    <option value="6">6</option>
                                                                 </select>
                                                             </form>
                                                             <p class="aa-prod-category">
@@ -200,7 +198,7 @@
                                                             </p>
                                                         </div>
                                                         <div class="aa-prod-view-bottom">
-                                                            <a href="#" id="add-cart" class="aa-add-to-cart-btn"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
+                                                            <a href="#" id="add-cart" class="aa-add-to-cart-btn addCartInQuickView"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
                                                             <a href="#" id="view-detail" class="aa-add-to-cart-btn">View Details</a>
                                                         </div>
                                                     </div>
@@ -295,7 +293,7 @@
                                         }
                                     }
                                 </ul>
-                                <a class="aa-browse-btn" href="/Category/Index" style="margin-bottom: 15px">Browse all Product <span class="fa fa-long-arrow-right"></span></a>
+                                @*<a class="aa-browse-btn" href="/Category/Index" style="margin-bottom: 15px">Browse all Product <span class="fa fa-long-arrow-right"></span></a>*@
                             </div>
                             <!-- / popular product category -->
                             <!-- start featured product category -->
@@ -397,7 +395,7 @@
                                         }
                                     }
                                 </ul>
-                                <a class="aa-browse-btn" href="/Category/Index" style="margin-bottom: 15px">Browse all Product <span class="fa fa-long-arrow-right"></span></a>
+                                @*<a class="aa-browse-btn" href="/Category/Index" style="margin-bottom: 15px">Browse all Product <span class="fa fa-long-arrow-right"></span></a>*@
                             </div>
                             <!-- / latest product category -->
                         </div>
@@ -445,13 +443,13 @@
 </section>
 <!-- / Support section -->
 <!-- Testimonial -->
-<section id="aa-testimonial">
+@*<section id="aa-testimonial">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
                 <div class="aa-testimonial-area">
                     <ul class="aa-testimonial-slider">
-                        <!-- single slide -->
+                         single slide 
                         <li>
                             <div class="aa-testimonial-single">
                                 <img class="aa-testimonial-img" src="~/MarkUps-dailyShop/dailyShop/img/testimonial-img-2.jpg" alt="testimonial img">
@@ -464,7 +462,7 @@
                                 </div>
                             </div>
                         </li>
-                        <!-- single slide -->
+                         single slide 
                         <li>
                             <div class="aa-testimonial-single">
                                 <img class="aa-testimonial-img" src="~/MarkUps-dailyShop/dailyShop/img/testimonial-img-1.jpg" alt="testimonial img">
@@ -477,7 +475,7 @@
                                 </div>
                             </div>
                         </li>
-                        <!-- single slide -->
+                         single slide 
                         <li>
                             <div class="aa-testimonial-single">
                                 <img class="aa-testimonial-img" src="~/MarkUps-dailyShop/dailyShop/img/testimonial-img-3.jpg" alt="testimonial img">
@@ -495,7 +493,7 @@
             </div>
         </div>
     </div>
-</section>
+</section>*@
 <!-- / Testimonial -->
 <!-- Latest Blog -->
 <section id="aa-latest-blog">
@@ -542,7 +540,7 @@
     </div>
 </section>
 <!-- / Latest Blog -->
-<!-- Client Brand -->
+ @*Client Brand 
 <section id="aa-client-brand">
     <div class="container">
         <div class="row">
@@ -566,7 +564,7 @@
         </div>
     </div>
 </section>
-<!-- / Client Brand -->
+ / Client Brand*@ 
 <!-- Subscribe section -->
 <section id="aa-subscribe">
     <div class="container">
@@ -574,10 +572,9 @@
             <div class="col-md-12">
                 <div class="aa-subscribe-area">
                     <h3>Subscribe our newsletter </h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ex, velit!</p>
                     <form action="" class="aa-subscribe-form">
-                        <input type="email" name="" placeholder="Enter your Email">
-                        <input type="submit" value="Subscribe">
+                        <input type="email" name="emailSubscribe" id="emailSubscribe" placeholder="Enter your Email">
+                        <input id="subscribe" type="submit" value="Subscribe">
                     </form>
                 </div>
             </div>
@@ -590,11 +587,17 @@
     .addCart {
         cursor: pointer !important;
     }
+
+    .aa-subscribe-area {
+        background-color: #547e5814 !important;
+        margin-bottom: 7vh;
+    }
 </style>
 @section scripts{
     <!-- SWEET ALERT -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
     <script src="~/Scripts/CartWithAjax.js"></script>
+    <script src="~/Scripts/AjaxCallForSubscribe.js"></script>
     <script>
         function quickView(Id, Name, PromotionPrice, UnitPrice, Description, CateName, CateId, Image, Thumbnail_1, Thumbnail_2, Thumbnail_3) {
             String(Id);
@@ -657,6 +660,5 @@
                 }
             });
         }
-
     </script>
 }

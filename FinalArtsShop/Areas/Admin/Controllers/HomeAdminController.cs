@@ -1,6 +1,8 @@
-﻿using FinalArtsShop.Models;
+﻿using FinalArtsShop.Logger;
+using FinalArtsShop.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -26,6 +28,8 @@ namespace FinalArtsShop.Areas.Admin.Controllers
             ViewBag.totalOrserSucess = totalOrserSucess;
             ViewBag.mothPrevious = mothPrevious();
             ViewBag.totalUser = totalUser();
+            //double[] IncomeOfYear_ = IncomeOfYear();
+            //ViewBag.IncomeOfYear = IncomeOfYear_;
             return View("~/Areas/Admin/Views/Dashboard/Dashboard.cshtml");
         }
         private double Revenueofmonth(DateTime currentDate)
@@ -69,6 +73,45 @@ namespace FinalArtsShop.Areas.Admin.Controllers
             var totalOrserSucess = db.Database.SqlQuery<int>(sql).Single();
             return totalOrserSucess;
         }
+        private double[] IncomeOfYear()
+        {
+            double[] result=new double[12];
+            DateTime current = DateTime.Now;
+            double total=0;
+            try
+            {
+                for (int i = 0; i < 12; i++)
+                {
+                    total = 0;
+                    int dayOfMoth = DateTime.DaysInMonth(current.Year, i + 1);
+                    DateTime start_date = new System.DateTime(current.Year, i+1, 01, 0, 0, 0);
+                    DateTime end_date = new System.DateTime(current.Year, i+1, dayOfMoth, 00, 00, 00);
+                    String startDate = start_date.ToString("yyyy-MM-dd 00:00:00");
+                    String endDate = end_date.ToString("yyyy-MM-dd 23:59:59");
+                    List<Order> listOrder = db.Orders
+                                    .SqlQuery("Select * from Orders where CreatedAt > '" + startDate + "' and CreatedAt <'" + endDate + "' order by createdat;")
+                                    .ToList<Order>();
+                    if (listOrder.Count == 0)
+                    {
+                        result[i] = 0;
+                    }
+                    else
+                    {
+                        foreach (Order item in listOrder)
+                        {
 
+                            total += item.TotalPrice;
+                        }
+                        result[i] = total;
+                    }
+                }
+                Debug.WriteLine(result);
+                return result;
+            }catch(Exception ex)
+            {
+                NLogger.Error(ex);
+            }
+            return result;
+        }
     }
 }

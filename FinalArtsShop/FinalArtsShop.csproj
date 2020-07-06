@@ -625,6 +625,12 @@
     <Content Include="MarkUps-dailyShop\dailyShop\css\theme-color\yellow-theme.css" />
     <Content Include="MarkUps-dailyShop\dailyShop\fonts\fontawesome-webfont.svg" />
     <Content Include="MarkUps-dailyShop\dailyShop\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="MarkUps-dailyShop\dailyShop\img\admin\adminDuy.jpg" />
+    <Content Include="MarkUps-dailyShop\dailyShop\img\admin\adminHanh.jpg" />
+    <Content Include="MarkUps-dailyShop\dailyShop\img\admin\adminHieu.jpg" />
+    <Content Include="MarkUps-dailyShop\dailyShop\img\admin\adminNam.jpg" />
+    <Content Include="MarkUps-dailyShop\dailyShop\img\admin\adminTuan.jpg" />
+    <Content Include="MarkUps-dailyShop\dailyShop\img\admin\adminTuan.png" />
     <Content Include="MarkUps-dailyShop\dailyShop\img\client-brand-css3.png" />
     <Content Include="MarkUps-dailyShop\dailyShop\img\client-brand-html5.png" />
     <Content Include="MarkUps-dailyShop\dailyShop\img\client-brand-java.png" />
@@ -640,6 +646,7 @@
     <Content Include="MarkUps-dailyShop\dailyShop\img\electronics\electronic-6.png" />
     <Content Include="MarkUps-dailyShop\dailyShop\img\electronics\electronic-7.png" />
     <Content Include="MarkUps-dailyShop\dailyShop\img\electronics\electronic-8.png" />
+    <Content Include="MarkUps-dailyShop\dailyShop\img\fashion-banner-2.jpg" />
     <Content Include="MarkUps-dailyShop\dailyShop\img\fashion-banner.jpg" />
     <Content Include="MarkUps-dailyShop\dailyShop\img\fashion\1.jpg" />
     <Content Include="MarkUps-dailyShop\dailyShop\img\fashion\2.jpg" />
@@ -674,6 +681,10 @@
     <Content Include="MarkUps-dailyShop\dailyShop\img\slider\bt-next.png" />
     <Content Include="MarkUps-dailyShop\dailyShop\img\slider\bt-prev%402x.png" />
     <Content Include="MarkUps-dailyShop\dailyShop\img\slider\bt-prev.png" />
+    <Content Include="MarkUps-dailyShop\dailyShop\img\slider\slideshowbanner-1920x700.jpg" />
+    <Content Include="MarkUps-dailyShop\dailyShop\img\slider\slideshowbanner2-1920x700.jpg" />
+    <Content Include="MarkUps-dailyShop\dailyShop\img\slider\slideshowbanner3-1920x700.jpg" />
+    <Content Include="MarkUps-dailyShop\dailyShop\img\slider\slideshowbanner4-1920x700.jpg" />
     <Content Include="MarkUps-dailyShop\dailyShop\img\sports\sport-1.png" />
     <Content Include="MarkUps-dailyShop\dailyShop\img\sports\sport-2.png" />
     <Content Include="MarkUps-dailyShop\dailyShop\img\sports\sport-3.png" />
@@ -683,6 +694,7 @@
     <Content Include="MarkUps-dailyShop\dailyShop\img\sports\sport-7.png" />
     <Content Include="MarkUps-dailyShop\dailyShop\img\sports\sport-8.png" />
     <Content Include="MarkUps-dailyShop\dailyShop\img\testimonial-bg-1.jpg" />
+    <Content Include="MarkUps-dailyShop\dailyShop\img\testimonial-bg-2.jpg" />
     <Content Include="MarkUps-dailyShop\dailyShop\img\testimonial-img-1.jpg" />
     <Content Include="MarkUps-dailyShop\dailyShop\img\testimonial-img-2.jpg" />
     <Content Include="MarkUps-dailyShop\dailyShop\img\testimonial-img-3.jpg" />
@@ -896,6 +908,9 @@
     <Content Include="Areas\Admin\Views\AdminAccount\SendCode.cshtml" />
     <Content Include="Areas\Admin\Views\AdminAccount\VerifyCode.cshtml" />
     <Content Include="Areas\Admin\Views\AdminAccount\_ExternalLoginsListPartial.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\Error.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\Lockout.cshtml" />
     <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\artsshop - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\artsshop - ReadOnly - FTP.pubxml" />

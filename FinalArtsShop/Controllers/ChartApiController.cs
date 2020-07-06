@@ -1,4 +1,5 @@
-﻿using FinalArtsShop.Models;
+﻿using FinalArtsShop.Logger;
+using FinalArtsShop.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -82,27 +83,11 @@ namespace FinalArtsShop.Controllers
             //lastItem.Add(number, pareLastDate);
             return lastItem;
         }
-        [Route("api/ChartApi/test")]
+        [Route("api/ChartApi/IncomeOfYear")]
         [HttpGet]
         public IHttpActionResult test()
         {
-            List<Dictionary<string, string>> result = new List<Dictionary<string, string>>();
-            List<Order> listOrder = db.Orders
-                            .SqlQuery("select * from Orders where createdat > '2020-07-02 00:00:00' and createdat < '2020-07-04 00:00:00';")
-                            .ToList<Order>();
-            foreach (Order item in listOrder)
-            {
-                //result
-            }
-            try
-            {
-
-                return Ok(listOrder);
-            }
-            catch (Exception ex)
-            {
-                return Exception(ex.Message);
-            }
+            return Ok(IncomeOfYear());
         }
 
         [Route("api/ChartApi/totalorder")]
@@ -119,6 +104,47 @@ namespace FinalArtsShop.Controllers
         private IHttpActionResult Exception(string message)
         {
             throw new NotImplementedException();
+        }
+        private double[] IncomeOfYear()
+        {
+            double[] result = new double[12];
+            DateTime current = DateTime.Now;
+            double total = 0;
+            try
+            {
+                for (int i = 0; i < 12; i++)
+                {
+                    total = 0;
+                    int dayOfMoth = DateTime.DaysInMonth(current.Year, i + 1);
+                    DateTime start_date = new System.DateTime(current.Year, i + 1, 01, 0, 0, 0);
+                    DateTime end_date = new System.DateTime(current.Year, i + 1, dayOfMoth, 00, 00, 00);
+                    String startDate = start_date.ToString("yyyy-MM-dd 00:00:00");
+                    String endDate = end_date.ToString("yyyy-MM-dd 23:59:59");
+                    List<Order> listOrder = db.Orders
+                                    .SqlQuery("Select * from Orders where CreatedAt > '" + startDate + "' and CreatedAt <'" + endDate + "' order by createdat;")
+                                    .ToList<Order>();
+                    if (listOrder.Count == 0)
+                    {
+                        result[i] = 0;
+                    }
+                    else
+                    {
+                        foreach (Order item in listOrder)
+                        {
+
+                            total += item.TotalPrice;
+                        }
+                        result[i] = total;
+                    }
+                }
+                Debug.WriteLine(result);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                NLogger.Error(ex);
+            }
+            return result;
         }
     }
 }

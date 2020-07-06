@@ -1,0 +1,5 @@
+7/5/2020 11:16 PM: FinalArtsShop; Index was outside the bounds of the array.
+7/5/2020 11:16 PM: FinalArtsShop; Index was outside the bounds of the array.
+7/5/2020 11:17 PM: FinalArtsShop; Index was outside the bounds of the array.
+7/5/2020 11:18 PM: FinalArtsShop; Index was outside the bounds of the array.
+7/5/2020 11:20 PM: FinalArtsShop; Index was outside the bounds of the array.

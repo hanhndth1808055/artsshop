@@ -811,6 +811,7 @@
     <Content Include="MarkUps-dailyShop\help\DOCUMENTATION\syntax-highlighter\styles\shThemeRDark.css" />
     <Content Include="MarkUps-dailyShop\license.txt" />
     <Content Include="Scripts\AjaxCallForReturnOrder.js" />
+    <Content Include="Scripts\AjaxCallForSubscribe.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\CartWithAjax.js" />

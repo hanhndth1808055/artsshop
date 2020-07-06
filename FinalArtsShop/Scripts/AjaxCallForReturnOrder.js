@@ -1,4 +1,4 @@
-﻿$("#BackOrder").click(function (e) {
+﻿$(".BackOrder").click(function (e) {
     e.preventDefault();
     Swal.fire({
         title: 'Are you sure for returning?',

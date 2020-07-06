@@ -150,9 +150,9 @@
                                             foreach (var cartItem in shoppingCart.Items.Values)
                                             {
                                                 <li>
-                                                    <a class="aa-cartbox-img" href="#"><img src="~/MarkUps-dailyShop/dailyShop/img/electronics/@cartItem.Product.Image" alt="img"></a>
+                                                    <a class="aa-cartbox-img" href="#"><img src="@("https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_150,w_150/v1587872991/" + @cartItem.Thumbnail + ".jpg")" alt="img"></a>
                                                     <div class="aa-cartbox-info">
-                                                        <h4><a href="#">@cartItem.Name</a></h4>
+                                                        <h4><a href="/Product/Index?id=@cartItem.ProductId">@cartItem.Name</a></h4>
                                                         <p>@cartItem.Quantity x $@cartItem.Price</p>
                                                     </div>
                                                     <a class="aa-remove-product" href="/ShoppingCart/RemoveCartItem?productId=@cartItem.ProductId"><span class="fa fa-times"></span></a>

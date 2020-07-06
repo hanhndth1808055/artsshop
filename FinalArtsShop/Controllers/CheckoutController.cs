@@ -69,7 +69,6 @@ namespace FinalArtsShop.Controllers
                 Dictionary<string, OrderItem> listOrderItem = new Dictionary<string, OrderItem>();
                 Order order;
                 OrderItem orderItem = null;
-
                 foreach (ShoppingCart.CartItem item in items.Values)
                 {
                     orderItem = new OrderItem
@@ -82,7 +81,6 @@ namespace FinalArtsShop.Controllers
                     };
 
                     listOrderItem.Add(orderItem.ProductId, orderItem);
-
                     orderItem = null;
                 }
 
@@ -116,7 +114,6 @@ namespace FinalArtsShop.Controllers
                     ShippingFee = shippingFee,
                     TotalPrice = shoppingCart.TotalPrice + shippingFee
                 };
-                // Debug.WriteLine("Order Id " + order.Id);
                 if (ModelState.IsValid)
                 {
                     foreach (var value in listOrderItem.Values)
@@ -129,7 +126,6 @@ namespace FinalArtsShop.Controllers
                 }
                 if (optionsRadios == 1)
                 {
-                    Session["ShoppingCartName"] = new ShoppingCart();
                     return paypalPayment(order);
                 }
                 else if (optionsRadios == 2)
@@ -168,7 +164,7 @@ namespace FinalArtsShop.Controllers
             var customers = new CustomerService();
             var charges = new Stripe.ChargeService();
 
-            amount = (long) amount;
+            amount = (long)amount;
 
             var userManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
             ApplicationUser user = userManager.FindByNameAsync(User.Identity.Name).Result;
@@ -182,7 +178,7 @@ namespace FinalArtsShop.Controllers
 
             var charge = charges.Create(new Stripe.ChargeCreateOptions
             {
-                Amount = (long) amount,//charge in cents
+                Amount = (long)amount,//charge in cents
                 Description = "Sample Charge",
                 Currency = "usd",
                 Customer = customer.Id
@@ -208,10 +204,8 @@ namespace FinalArtsShop.Controllers
         }
         private ActionResult ChequePayment(Order order)
         {
-            Debug.WriteLine(order.CustomerName);
             ViewBag.Message = order;
-            ViewBag.OrderId = new SelectList(HttpContext.GetOwinContext().Get<ApplicationDbContext>().Orders.Where(o=>o.Id == order.Id), "Id", "CreatedAt");
-
+            ViewBag.OrderId = new SelectList(HttpContext.GetOwinContext().Get<ApplicationDbContext>().Orders.Where(o => o.Id == order.Id), "Id", "CreatedAt");
             return View("~/Views/Checkout/ConfirmCheque.cshtml");
         }
 
@@ -234,47 +228,6 @@ namespace FinalArtsShop.Controllers
             return value;
         }
 
-        //[Authorize]
-        //public void returnOrder(string orderId)
-        //{
-        //    var userManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-        //    ApplicationUser user = userManager.FindByNameAsync(User.Identity.Name).Result;
-
-        //    var order = HttpContext.GetOwinContext().Get<ApplicationDbContext>().Orders.Find(orderId);
-
-        //    if (order == null)
-        //    {
-        //        return;
-        //    }
-
-        //    if (order.ShippedAt == null)
-        //    {
-        //        order.FulfillmentStatus = FulfillmentStatusEnum.Returned;
-        //        if (ModelState.IsValid)
-        //        {
-        //            HttpContext.GetOwinContext().Get<ApplicationDbContext>().Entry(order).State = EntityState.Modified;
-        //            HttpContext.GetOwinContext().Get<ApplicationDbContext>().SaveChanges();
-        //        }
-        //    }
-
-        //    var now = new DateTime();
-
-        //    var timeDiff = now.Subtract((DateTime)order.ShippedAt).TotalDays;
-
-        //    if (order != null && timeDiff > 7)
-        //    {
-        //        return;
-        //    }
-        //    {
-        //        order.FulfillmentStatus = FulfillmentStatusEnum.Returning;
-        //        if (ModelState.IsValid)
-        //        {
-        //            HttpContext.GetOwinContext().Get<ApplicationDbContext>().Entry(order).State = EntityState.Modified;
-        //            HttpContext.GetOwinContext().Get<ApplicationDbContext>().SaveChanges();
-        //        }
-        //    }
-        //}
-
         [Authorize]
         public JsonResult ReturnOrderForAjax(string orderId)
         {
@@ -287,15 +240,19 @@ namespace FinalArtsShop.Controllers
                     order.FulfillmentStatus = FulfillmentStatusEnum.Returned;
                     HttpContext.GetOwinContext().Get<ApplicationDbContext>().Entry(order).State = EntityState.Modified;
                     HttpContext.GetOwinContext().Get<ApplicationDbContext>().SaveChanges();
-                }
-                var timeDiff = DateTime.Now.Subtract((DateTime)order.ShippedAt).TotalDays;
-                if (timeDiff < 7)
-                {
-                    order.FulfillmentStatus = FulfillmentStatusEnum.Returning;
-                    HttpContext.GetOwinContext().Get<ApplicationDbContext>().Entry(order).State = EntityState.Modified;
-                    HttpContext.GetOwinContext().Get<ApplicationDbContext>().SaveChanges();
                     data = "success";
                 }
+                else
+                {
+                    var timeDiff = DateTime.Now.Subtract((DateTime)order.ShippedAt).TotalDays;
+                    if (timeDiff < 7)
+                    {
+                        order.FulfillmentStatus = FulfillmentStatusEnum.Returning;
+                        HttpContext.GetOwinContext().Get<ApplicationDbContext>().Entry(order).State = EntityState.Modified;
+                        HttpContext.GetOwinContext().Get<ApplicationDbContext>().SaveChanges();
+                        data = "success";
+                    }
+                }  
             }
             return Json(data, JsonRequestBehavior.AllowGet);
         }

@@ -12,5 +12,6 @@ namespace FinalArtsShop.Models
         public List<Product> NewProducts { get; set; }
         public List<Product> FeatureProducts { get; set; }
         public List<Product> LatestProducts { get; set; }
+        public List<Post> ListPost { get; set; }
     }
 }

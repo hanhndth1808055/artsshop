@@ -42,6 +42,90 @@
         });
     });
 
+    $(".addCartInQuickView").click(function (e) {
+        e.preventDefault();
+        var _token = $('input[name="_token"]').val();
+        var productId = $(this).attr("href").split("productId=")[1].split("&")[0];
+        var quantity = parseInt($("#quantityQuickView").children("option:selected").val());
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            url: "/ShoppingCart/AddToCartWithAjax",
+            method: 'POST',
+            data: { productId: productId, quantity: quantity, _token: _token },
+            dataType: 'json',
+            success: function (data) {
+                if (data != "") {
+                    $('#showSummaryCart').html(data);
+                    $('.aa-cart-notify').html($('#hiddenCartNum').val());
+                    Swal.fire(
+                        'Product is added to your cart!',
+                        '',
+                        'success',
+                    );
+                } else {
+                    Swal.fire(
+                        'Product is unavailable now. Please select another one!',
+                        '',
+                        'error',
+                    );
+                }
+                $("#quantityQuickView").val('1')
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                $('#result').html('<p>status code: ' + jqXHR.status + '</p><p>errorThrown: ' + errorThrown + '</p><p>jqXHR.responseText:</p><div>' + jqXHR.responseText + '</div>');
+            },
+        });
+    });
+
+    $(".addCartInViewDetail").click(function (e) {
+        e.preventDefault();
+        var _token = $('input[name="_token"]').val();
+        var productId = $(this).attr("data-id");
+        var quantity = $("#quantityViewDetail").children("option:selected").val();
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            url: "/ShoppingCart/AddToCartWithAjax",
+            method: 'POST',
+            data: { productId: productId, quantity: quantity, _token: _token },
+            dataType: 'json',
+            success: function (data) {
+                if (data != "") {
+                    $('#showSummaryCart').html(data);
+                    $('.aa-cart-notify').html($('#hiddenCartNum').val());
+                    Swal.fire(
+                        'Product is added to your cart!',
+                        '',
+                        'success',
+                    );
+                } else {
+                    Swal.fire(
+                        'Product is unavailable now. Please select another one!',
+                        '',
+                        'error',
+                    );
+                }
+                $("#quantityViewDetail").val('1')
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                $('#result').html('<p>status code: ' + jqXHR.status + '</p><p>errorThrown: ' + errorThrown + '</p><p>jqXHR.responseText:</p><div>' + jqXHR.responseText + '</div>');
+                console.log('jqXHR:');
+                console.log(jqXHR);
+                console.log('textStatus:');
+                console.log(textStatus);
+                console.log('errorThrown:');
+                console.log(errorThrown);
+            },
+        });
+    });
+
     $(".removeItem").click(function (e) {
         e.preventDefault();
         Swal.fire({

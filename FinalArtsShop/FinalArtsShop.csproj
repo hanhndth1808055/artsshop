@@ -193,6 +193,7 @@
     <Compile Include="Areas\Admin\Controllers\AdminAccountController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeAdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\OrdersController.cs" />
+    <Compile Include="Areas\Admin\Controllers\PostsAdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\UsersController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Areas\Admin\Controllers\CategoriesController.cs" />
@@ -206,6 +207,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductsController.cs" />
     <Compile Include="Controllers\PaypalController.cs" />
+    <Compile Include="Controllers\PostController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\ShoppingCartController.cs" />
@@ -286,6 +288,14 @@
     <Compile Include="Migrations\202007030359007_UpdateOrderShippingFee.Designer.cs">
       <DependentUpon>202007030359007_UpdateOrderShippingFee.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202007051409037_UpdatePost.cs" />
+    <Compile Include="Migrations\202007051409037_UpdatePost.Designer.cs">
+      <DependentUpon>202007051409037_UpdatePost.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202007051457337_UpdatePost2.cs" />
+    <Compile Include="Migrations\202007051457337_UpdatePost2.Designer.cs">
+      <DependentUpon>202007051457337_UpdatePost2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BaseEntity.cs" />
@@ -311,6 +321,7 @@
     <Compile Include="Models\ViewCheckoutClient.cs" />
     <Compile Include="Models\ViewHomeClient.cs" />
     <Compile Include="Models\ViewLayoutClient.cs" />
+    <Compile Include="Models\ViewPostClient.cs" />
     <Compile Include="Models\ViewProductClient.cs" />
     <Compile Include="Models\ViewShoppingCart.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -812,6 +823,7 @@
     <Content Include="MarkUps-dailyShop\help\DOCUMENTATION\syntax-highlighter\styles\shThemeRDark.css" />
     <Content Include="MarkUps-dailyShop\license.txt" />
     <Content Include="Scripts\AjaxCallForReturnOrder.js" />
+    <Content Include="Scripts\AjaxCallForSubscribe.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\CartWithAjax.js" />
@@ -908,9 +920,18 @@
     <Content Include="Areas\Admin\Views\AdminAccount\SendCode.cshtml" />
     <Content Include="Areas\Admin\Views\AdminAccount\VerifyCode.cshtml" />
     <Content Include="Areas\Admin\Views\AdminAccount\_ExternalLoginsListPartial.cshtml" />
+<<<<<<< HEAD
     <Content Include="Areas\Admin\Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\Error.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\Lockout.cshtml" />
+=======
+    <Content Include="Areas\Admin\Views\PostsAdmin\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\PostsAdmin\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\PostsAdmin\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\PostsAdmin\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\PostsAdmin\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Orders\Detail.cshtml" />
+>>>>>>> 70bb89f2325c199b5965790656ca19c190b66c4b
     <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\artsshop - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\artsshop - ReadOnly - FTP.pubxml" />
@@ -1020,6 +1041,7 @@
     <Content Include="Views\Checkout\ConfirmStripe.cshtml" />
     <Content Include="Views\Checkout\StripeCharge.cshtml" />
     <Content Include="Views\Account\MyOrder.cshtml" />
+    <Content Include="Views\Post\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1080,6 +1102,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202007030359007_UpdateOrderShippingFee.resx">
       <DependentUpon>202007030359007_UpdateOrderShippingFee.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007051409037_UpdatePost.resx">
+      <DependentUpon>202007051409037_UpdatePost.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007051457337_UpdatePost2.resx">
+      <DependentUpon>202007051457337_UpdatePost2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

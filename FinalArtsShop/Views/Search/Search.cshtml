@@ -14,7 +14,7 @@
 
 <!-- catg header banner section -->
 <section id="aa-catg-head-banner">
-    <img src="~/MarkUps-dailyShop/dailyShop/img/fashion/fashion-header-bg-8.jpg" alt="fashion img">
+    <img src="~/MarkUps-dailyShop/dailyShop/img/fashion/fashion-header-bg-10.jpg" alt="fashion img">
     <div class="aa-catg-head-banner-area">
         <div class="container">
             <div class="aa-catg-head-banner-content">
@@ -87,8 +87,6 @@
                                                 </figcaption>
                                             </figure>
                                             <div class="aa-product-hvr-content">
-                                                <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
-                                                <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
                                                 <a onclick="quickView('@prod.Id', '@prod.Name', @prod.PromotionPrice, @prod.UnitPrice, '@prod.Description', '@prod.Category.Name', '@prod.Category.Id', '@prod.Image', '@prod.GetThubnailIds()[0]', '@prod.GetThubnailIds()[1]', '@prod.GetThubnailIds()[2]')" href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
                                             </div>
                                             <!-- product badge -->
@@ -274,7 +272,7 @@
                                     foreach (var prodRate in Model.LatestProducts)
                                     {
                                         <li>
-                                            <a href="/Product/Index?id=@prodRate.Id" class="aa-cartbox-img"><img alt="img" src="@("https://res.cloudinary.com/daaycakkk/image/upload/c_limit/v1587872991/" + prodRate.GetThubnailIds()[1] + ".jpg")"></a>
+                                            <a href="/Product/Index?id=@prodRate.Id" class="aa-cartbox-img"><img alt="img" src="@("https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_150,w_150/v1587872991/" + prodRate.GetThubnailIds()[1] + ".jpg")"></a>
                                             <div class="aa-cartbox-info">
                                                 <h4><a href="/Product/Index?id=@prodRate.Id">@prodRate.Name</a></h4>
                                                 @{
@@ -303,7 +301,7 @@
                                     foreach (var prodRate in Model.FeatureProducts)
                                     {
                                         <li>
-                                            <a href="/Product/Index?id=@prodRate.Id" class="aa-cartbox-img"><img alt="img" src="@("https://res.cloudinary.com/daaycakkk/image/upload/c_limit/v1587872991/" + prodRate.GetThubnailIds()[1] + ".jpg")"></a>
+                                            <a href="/Product/Index?id=@prodRate.Id" class="aa-cartbox-img"><img alt="img" src="@("https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_150,w_150/v1587872991/" + prodRate.GetThubnailIds()[1] + ".jpg")"></a>
                                             <div class="aa-cartbox-info">
                                                 <h4><a href="/Product/Index?id=@prodRate.Id">@prodRate.Name</a></h4>
                                                 @{

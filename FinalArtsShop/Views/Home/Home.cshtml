@@ -90,7 +90,6 @@
                                                                 <figure>
                                                                     <a class="aa-product-img" href="/Product/Index?id=@data.Products[j].Id"><img src="@("https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_300,w_250/v1587872991/" + @data.Products[j].GetThubnailIds()[0] + ".jpg")" alt=""></a>
                                                                     <a class="aa-add-card-btn addCart" data-id="@data.Products[j].Id"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
-                                                                    @*href="/ShoppingCart/AddToCart?productId=@data.Products[j].Id&quantity=1"*@
                                                                     <figcaption>
                                                                         <h4 class="aa-product-title"><a href="/Product/Index?id=@data.Products[j].Id">@data.Products[j].Name</a></h4>
                                                                         @{
@@ -106,8 +105,6 @@
                                                                     </figcaption>
                                                                 </figure>
                                                                 <div class="aa-product-hvr-content">
-                                                                    <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
-                                                                    <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
                                                                     <a onclick="quickView('@data.Products[j].Id', '@data.Products[j].Name', @data.Products[j].PromotionPrice, @data.Products[j].UnitPrice, '@data.Products[j].Description', '@data.Products[j].Category.Name', '@data.Products[j].Category.Id', '@data.Products[j].Image', '@data.Products[j].GetThubnailIds()[0]', '@data.Products[j].GetThubnailIds()[1]', '@data.Products[j].GetThubnailIds()[2]')" href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
                                                                 </div>
                                                                 <!-- product badge -->
@@ -130,7 +127,7 @@
                                                     }
                                                 }
                                             </ul>
-                                            <a class="aa-browse-btn" href="/Category/Index" style="margin-bottom: 15px">Browse all Product <span class="fa fa-long-arrow-right"></span></a>
+                                            @*<a class="aa-browse-btn" href="/Category/Index" style="margin-bottom: 15px">Browse all Product <span class="fa fa-long-arrow-right"></span></a>*@
                                         </div>
                                         <!-- / electronic product category -->
                                     }
@@ -188,13 +185,12 @@
                                                         <p id="quick-view-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officiis animi, veritatis quae repudiandae quod nulla porro quidem, itaque quis quaerat!</p>
                                                         <div class="aa-prod-quantity">
                                                             <form action="">
-                                                                <select name="select-quantity">
+                                                                <select id="quantityQuickView" name="select-quantity">
                                                                     <option value="1" selected>1</option>
                                                                     <option value="2">2</option>
                                                                     <option value="3">3</option>
                                                                     <option value="4">4</option>
                                                                     <option value="5">5</option>
-                                                                    <option value="6">6</option>
                                                                 </select>
                                                             </form>
                                                             <p class="aa-prod-category">
@@ -202,7 +198,7 @@
                                                             </p>
                                                         </div>
                                                         <div class="aa-prod-view-bottom">
-                                                            <a href="#" id="add-cart" class="aa-add-to-cart-btn"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
+                                                            <a href="#" id="add-cart" class="aa-add-to-cart-btn addCartInQuickView"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
                                                             <a href="#" id="view-detail" class="aa-add-to-cart-btn">View Details</a>
                                                         </div>
                                                     </div>
@@ -276,8 +272,6 @@
                                                     </figcaption>
                                                 </figure>
                                                 <div class="aa-product-hvr-content">
-                                                    <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
-                                                    <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
                                                     <a onclick="quickView('@prod.Id', '@prod.Name', @prod.PromotionPrice, @prod.UnitPrice, '@prod.Description', '@prod.Category.Name', '@prod.Category.Id', '@prod.Image', '@prod.GetThubnailIds()[0]', '@prod.GetThubnailIds()[1]', '@prod.GetThubnailIds()[2]')" href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
                                                 </div>
                                                 <!-- product badge -->
@@ -299,7 +293,7 @@
                                         }
                                     }
                                 </ul>
-                                <a class="aa-browse-btn" href="/Category/Index" style="margin-bottom: 15px">Browse all Product <span class="fa fa-long-arrow-right"></span></a>
+                                @*<a class="aa-browse-btn" href="/Category/Index" style="margin-bottom: 15px">Browse all Product <span class="fa fa-long-arrow-right"></span></a>*@
                             </div>
                             <!-- / popular product category -->
                             <!-- start featured product category -->
@@ -328,8 +322,6 @@
                                                     </figcaption>
                                                 </figure>
                                                 <div class="aa-product-hvr-content">
-                                                    <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
-                                                    <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
                                                     <a onclick="quickView('@prod.Id', '@prod.Name', @prod.PromotionPrice, @prod.UnitPrice, '@prod.Description', '@prod.Category.Name', '@prod.Category.Id', '@prod.Image', '@prod.GetThubnailIds()[0]', '@prod.GetThubnailIds()[1]', '@prod.GetThubnailIds()[2]')" href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
                                                 </div>
                                                 <!-- product badge -->
@@ -381,8 +373,6 @@
                                                     </figcaption>
                                                 </figure>
                                                 <div class="aa-product-hvr-content">
-                                                    <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
-                                                    <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
                                                     <a onclick="quickView('@prod.Id', '@prod.Name', @prod.PromotionPrice, @prod.UnitPrice, '@prod.Description', '@prod.Category.Name', '@prod.Category.Id', '@prod.Image', '@prod.GetThubnailIds()[0]', '@prod.GetThubnailIds()[1]', '@prod.GetThubnailIds()[2]')" href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
                                                 </div>
                                                 <!-- product badge -->
@@ -405,7 +395,7 @@
                                         }
                                     }
                                 </ul>
-                                <a class="aa-browse-btn" href="/Category/Index" style="margin-bottom: 15px">Browse all Product <span class="fa fa-long-arrow-right"></span></a>
+                                @*<a class="aa-browse-btn" href="/Category/Index" style="margin-bottom: 15px">Browse all Product <span class="fa fa-long-arrow-right"></span></a>*@
                             </div>
                             <!-- / latest product category -->
                         </div>
@@ -453,13 +443,13 @@
 </section>
 <!-- / Support section -->
 <!-- Testimonial -->
-<section id="aa-testimonial">
+@*<section id="aa-testimonial">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
                 <div class="aa-testimonial-area">
                     <ul class="aa-testimonial-slider">
-                        <!-- single slide -->
+                         single slide 
                         <li>
                             <div class="aa-testimonial-single">
                                 <img class="aa-testimonial-img" src="~/MarkUps-dailyShop/dailyShop/img/testimonial-img-2.jpg" alt="testimonial img">
@@ -472,7 +462,7 @@
                                 </div>
                             </div>
                         </li>
-                        <!-- single slide -->
+                         single slide 
                         <li>
                             <div class="aa-testimonial-single">
                                 <img class="aa-testimonial-img" src="~/MarkUps-dailyShop/dailyShop/img/testimonial-img-1.jpg" alt="testimonial img">
@@ -485,7 +475,7 @@
                                 </div>
                             </div>
                         </li>
-                        <!-- single slide -->
+                         single slide 
                         <li>
                             <div class="aa-testimonial-single">
                                 <img class="aa-testimonial-img" src="~/MarkUps-dailyShop/dailyShop/img/testimonial-img-3.jpg" alt="testimonial img">
@@ -503,7 +493,7 @@
             </div>
         </div>
     </div>
-</section>
+</section>*@
 <!-- / Testimonial -->
 <!-- Latest Blog -->
 <section id="aa-latest-blog">
@@ -511,65 +501,38 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="aa-latest-blog-area">
-                    <h2>LATEST BLOG</h2>
+                    <h2>FEATURED BLOG</h2>
                     <div class="row">
-                        <!-- single latest blog -->
-                        <div class="col-md-4 col-sm-4">
-                            <div class="aa-latest-blog-single">
-                                <figure class="aa-blog-img">
-                                    <a href="#"><img src="~/MarkUps-dailyShop/dailyShop/img/promo-banner-1.jpg" alt="img"></a>
-                                    <figcaption class="aa-blog-img-caption">
-                                        <span href="#"><i class="fa fa-eye"></i>5K</span>
-                                        <a href="#"><i class="fa fa-thumbs-o-up"></i>426</a>
-                                        <a href="#"><i class="fa fa-comment-o"></i>20</a>
-                                        <span href="#"><i class="fa fa-clock-o"></i>June 26, 2016</span>
-                                    </figcaption>
-                                </figure>
-                                <div class="aa-blog-info">
-                                    <h3 class="aa-blog-title"><a href="#">Lorem ipsum dolor sit amet</a></h3>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda, ad? Autem quos natus nisi aperiam, beatae, fugiat odit vel impedit dicta enim repellendus animi. Expedita quas reprehenderit incidunt, voluptates corporis.</p>
-                                    <a href="#" class="aa-read-mor-btn">Read more <span class="fa fa-long-arrow-right"></span></a>
+                        @{
+                            string description = "";
+                            foreach (var post in data.ListPost)
+                            {
+                                <!-- single latest blog -->
+                                <div class="col-md-4 col-sm-4">
+                                    <div class="aa-latest-blog-single">
+                                        <figure class="aa-blog-img">
+                                            <a href="/Post/Index?id=@post.Id"><img src="@("https://res.cloudinary.com/daaycakkk/image/upload/c_crop,h_450,w_450/v1587872991/" + post.GetThubnailIds()[0] + ".jpg")" alt="img"></a>
+                                            <figcaption class="aa-blog-img-caption">
+                                                <span id="view-post"><i class="fa fa-eye"></i>@post.View</span>
+                                                <span id="like-post" onclick="likePost(@post.Id)" style="cursor: pointer"><i class="fa fa-thumbs-o-up"></i>@post.Like</span>
+                                                <a href="/Post/Index?id=@post.Id"><i class="fa fa-clock-o"></i>@post.CreatedAt</a>
+                                            </figcaption>
+                                        </figure>
+                                        <div class="aa-blog-info">
+                                            <h3 class="aa-blog-title"><a href="/Post/Index?id=@post.Id">@post.Title</a></h3>
+                                            <p>
+                                                @{
+                                                    description = post.Description;
+                                                    description = description.Substring(0, 250) + "...";
+                                                }
+                                                @description
+                                            </p>
+                                            <a href="/Post/Index?id=@post.Id" class="aa-read-mor-btn">Read more <span class="fa fa-long-arrow-right"></span></a>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                        <!-- single latest blog -->
-                        <div class="col-md-4 col-sm-4">
-                            <div class="aa-latest-blog-single">
-                                <figure class="aa-blog-img">
-                                    <a href="#"><img src="~/MarkUps-dailyShop/dailyShop/img/promo-banner-3.jpg" alt="img"></a>
-                                    <figcaption class="aa-blog-img-caption">
-                                        <span href="#"><i class="fa fa-eye"></i>5K</span>
-                                        <a href="#"><i class="fa fa-thumbs-o-up"></i>426</a>
-                                        <a href="#"><i class="fa fa-comment-o"></i>20</a>
-                                        <span href="#"><i class="fa fa-clock-o"></i>June 26, 2016</span>
-                                    </figcaption>
-                                </figure>
-                                <div class="aa-blog-info">
-                                    <h3 class="aa-blog-title"><a href="#">Lorem ipsum dolor sit amet</a></h3>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda, ad? Autem quos natus nisi aperiam, beatae, fugiat odit vel impedit dicta enim repellendus animi. Expedita quas reprehenderit incidunt, voluptates corporis.</p>
-                                    <a href="#" class="aa-read-mor-btn">Read more <span class="fa fa-long-arrow-right"></span></a>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- single latest blog -->
-                        <div class="col-md-4 col-sm-4">
-                            <div class="aa-latest-blog-single">
-                                <figure class="aa-blog-img">
-                                    <a href="#"><img src="~/MarkUps-dailyShop/dailyShop/img/promo-banner-1.jpg" alt="img"></a>
-                                    <figcaption class="aa-blog-img-caption">
-                                        <span href="#"><i class="fa fa-eye"></i>5K</span>
-                                        <a href="#"><i class="fa fa-thumbs-o-up"></i>426</a>
-                                        <a href="#"><i class="fa fa-comment-o"></i>20</a>
-                                        <span href="#"><i class="fa fa-clock-o"></i>June 26, 2016</span>
-                                    </figcaption>
-                                </figure>
-                                <div class="aa-blog-info">
-                                    <h3 class="aa-blog-title"><a href="#">Lorem ipsum dolor sit amet</a></h3>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda, ad? Autem quos natus nisi aperiam, beatae, fugiat odit vel impedit dicta enim repellendus animi. Expedita quas reprehenderit incidunt, voluptates corporis.</p>
-                                    <a href="#" class="aa-read-mor-btn">Read more <span class="fa fa-long-arrow-right"></span></a>
-                                </div>
-                            </div>
-                        </div>
+                            }
+                        }
                     </div>
                 </div>
             </div>
@@ -577,7 +540,7 @@
     </div>
 </section>
 <!-- / Latest Blog -->
-<!-- Client Brand -->
+ @*Client Brand 
 <section id="aa-client-brand">
     <div class="container">
         <div class="row">
@@ -601,16 +564,40 @@
         </div>
     </div>
 </section>
-<!-- / Client Brand -->
+ / Client Brand*@ 
+<!-- Subscribe section -->
+<section id="aa-subscribe">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="aa-subscribe-area">
+                    <h3>Subscribe our newsletter </h3>
+                    <form action="" class="aa-subscribe-form">
+                        <input type="email" name="emailSubscribe" id="emailSubscribe" placeholder="Enter your Email">
+                        <input id="subscribe" type="submit" value="Subscribe">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- / Subscribe section -->
 <style>
     .addCart {
         cursor: pointer !important;
+    }
+
+    .aa-subscribe-area {
+        background-color: #547e5814 !important;
+        margin-bottom: 7vh;
     }
 </style>
 @section scripts{
     <!-- SWEET ALERT -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
     <script src="~/Scripts/CartWithAjax.js"></script>
+    <script src="~/Scripts/AjaxCallForSubscribe.js"></script>
     <script>
         function quickView(Id, Name, PromotionPrice, UnitPrice, Description, CateName, CateId, Image, Thumbnail_1, Thumbnail_2, Thumbnail_3) {
             String(Id);
@@ -661,5 +648,17 @@
             $("#add-cart").attr("href", href + quantity);
         });
 
+
+        function likePost(id) {
+            var id = parseInt(id);
+            $.ajax({
+                url: "/Post/AjaxPostLike?id=" + id,
+                type: "get",
+                success: function (result) {
+                    var html = '<i class="fa fa-thumbs-o-up"></i>' + result;
+                    $('#like-post').html(html);
+                }
+            });
+        }
     </script>
 }

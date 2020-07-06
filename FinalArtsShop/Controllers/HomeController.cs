@@ -59,7 +59,8 @@ namespace FinalArtsShop.Controllers
                 NewProducts = db.Products.Where(p => p.isNew == 1 && p.isActive == 1).Take(8).ToList(),
                 FeatureProducts = db.Products.Where(p => p.isFeature == 1 && p.isActive == 1).Take(8).ToList(),
                 shoppingCart = GetShoppingCart(),
-                LatestProducts = getLastestProduct()
+                LatestProducts = getLastestProduct(),
+                ListPost = db.Posts.OrderByDescending(p => p.CreatedAt).Take(3).ToList()
             };
             if (viewHomeClient != null)
             {

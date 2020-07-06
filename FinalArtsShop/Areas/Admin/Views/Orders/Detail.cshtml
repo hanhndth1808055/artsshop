@@ -1,7 +1,7 @@
-﻿@model IEnumerable<FinalArtsShop.Models.Order>
+﻿@model IEnumerable<FinalArtsShop.Models.OrderItem>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Detail";
 }
 
 @section AddCss{
@@ -24,10 +24,7 @@
                 <div class="sparkline13-list">
                     <div class="sparkline13-hd">
                         <div class="main-sparkline13-hd">
-                            <h1>Orders</h1>
-                            <p>
-                                @Html.ActionLink("Create New", "Create")
-                            </p>
+                            <h1>Order Detail</h1>
                             <hr />
                         </div>
                     </div>
@@ -58,7 +55,7 @@
                                 <tbody>
                                     @foreach (var item in Model)
                                     {
-                                        <tr>
+                                        @*<tr>
                                             <td></td>
                                             <td>
                                                 @Html.DisplayFor(modelItem => item.Id)
@@ -100,7 +97,7 @@
                                             <td>
                                                 <a style="color: white" href="Orders/Detail/" class="btn btn-primary">View Detail</a>
                                             </td>
-                                        </tr>
+                                        </tr>*@
                                     }
                                 </tbody>
                             </table>

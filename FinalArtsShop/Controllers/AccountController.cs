@@ -427,8 +427,30 @@ namespace FinalArtsShop.Controllers
         {
             var userManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
             ApplicationUser user = userManager.FindByNameAsync(User.Identity.Name).Result;
-            var userOrder = HttpContext.GetOwinContext().Get<ApplicationDbContext>().Orders.Where(o => o.UserId == user.Id).ToList();
+            var userOrder = HttpContext.GetOwinContext().Get<ApplicationDbContext>().Orders
+                .Where(o => o.UserId == user.Id)
+                .OrderByDescending(o => o.CreatedAt)
+                .ToList();
             return View(userOrder);
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public JsonResult AddSubscriber(string email)
+        {
+            var data = "";
+            if(!HttpContext.GetOwinContext().Get<ApplicationDbContext>().Followers.Where(o => o.Mail == email).Any())
+            {
+                Follower follower = new Follower()
+                {
+                    Mail = email,
+                    CreatedAt = DateTime.Now
+                };
+                HttpContext.GetOwinContext().Get<ApplicationDbContext>().Followers.Add(follower);
+                HttpContext.GetOwinContext().Get<ApplicationDbContext>().SaveChanges();
+                data = "success";
+            }
+            return Json(data, JsonRequestBehavior.AllowGet);
         }
 
         #region Helpers

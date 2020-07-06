@@ -52,34 +52,33 @@
                                         @{
                                             if (@Model.Product.PromotionPrice > 0)
                                             {
-                                                <span class="aa-product-view-price" style="font-size: 22px ;color: #3FC35F"; !important>$@Model.Product.PromotionPrice</span>
+                                                <span class="aa-product-view-price" style="font-size: 22px ;color: #3FC35F" ; !important>$@Model.Product.PromotionPrice</span>
                                             }
                                             else
                                             {
-                                                <span class="aa-product-view-price" style="font-size: 22px ;color: #3FC35F"; !important>$@Model.Product.UnitPrice</span>
+                                                <span class="aa-product-view-price" style="font-size: 22px ;color: #3FC35F" ; !important>$@Model.Product.UnitPrice</span>
                                             }
                                         }
                                         @{
                                             if (Model.Product.SellIndex < Model.Product.Unit)
                                             {
-                                                <p class="aa-product-avilability">Avilability: <span>In stock</span></p>
+                                                <p class="aa-product-avilability">Avilability: <b>In stock</b></p>
                                             }
                                             else
                                             {
-                                                <p class="aa-product-avilability">Avilability: <span>Sould Out</span></p>
+                                                <p class="aa-product-avilability">Avilability: <b>Sould Out</b></p>
                                             }
                                         }
                                     </div>
                                     <p>@Model.Product.Description</p>
                                     <div class="aa-prod-quantity">
                                         <form action="">
-                                            <select name="select-quantity-detail">
+                                            <select id="quantityViewDetail" name="select-quantity-detail">
                                                 <option value="1" selected>1</option>
                                                 <option value="2">2</option>
                                                 <option value="3">3</option>
                                                 <option value="4">4</option>
                                                 <option value="5">5</option>
-                                                <option value="6">6</option>
                                             </select>
                                         </form>
                                         <p class="aa-prod-category">
@@ -87,7 +86,7 @@
                                         </p>
                                     </div>
                                     <div class="aa-prod-view-bottom">
-                                        <a id="add-cart-detail" class="aa-add-to-cart-btn" href="/ShoppingCart/AddToCart?productId=@Model.Product.Id&quantity=1">Add To Cart</a>
+                                        <a href="/ShoppingCart/AddToCart?productId=@Model.Product.Id&quantity=1" id="add-cart-detail" class="aa-add-to-cart-btn addCartInViewDetail" data-id="@Model.Product.Id">Add To Cart</a>
                                     </div>
                                 </div>
                             </div>
@@ -206,8 +205,6 @@
                                             </figcaption>
                                         </figure>
                                         <div class="aa-product-hvr-content">
-                                            <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
-                                            <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
                                             <a onclick="quickView('@prod.Id', '@prod.Name', @prod.PromotionPrice, @prod.UnitPrice, '@prod.Description', '@prod.Category.Name', '@prod.Category.Id', '@prod.Image', '@prod.GetThubnailIds()[0]', '@prod.GetThubnailIds()[1]', '@prod.GetThubnailIds()[2]')" href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
                                         </div>
                                         <!-- product badge -->
@@ -314,7 +311,9 @@
 </section>
 <!-- / product category -->
 @section scripts{
-
+    <!-- SWEET ALERT -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+    <script src="~/Scripts/CartWithAjax.js"></script>
     <script>
         function quickView(Id, Name, PromotionPrice, UnitPrice, Description, CateName, CateId, Image, Thumbnail_1, Thumbnail_2, Thumbnail_3) {
             String(Id);

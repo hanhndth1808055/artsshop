@@ -39,20 +39,12 @@
                             <form action="" class="aa-sort-form">
                                 <label for="">Sort by</label>
                                 <select name="sortBy">
-                                    <option value="Default" @{ if (sortBy == "Default") { @Html.Raw("selected") } }>Default</option>
-                                    <option value="Name" @{ if (sortBy == "Name") { @Html.Raw("selected") } }>Name</option>
-                                    <option value="Price" @{ if (sortBy == "Price") { @Html.Raw("selected") } }>Price</option>
-                                    <option value="Date" @{ if (sortBy == "Date") { @Html.Raw("selected") } }>Date</option>
+                                    <option value="Default" @{ if (sortBy == "Default") { @Html.Raw("selected")  } }>Default</option>
+                                    <option value="Name" @{ if (sortBy == "Name") { @Html.Raw("selected")  } }>Name</option>
+                                    <option value="Price" @{ if (sortBy == "Price") { @Html.Raw("selected")  } }>Price</option>
+                                    <option value="Date" @{ if (sortBy == "Date") { @Html.Raw("selected")  } }>Date</option>
                                 </select>
                             </form>
-                            @*<form action="" class="aa-show-form">
-                                    <label for="">Show</label>
-                                    <select name="">
-                                        <option value="1" selected="12">12</option>
-                                        <option value="2">24</option>
-                                        <option value="3">36</option>
-                                    </select>
-                                </form>*@
                         </div>
                         <div class="aa-product-catg-head-right">
                             <a id="grid-catg" href="#"><span class="fa fa-th"></span></a>
@@ -68,7 +60,7 @@
                                     <li>
                                         <figure>
                                             <a class="aa-product-img" href="/Product/Index?id=@prod.Id"><img src="@("https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_300,w_250/v1587872991/" + @prod.GetThubnailIds()[0] + ".jpg")" alt=""></a>
-                                            <a class="aa-add-card-btn" href="/ShoppingCart/AddToCart?productId=@prod.Id&quantity=1"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
+                                            <a class="aa-add-card-btn addCart" data-id="@prod.Id"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
                                             <figcaption>
                                                 <h4 class="aa-product-title"><a href="/Product/Index?id=@prod.Id">@prod.Name</a></h4>
                                                 @{
@@ -84,8 +76,6 @@
                                             </figcaption>
                                         </figure>
                                         <div class="aa-product-hvr-content">
-                                            <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
-                                            <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
                                             <a onclick="quickView('@prod.Id', '@prod.Name', @prod.PromotionPrice, @prod.UnitPrice, '@prod.Description', '@prod.Category.Name', '@prod.Category.Id', '@prod.Image', '@prod.GetThubnailIds()[0]', '@prod.GetThubnailIds()[1]', '@prod.GetThubnailIds()[2]')" href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
                                         </div>
                                         <!-- product badge -->
@@ -159,13 +149,12 @@
                                                     <p id="quick-view-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officiis animi, veritatis quae repudiandae quod nulla porro quidem, itaque quis quaerat!</p>
                                                     <div class="aa-prod-quantity">
                                                         <form action="">
-                                                            <select name="select-quantity">
+                                                            <select id="quantityQuickView" name="select-quantity">
                                                                 <option value="1" selected>1</option>
                                                                 <option value="2">2</option>
                                                                 <option value="3">3</option>
                                                                 <option value="4">4</option>
                                                                 <option value="5">5</option>
-                                                                <option value="6">6</option>
                                                             </select>
                                                         </form>
                                                         <p class="aa-prod-category">
@@ -173,7 +162,7 @@
                                                         </p>
                                                     </div>
                                                     <div class="aa-prod-view-bottom">
-                                                        <a href="#" id="add-cart" class="aa-add-to-cart-btn"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
+                                                        <a href="#" id="add-cart" class="aa-add-to-cart-btn addCartInQuickView"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
                                                         <a href="#" id="view-detail" class="aa-add-to-cart-btn">View Details</a>
                                                     </div>
                                                 </div>
@@ -191,9 +180,10 @@
 
                                 @if (currentPage > 1)
                                 {
-                                    <li title="1" class="paginate-number"><a href="#" aria-label="Previous">
-                                        <span aria-hidden="true">&laquo;</span>
-                                          </a>
+                                    <li title="1" class="paginate-number">
+                                        <a href="#" aria-label="Previous">
+                                            <span aria-hidden="true">&laquo;</span>
+                                        </a>
                                     </li>
                                 }
                                 @if ((currentPage - 2) > 0)
@@ -204,7 +194,7 @@
                                 {
                                     <li title="@(currentPage - 1)" class="paginate-number"><a href="#">@(currentPage - 1)</a></li>
                                 }
-                                    <li id="active-page"><a href="#" style="color: #FF6666">@(currentPage)</a></li>
+                                <li id="active-page"><a href="#" style="color: #FF6666">@(currentPage)</a></li>
                                 @if (totalPage - currentPage > 0)
                                 {
                                     <li title="@(currentPage + 1)" class="paginate-number"><a href="#">@(currentPage + 1)</a></li>
@@ -269,7 +259,7 @@
                                     foreach (var prodRate in Model.LatestProducts)
                                     {
                                         <li>
-                                            <a href="/Product/Index?id=@prodRate.Id" class="aa-cartbox-img"><img alt="img" src="@("https://res.cloudinary.com/daaycakkk/image/upload/c_limit/v1587872991/" + prodRate.GetThubnailIds()[1] + ".jpg")"></a>
+                                            <a href="/Product/Index?id=@prodRate.Id" class="aa-cartbox-img"><img alt="img" src="@("https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_150,w_150/v1587872991/" + prodRate.GetThubnailIds()[1] + ".jpg")"></a>
                                             <div class="aa-cartbox-info">
                                                 <h4><a href="/Product/Index?id=@prodRate.Id">@prodRate.Name</a></h4>
                                                 @{
@@ -298,7 +288,7 @@
                                     foreach (var prodRate in Model.FeatureProducts)
                                     {
                                         <li>
-                                            <a href="/Product/Index?id=@prodRate.Id" class="aa-cartbox-img"><img alt="img" src="@("https://res.cloudinary.com/daaycakkk/image/upload/c_limit/v1587872991/" + prodRate.GetThubnailIds()[1] + ".jpg")"></a>
+                                            <a href="/Product/Index?id=@prodRate.Id" class="aa-cartbox-img"><img alt="img" src="@("https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_150,w_150/v1587872991/" + prodRate.GetThubnailIds()[1] + ".jpg")"></a>
                                             <div class="aa-cartbox-info">
                                                 <h4><a href="/Product/Index?id=@prodRate.Id">@prodRate.Name</a></h4>
                                                 @{
@@ -320,13 +310,19 @@
                     </div>
                 </aside>
             </div>
-
         </div>
     </div>
 </section>
 <!-- / product category -->
+<style>
+    .addCart {
+        cursor: pointer !important;
+    }
+</style>
 @section scripts{
-
+    <!-- SWEET ALERT -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+    <script src="~/Scripts/CartWithAjax.js"></script>
     <script>
         function quickView(Id, Name, PromotionPrice, UnitPrice, Description, CateName, CateId, Image, Thumbnail_1, Thumbnail_2, Thumbnail_3) {
             String(Id);

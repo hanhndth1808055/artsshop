@@ -608,6 +608,7 @@
     <Content Include="kiaalap-master\tree-view.html" />
     <Content Include="kiaalap-master\widgets.html" />
     <Content Include="kiaalap-master\x-editable.html" />
+    <Content Include="LogFile.txt" />
     <Content Include="MarkUps-dailyShop\dailyShop\404.html" />
     <Content Include="MarkUps-dailyShop\dailyShop\account.html" />
     <Content Include="MarkUps-dailyShop\dailyShop\blog-archive-2.html" />
@@ -923,7 +924,6 @@
     <Content Include="Areas\Admin\Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\Error.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\Lockout.cshtml" />
-
     <Content Include="Areas\Admin\Views\PostsAdmin\Create.cshtml" />
     <Content Include="Areas\Admin\Views\PostsAdmin\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\PostsAdmin\Details.cshtml" />

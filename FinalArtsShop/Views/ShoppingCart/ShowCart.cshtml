@@ -14,50 +14,62 @@
             <div class="col-md-12">
                 <div class="cart-view-area">
                     <div class="cart-view-table">
-                        <form action="">
-                            <div class="table-responsive">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th></th>
-                                            <th></th>
-                                            <th>Product</th>
-                                            <th>Price</th>
-                                            <th>Quantity</th>
-                                            <th>Total</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="bodyCon">
-                                        @{
-                                            foreach (var item in Model.shoppingCart.Items.Values)
-                                            {
+                        @{
+                            if (Model.shoppingCart.Items.Values.Count <= 0)
+                            {
+                                <h3 style="">Your Shopping Cart is empty. Please come back to our product
+                                    <a href="/Category/Index" style="color: #3FC35F; text-decoration: underline">page</a>
+                                to select some items.</h3>
+                            }
+                            else
+                            {
+                                <form action="">
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead>
                                                 <tr>
-                                                    <td><a data-id="@item.ProductId" class="removeItem"><fa class="fa fa-close"></fa></a></td>
-                                                    <td><a href="#"><img src="@("https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_300,w_250/v1587872991/" + item.Thumbnail + ".jpg")" alt="img"></a></td>
-                                                    <td><a class="aa-cart-title" href="#">@item.Name</a></td>
-                                                    <td>$@item.Price</td>
-                                                    <td><input data-id="@item.ProductId" min="1" class="aa-cart-quantity" type="number" value="@item.Quantity"></td>
-                                                    <td id=@("ItemPrice" + item.ProductId)>$@item.TotalItemPrice</td>
+                                                    <th></th>
+                                                    <th></th>
+                                                    <th>Product</th>
+                                                    <th>Price</th>
+                                                    <th>Quantity</th>
+                                                    <th>Total</th>
                                                 </tr>
-                                            }
-                                        }
-                                    </tbody>
-                                </table>
-                            </div>
-                        </form>
-                        <!-- Cart Total view -->
-                        <div class="cart-view-total">
-                            <h4>Cart Totals</h4>
-                            <table class="aa-totals-table">
-                                <tbody>
-                                    <tr>
-                                        <th>Total</th>
-                                        <td id="TotalPrice">$@Model.shoppingCart.TotalPrice</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <a href="/Checkout/Index" class="aa-cart-view-btn">Proced to Checkout</a>
-                        </div>
+                                            </thead>
+                                            <tbody id="bodyCon">
+                                                @{
+                                                    foreach (var item in Model.shoppingCart.Items.Values)
+                                                    {
+                                                        <tr>
+                                                            <td><a data-id="@item.ProductId" class="removeItem"><fa class="fa fa-close"></fa></a></td>
+                                                            <td><a href="#"><img src="@("https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_300,w_250/v1587872991/" + item.Thumbnail + ".jpg")" alt="img"></a></td>
+                                                            <td><a class="aa-cart-title" href="#">@item.Name</a></td>
+                                                            <td>$@item.Price</td>
+                                                            <td><input data-id="@item.ProductId" min="1" class="aa-cart-quantity" type="number" value="@item.Quantity"></td>
+                                                            <td id=@("ItemPrice" + item.ProductId)>$@item.TotalItemPrice</td>
+                                                        </tr>
+                                                    }
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </form>
+                                <!-- Cart Total view -->
+                                <div class="cart-view-total">
+                                    <h4>Cart Totals</h4>
+                                    <table class="aa-totals-table">
+                                        <tbody>
+                                            <tr>
+                                                <th>Total</th>
+                                                <td id="TotalPrice">$@Model.shoppingCart.TotalPrice</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <a href="/Checkout/Index" class="aa-cart-view-btn">Proced to Checkout</a>
+                                </div>
+                            }
+                        }
+
                     </div>
                 </div>
             </div>

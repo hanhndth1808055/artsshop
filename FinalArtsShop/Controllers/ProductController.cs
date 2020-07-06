@@ -39,9 +39,8 @@ namespace FinalArtsShop.Controllers
                 latestProduct.Insert(0, product);
                 setLastestProduct(latestProduct);
             }
-
-
-            ViewProductClient viewProductClient = new ViewProductClient() {
+            ViewProductClient viewProductClient = new ViewProductClient()
+            {
                 Product = product,
                 LatestProducts = latestProduct,
                 shoppingCart = GetShoppingCart()

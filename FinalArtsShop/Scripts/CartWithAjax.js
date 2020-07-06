@@ -73,6 +73,7 @@
                         'error',
                     );
                 }
+                $("#quantityQuickView").val('1')
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 $('#result').html('<p>status code: ' + jqXHR.status + '</p><p>errorThrown: ' + errorThrown + '</p><p>jqXHR.responseText:</p><div>' + jqXHR.responseText + '</div>');
@@ -111,6 +112,7 @@
                         'error',
                     );
                 }
+                $("#quantityViewDetail").val('1')
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 $('#result').html('<p>status code: ' + jqXHR.status + '</p><p>errorThrown: ' + errorThrown + '</p><p>jqXHR.responseText:</p><div>' + jqXHR.responseText + '</div>');
@@ -123,7 +125,6 @@
             },
         });
     });
-
 
     $(".removeItem").click(function (e) {
         e.preventDefault();

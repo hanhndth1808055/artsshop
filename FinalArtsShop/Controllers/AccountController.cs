@@ -9,6 +9,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using FinalArtsShop.Models;
+using Microsoft.Ajax.Utilities;
+using System.Diagnostics;
 
 namespace FinalArtsShop.Controllers
 {

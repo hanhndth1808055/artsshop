@@ -326,5 +326,12 @@ namespace FinalArtsShop.Controllers
             }
             return Json(data, JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult ClearCart()
+        {
+            var data = "";
+            Session["ShoppingCartName"] = new ShoppingCart();
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
     }
 }

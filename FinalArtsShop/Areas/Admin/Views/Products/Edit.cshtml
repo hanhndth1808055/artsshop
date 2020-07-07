@@ -4,7 +4,7 @@
     ViewBag.Title = "Edit";
 }
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Edit", "Products", FormMethod.Post, new { @class = "product-form", style = "margin-bottom:50px" }))
 {
     @Html.AntiForgeryToken()
     <div class="container">
@@ -85,9 +85,18 @@
                                             @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
+
+                                    @if (Model.GetThubnailIds().Length > 0)
+                                    {
+                                        foreach (var imgId in Model.GetThubnailIds())
+                                        {
+                                            <input type="hidden" name="thumbnails[]" data-cloudinary-public-id="@imgId" value="@("image/upload/v1587872991/" + imgId + ".jpg")">
+                                        }
+                                    }
+
                                     <div class="col-lg-12 form-group text-center">
                                         <div class="col-md-offset-2 col-md-10">
-                                            <input type="submit" value="Create" class="btn btn-primary waves-effect waves-light" />
+                                            <input type="submit" value="Edit" class="btn btn-primary waves-effect waves-light" />
                                         </div>
                                     </div>
                                 </div>
@@ -127,6 +136,7 @@
         var splittedLink = $(this).prev().attr('src').split('/');
         var imgId = splittedLink[splittedLink.length - 1].split('.')[0];
         $(`input[data-cloudinary-public-id="${imgId}"]`).remove();
+        $(`li[img-cloudinary="${imgId}"]`).remove();
     });
     document.getElementById("upload_widget").addEventListener("click", function(){
         showUploadWidget();

@@ -124,10 +124,14 @@ namespace FinalArtsShop.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,CategoryID,Name,Description,UnitPrice,PromotionPrice,Thumbnail,Image,Unit,isNew,isActive,CreatedAt,UpdatedAt,isFeature,SellIndex")] Product product)
+        public ActionResult Edit([Bind(Include = "Id,CategoryID,Name,Description,UnitPrice,PromotionPrice,Thumbnail,Image,Unit,isNew,isActive,CreatedAt,UpdatedAt,isFeature,SellIndex")] Product product, String[] thumbnails)
         {
             if (ModelState.IsValid)
             {
+                if (thumbnails != null && thumbnails.Length > 0)
+                {
+                    product.Thumbnail = string.Join(",", thumbnails);
+                }
                 db.Entry(product).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

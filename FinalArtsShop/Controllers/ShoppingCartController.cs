@@ -210,7 +210,7 @@ namespace FinalArtsShop.Controllers
                     data += "<td id='ItemPrice" + cartItem.ProductId + "'>$" + cartItem.TotalItemPrice + "</td>";
                     data += "</tr>";
                     dataForHeader += "<li>";
-                    dataForHeader += "<a class='aa-cartbox-img' href='#'><img src='/MarkUps-dailyShop/dailyShop/img/electronics/" + @cartItem.Product.Image + "'alt='img'></a>";
+                    dataForHeader += "<a class='aa-cartbox-img' href='#'><img src='https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_300,w_250/v1587872991/" + @cartItem.Product.Image + "'alt='img'></a>";
                     dataForHeader += "<div class='aa-cartbox-info'>";
                     dataForHeader += "<h4><a href='#'>" + @cartItem.Name + "</a></h4>";
                     dataForHeader += "<p>" + @cartItem.Quantity + " x $" + @cartItem.Price + "</p>";
@@ -239,7 +239,7 @@ namespace FinalArtsShop.Controllers
                 foreach (var cartItem in shoppingCart.Items.Values)
                 {
                     dataForHeader += "<li>";
-                    dataForHeader += "<a class='aa-cartbox-img' href='#'><img src='/MarkUps-dailyShop/dailyShop/img/electronics/" + @cartItem.Product.Image + "'alt='img'></a>";
+                    dataForHeader += "<a class='aa-cartbox-img' href='#'><img src='https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_300,w_250/v1587872991/" + @cartItem.Product.Image + "'alt='img'></a>";
                     dataForHeader += "<div class='aa-cartbox-info'>";
                     dataForHeader += "<h4><a href='#'>" + @cartItem.Name + "</a></h4>";
                     dataForHeader += "<p>" + @cartItem.Quantity + " x $" + @cartItem.Price + "</p>";

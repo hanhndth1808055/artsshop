@@ -52,9 +52,9 @@ namespace FinalArtsShop.Areas.Admin.Controllers
                 return HttpNotFound();
             }
             var listOrderDetails = new List<OrderItem>();
-            if(order.Items.Values.ToList() != null)
+            if(order.OrderItems != null)
             {
-                listOrderDetails = order.Items.Values.ToList();
+                listOrderDetails = order.OrderItems.ToList();
             }
             return View(listOrderDetails);
         }

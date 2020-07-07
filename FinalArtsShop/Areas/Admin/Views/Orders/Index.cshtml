@@ -81,7 +81,10 @@
                                                 @Html.DisplayFor(modelItem => item.CustomerPhoneNumber)
                                             </td>
                                             <td>
-                                                @Html.DisplayFor(modelItem => item.CreatedAt)
+                                                @if (item.CreatedAt != null)
+                                                {
+                                                    @TimeZoneInfo.ConvertTimeFromUtc((DateTime) item.CreatedAt, TimeZoneInfo.Local)
+                                                }
                                             </td>
                                             <td>
                                                 $@Html.DisplayFor(modelItem => item.TotalPrice)

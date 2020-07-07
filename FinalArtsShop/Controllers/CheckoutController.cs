@@ -66,37 +66,18 @@ namespace FinalArtsShop.Controllers
                 {
                     return HttpNotFound();
                 }
-
-                Dictionary<string, OrderItem> listOrderItem = new Dictionary<string, OrderItem>();
                 Order order;
-                OrderItem orderItem = null;
-                foreach (ShoppingCart.CartItem item in items.Values)
-                {
-                    orderItem = new OrderItem
-                    {
-                        Name = item.Name,
-                        Price = item.Price,
-                        Quantity = item.Quantity,
-                        Thumbnail = item.Thumbnail,
-                        ProductId = item.ProductId,
-                    };
-
-                    listOrderItem.Add(orderItem.ProductId, orderItem);
-                    orderItem = null;
-                }
-
                 var userManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
                 ApplicationUser user = userManager.FindByNameAsync(User.Identity.Name).Result;
-                var stringId = listOrderItem.Values.FirstOrDefault().ProductId + currentDeliveryType.Abbreviation + GetRandomString(8);
+                var stringId = items.Keys.FirstOrDefault() + currentDeliveryType.Abbreviation + GetRandomString(8);
                 while(HttpContext.GetOwinContext().Get<ApplicationDbContext>().Orders.Where(p => p.Id == stringId).Any())
                 {
-                    stringId = listOrderItem.Values.FirstOrDefault().ProductId + currentDeliveryType.Abbreviation + GetRandomString(8);
+                    stringId = items.Keys.FirstOrDefault() + currentDeliveryType.Abbreviation + GetRandomString(8);
                 }
                 order = new Order()
                 {
                     Id = stringId,
                     Active = 1,
-                    Items = listOrderItem,
                     Address = address,
                     CityId = city,
                     City = HttpContext.GetOwinContext().Get<ApplicationDbContext>().Cities.Find(city),
@@ -119,6 +100,23 @@ namespace FinalArtsShop.Controllers
                     ShippingFee = shippingFee,
                     TotalPrice = shoppingCart.TotalPrice + shippingFee
                 };
+                Dictionary<string, OrderItem> listOrderItem = new Dictionary<string, OrderItem>();
+                OrderItem orderItem = null;
+                foreach (ShoppingCart.CartItem item in items.Values)
+                {
+                    orderItem = new OrderItem
+                    {
+                        OrderId = order.Id,
+                        Name = item.Name,
+                        Price = item.Price,
+                        Quantity = item.Quantity,
+                        Thumbnail = item.Thumbnail,
+                        ProductId = item.ProductId,
+                    };
+                    listOrderItem.Add(orderItem.ProductId, orderItem);
+                    orderItem = null;
+                }
+
                 if (ModelState.IsValid)
                 {
                     HttpContext.GetOwinContext().Get<ApplicationDbContext>().Orders.Add(order);

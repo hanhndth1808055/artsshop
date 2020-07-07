@@ -17,7 +17,7 @@ namespace FinalArtsShop.Controllers
 
         [Route("api/ChartApi/Data/")]
         [HttpGet]
-        public IHttpActionResult StartDataDetail(DateTime fromDate, DateTime toDate, String typeDate)
+        public IHttpActionResult Datachart(DateTime fromDate, DateTime toDate, String typeDate)
         {
             List<long[]> result = new List<long[]>();
             String startDate = fromDate.ToString("yyyy-MM-dd 00:00:00");
@@ -25,7 +25,7 @@ namespace FinalArtsShop.Controllers
             //String startDate2 = fromDate.ToString("yyyy-MM-dd HH:mm:ss");
             String endDate = toDate.AddDays(1).ToString("yyyy-MM-dd 00:00:00");
             List<Order> listOrder = db.Orders
-                            .SqlQuery("Select * from Orders where CreatedAt > '" + startDate + "' and CreatedAt <'"+endDate+ "' order by createdat;")
+                            .SqlQuery("Select * from Orders where CreatedAt > '" + startDate + "' and CreatedAt <'" + endDate + "' order by createdat;")
                             .ToList<Order>();
             DateTime dateToConvert = (DateTime)listOrder[0].CreatedAt;
             fromDate = new System.DateTime(dateToConvert.Year, dateToConvert.Month, dateToConvert.Day, 0, 0, 0);
@@ -35,22 +35,23 @@ namespace FinalArtsShop.Controllers
                 int day = 1;
                 int number = 0;
                 DateTime testFormat;
-                for (int i= 0; i < listOrder.Count; i++)
+                for (int i = 0; i < listOrder.Count; i++)
                 {
-                    if(listOrder[i].CreatedAt < fromDate.AddDays(day))
+                    if ( listOrder[i].CreatedAt < fromDate.AddDays(day) )
                     {
-                        Debug.WriteLine("fromDate.AddDays(day): "+ fromDate.AddDays(day));
+                        NLogger.Infor("fromDate.AddDays(day): " + fromDate.AddDays(day));
                         number++;
                     }
                     else
                     {
-                        long[] subItem = convertData(listOrder[i-2], number);
+                        long[] subItem = convertData2(fromDate.AddDays(day-1), number);
                         result.Add(subItem);
                         number = 0;
+                        i=i-1;
                         day++;
                     }
                 }
-                long[] lastItem = convertData(listOrder[listOrder.Count-1], number);
+                long[] lastItem = convertData2(fromDate.AddDays(day - 1), number);
                 result.Add(lastItem);
                 try
                 {
@@ -73,6 +74,23 @@ namespace FinalArtsShop.Controllers
             DateTime lastDate = (DateTime)order.CreatedAt;
             DateTime testFormat = new System.DateTime(lastDate.Year, lastDate.Month, lastDate.Day, 0, 0, 0);
             TimeSpan span = (testFormat).Subtract(new DateTime(1970, 1, 1, 0, 0, 0));
+            Double parseDate = span.TotalMilliseconds;
+            long pareLastDate = Convert.ToInt64(parseDate);
+            //lastItem = new Dictionary<int, long>();
+            List<long> termsList = new List<long>();
+            termsList.Add(pareLastDate);
+            termsList.Add(number);
+            lastItem = termsList.ToArray();
+            //lastItem.Add(number, pareLastDate);
+            return lastItem;
+        }
+        private long[] convertData2(DateTime date, int number)
+        {
+            long[] lastItem;
+            DateTime lastDate = date;
+            DateTime testFormat = new System.DateTime(lastDate.Year, lastDate.Month, lastDate.Day, 0, 0, 0);
+            TimeSpan span = (testFormat).Subtract(new DateTime(1970, 1, 1, 0, 0, 0));
+            //Double parseDate = span.TotalMilliseconds;
             Double parseDate = span.TotalMilliseconds;
             long pareLastDate = Convert.ToInt64(parseDate);
             //lastItem = new Dictionary<int, long>();

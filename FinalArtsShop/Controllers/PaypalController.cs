@@ -91,7 +91,7 @@ namespace FinalArtsShop.Controllers
                 NLogger.Infor("orderId = "+ orderId);
                 NLogger.Infor("update FulfillmentStatusEnum with orderId: " + orderId);
                 Order order = db.Orders.First(a => a.Id.Equals(orderId));
-                order.FulfillmentStatus = FulfillmentStatusEnum.Fulfilled;
+                order.PaymentStatus = PaymentStatusEnum.Paid;
                 db.SaveChanges();
                 NLogger.Infor("update success");
                 Session["ShoppingCartName"] = new ShoppingCart();
@@ -99,12 +99,14 @@ namespace FinalArtsShop.Controllers
                 // check that Txn_id has not been previously processed
                 // check that Receiver_email is your Primary PayPal email
                 // check that Payment_amount/Payment_currency are correct
-                // process payment
+                // process payment 
             }
             else if (verificationResponse.Equals("INVALID"))
             {
+                string orderId = getOrderId(requestInformation);
+                NLogger.Infor("orderId = " + orderId);
                 //Log for manual investigation
-
+                NLogger.Infor("ERROR Payment "+orderId);
             }
             else
             {

@@ -18,9 +18,24 @@ namespace FinalArtsShop.Areas.Admin.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Categories
-        public ActionResult Index()
+        public ActionResult Index(DateTime? start, DateTime? end)
         {
-            return View(db.Categories.ToList());
+            var cats = db.Categories.AsQueryable();
+
+            if (start != null)
+            {
+                var startDate = start.GetValueOrDefault().Date;
+                startDate = startDate.Date + new TimeSpan(0, 0, 0);
+                cats = cats.Where(p => p.CreatedAt >= startDate);
+            }
+
+            if (end != null)
+            {
+                var endDate = end.GetValueOrDefault().Date;
+                endDate = endDate.Date + new TimeSpan(23, 59, 59);
+                cats = cats.Where(p => p.CreatedAt <= endDate);
+            }
+            return View(cats.ToList());
         }
 
         // GET: Categories/Details/5

@@ -17,9 +17,25 @@ namespace FinalArtsShop.Areas.Admin.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: DeliveryTypes
-        public ActionResult Index()
+        public ActionResult Index(DateTime? start, DateTime? end)
         {
-            return View(db.DeliveryTypes.ToList());
+            var deliveryTypes = db.DeliveryTypes.AsQueryable();
+
+            if (start != null)
+            {
+                var startDate = start.GetValueOrDefault().Date;
+                startDate = startDate.Date + new TimeSpan(0, 0, 0);
+                deliveryTypes = deliveryTypes.Where(p => p.CreatedAt >= startDate);
+            }
+
+            if (end != null)
+            {
+                var endDate = end.GetValueOrDefault().Date;
+                endDate = endDate.Date + new TimeSpan(23, 59, 59);
+                deliveryTypes = deliveryTypes.Where(p => p.CreatedAt <= endDate);
+            }
+
+            return View(deliveryTypes.ToList());
         }
 
         // GET: DeliveryTypes/Details/5

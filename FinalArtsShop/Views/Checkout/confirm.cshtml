@@ -6,85 +6,88 @@
 @{
     var data = ViewBag.Message;
 }
-    <div class="container">
-        <div class="product-tab-list tab-pane" id="reviews">
-            <div class="row">
-                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"></div>
-                <div style="padding-bottom: 10vh" class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                    <h2 style="padding-top: 10vh">Confirm Payment</h2>
-                    <div class="review-content-section">
-                        <div class="row">
-                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                <div class="devit-card-custom">
-                                    <dl class="dl-horizontal">
-                                        <dt>
-                                            OrderId
-                                        </dt>
-                                        <dd>
-                                            @data.Id
-                                        </dd>
-                                        <dt>
-                                            Total
-                                        </dt>
-                                        <dd>
-                                            @data.Id
-                                        </dd>
-                                        <dt>
-                                            OrderId
-                                        </dt>
-                                        <dd>
-                                            $@data.TotalPrice
-                                        </dd>
-                                        <dt>
-                                            Name
-                                        </dt>
-                                        <dd>
-                                            @data.CustomerName
-                                        </dd>
-                                        <dt>
-                                            PhoneNumber
-                                        </dt>
-                                        <dd>
-                                            @data.CustomerPhoneNumber
-                                        </dd>
-                                        <dt>
-                                            Address
-                                        </dt>
-                                        <dd>
-                                            @data.City.Name - @data.District.Name
-                                        </dd>
+<div class="container">
+    <div class="product-tab-list tab-pane" id="reviews">
+        <div class="row">
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"></div>
+            <div style="padding-bottom: 10vh" class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <h2 style="padding-top: 10vh">Confirm Payment</h2>
+                <div class="review-content-section">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="devit-card-custom">
+                                <dl class="dl-horizontal">
+                                    <dt>
+                                        OrderId
+                                    </dt>
+                                    <dd>
+                                        @data.Id
+                                    </dd>
+                                    <dt>
+                                        Total
+                                    </dt>
+                                    <dd>
+                                        @data.Id
+                                    </dd>
+                                    <dt>
+                                        OrderId
+                                    </dt>
+                                    <dd>
+                                        $@data.TotalPrice
+                                    </dd>
+                                    <dt>
+                                        Name
+                                    </dt>
+                                    <dd>
+                                        @data.CustomerName
+                                    </dd>
+                                    <dt>
+                                        PhoneNumber
+                                    </dt>
+                                    <dd>
+                                        @data.CustomerPhoneNumber
+                                    </dd>
+                                    <dt>
+                                        Address
+                                    </dt>
+                                    <dd>
+                                        @data.City.Name - @data.District.Name
+                                    </dd>
 
-                                    </dl>
-                                </div>
+                                </dl>
                             </div>
                         </div>
                     </div>
-                    <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
-                        <input type="hidden" name="cmd" value="_xclick">
-                        <input type="hidden" name="business" value="sb-i43wci1645672@business.example.com">
-                        <input type="hidden" name="item_name" value="payment @data.Id">
-                        <input type="hidden" name="item_number" value="@data.Id">
-                        <input type="hidden" name="amount" value="@data.TotalPrice">
-                        <input type="hidden" name="tax" value="0">
-                        <input type="hidden" name="quantity" value="1">
-                        <input type="hidden" name="currency_code" value="USD">
-
-                        <!-- Enable override of buyers's address stored with PayPal . -->
-                        <input type="hidden" name="address_override" value="1">
-                        <!-- Set variables that override the address stored with PayPal. -->
-                        <input type="hidden" name="first_name" value="@data.CustomerName">
-                        @*<input type="hidden" name="last_name" value="Doe">*@
-                        <input type="hidden" name="address1" value="345 Lark Ave">
-                        <input type="hidden" name="city" value="@data.City.Name">
-                        <input type="hidden" name="state" value="@data.District.Name">
-                        <input type="hidden" name="zip" value="10000">
-                        <input type="hidden" name="country" value="VN">
-                        <input class="center-block" type="image" name="submit" src="https://www.paypalobjects.com/en_US/i/btn/btn_buynow_LG.gif" alt="PayPal - The safer, easier way to pay online">
-                    </form>
                 </div>
+                <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
+                    <input type="hidden" name="cmd" value="_xclick">
+                    <input type="hidden" name="business" value="sb-i43wci1645672@business.example.com">
+                    <input type="hidden" name="item_name" value="payment @data.Id">
+                    <input type="hidden" name="item_number" value="@data.Id">
+                    <input type="hidden" name="amount" value="@data.TotalPrice">
+                    <input type="hidden" name="tax" value="0">
+                    <input type="hidden" name="quantity" value="1">
+                    <input type="hidden" name="currency_code" value="USD">
+
+                    <!-- Enable override of buyers's address stored with PayPal . -->
+                    <input type="hidden" name="address_override" value="1">
+                    <!-- Set variables that override the address stored with PayPal. -->
+                    <input type="hidden" name="first_name" value="@data.CustomerName">
+                    @*<input type="hidden" name="last_name" value="Doe">*@
+                    <input type="hidden" name="address1" value="345 Lark Ave">
+                    <input type="hidden" name="city" value="@data.City.Name">
+                    <input type="hidden" name="state" value="@data.District.Name">
+                    <input type="hidden" name="zip" value="10000">
+                    <input type="hidden" name="country" value="VN">
+                    <input id="BuyNow" class="center-block" type="image" name="submit" src="https://www.paypalobjects.com/en_US/i/btn/btn_buynow_LG.gif" alt="PayPal - The safer, easier way to pay online">
+                </form>
             </div>
         </div>
     </div>
+</div>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+<script src="~/Scripts/AjaxCallForClearCart.js"></script>
+
 
 
 

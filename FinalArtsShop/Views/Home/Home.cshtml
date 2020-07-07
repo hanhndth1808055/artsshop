@@ -455,30 +455,33 @@
                                 string description = "";
                                 foreach (var post in data.ListPost)
                                 {
-                                    //single latest blog 
-                                    <div class="col-md-4 col-sm-4">
-                                        <div class="aa-latest-blog-single">
-                                            <figure class="aa-blog-img">
-                                                <a href="/Post/Index?id=@post.Id"><img src="@("https://res.cloudinary.com/daaycakkk/image/upload/c_crop,h_450,w_450/v1587872991/" + post.GetThubnailIds()[0] + ".jpg")" alt="img"></a>
-                                                <figcaption class="aa-blog-img-caption">
-                                                    <span id="view-post"><i class="fa fa-eye"></i>@post.View</span>
-                                                    <span id="like-post" onclick="likePost(@post.Id)" style="cursor: pointer"><i class="fa fa-thumbs-o-up"></i>@post.Like</span>
-                                                    <a href="/Post/Index?id=@post.Id"><i class="fa fa-clock-o"></i>@post.CreatedAt</a>
-                                                </figcaption>
-                                            </figure>
-                                            <div class="aa-blog-info">
-                                                <h3 class="aa-blog-title"><a href="/Post/Index?id=@post.Id">@post.Title</a></h3>
-                                                <p>
-                                                    @{
-                                                        description = post.Description;
-                                                        description = description.Substring(0, 250) + "...";
-                                                    }
-                                                    @description
-                                                </p>
-                                                <a href="/Post/Index?id=@post.Id" class="aa-read-mor-btn">Read more <span class="fa fa-long-arrow-right"></span></a>
+                                    if (post.Thumbnail != null)
+                                    {
+                                        //single latest blog
+                                        <div class="col-md-4 col-sm-4">
+                                            <div class="aa-latest-blog-single">
+                                                <figure class="aa-blog-img">
+                                                    <a href="/Post/Index?id=@post.Id"><img src="@("https://res.cloudinary.com/daaycakkk/image/upload/c_crop,h_450,w_450/v1587872991/" + post.GetThubnailIds()[0] + ".jpg")" alt="img"></a>
+                                                    <figcaption class="aa-blog-img-caption">
+                                                        <span id="view-post"><i class="fa fa-eye"></i>@post.View</span>
+                                                        <span id="like-post" onclick="likePost(@post.Id)" style="cursor: pointer"><i class="fa fa-thumbs-o-up"></i>@post.Like</span>
+                                                        <a href="/Post/Index?id=@post.Id"><i class="fa fa-clock-o"></i>@post.CreatedAt</a>
+                                                    </figcaption>
+                                                </figure>
+                                                <div class="aa-blog-info">
+                                                    <h3 class="aa-blog-title"><a href="/Post/Index?id=@post.Id">@post.Title</a></h3>
+                                                    <p>
+                                                        @{
+                                                            description = post.Description;
+                                                            description = description.Substring(0, 250) + "...";
+                                                        }
+                                                        @description
+                                                    </p>
+                                                    <a href="/Post/Index?id=@post.Id" class="aa-read-mor-btn">Read more <span class="fa fa-long-arrow-right"></span></a>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    }
                                 }
                             }
                         }

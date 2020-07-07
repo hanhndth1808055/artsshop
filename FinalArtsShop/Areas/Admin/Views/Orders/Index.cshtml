@@ -98,7 +98,8 @@
                                                 </select>
                                             </td>
                                             <td>
-                                                <a style="color: white" href="Orders/Detail/" class="btn btn-primary">View Detail</a>
+                                                @Html.ActionLink("View Detail", "Detail", new { Id = item.Id }, new { @class = "btn btn-primary"})
+                                               
                                             </td>
                                         </tr>
                                     }

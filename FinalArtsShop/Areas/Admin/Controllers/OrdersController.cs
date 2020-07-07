@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using static FinalArtsShop.Models.ShoppingCart;
@@ -24,11 +25,22 @@ namespace FinalArtsShop.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        public ActionResult Detail(string orderId)
+        public ActionResult Detail(string id)
         {
-            var order = db.Orders.Find(orderId);
-            var listOrderDetails = order.Items.Values.ToList();
-      
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var order = db.Orders.Find(id);
+            if (order == null)
+            {
+                return HttpNotFound();
+            }
+            var listOrderDetails = new List<OrderItem>();
+            if(order.Items.Values.ToList() != null)
+            {
+                listOrderDetails = order.Items.Values.ToList();
+            }
             return View(listOrderDetails);
         }
 

@@ -10,6 +10,7 @@ using FinalArtsShop.Models;
 
 namespace FinalArtsShop.Areas.Admin.Controllers
 {
+    [Authorize]
     public class PostsAdminController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -88,11 +89,8 @@ namespace FinalArtsShop.Areas.Admin.Controllers
             {
                 if (thumbnails != null && thumbnails.Length > 0)
                 {
-                    System.Diagnostics.Debug.WriteLine(string.Join(",", thumbnails));
                     post.Thumbnail = string.Join(",", thumbnails);
-                    System.Diagnostics.Debug.WriteLine(post.Thumbnail);
                 }
-                System.Diagnostics.Debug.WriteLine(post.Thumbnail);
                 db.Entry(post).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

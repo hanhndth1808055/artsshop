@@ -18,7 +18,6 @@ namespace FinalArtsShop.Models
         public int Quantity { get; set; }
         public string Thumbnail { get; set; }
         public double TotalItemPrice => Quantity * Price;
-
         [ForeignKey("Order")]
         public string OrderId { get; set; }
         public virtual Order Order { get; set; }

@@ -12,7 +12,6 @@ using FinalArtsShop.Models;
 
 namespace FinalArtsShop.Areas.Admin.Controllers
 {
-    [Authorize]
     public class AdminAccountController : Controller
     {
         private ApplicationSignInManager _signInManager;

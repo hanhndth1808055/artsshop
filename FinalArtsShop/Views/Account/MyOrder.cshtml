@@ -1,6 +1,7 @@
 ﻿@model IEnumerable<FinalArtsShop.Models.Order>
 @{
     Layout = "~/Views/Home/Layout/_Layout.cshtml";
+    var index = 1;
 }
 <section id="checkout">
     <div class="container">
@@ -74,18 +75,20 @@
                                                                         </tr>
                                                                     </thead>
                                                                     <tbody>
-                                                                        @foreach (var item in order.Items.Values)
+                                                                        @foreach (var item in order.OrderItems)
                                                                         {
+                                                                            var link = "https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_55,w_45/" + item.Thumbnail + ".jpg";
                                                                             <tr>
-                                                                                <td></td>
+                                                                                <td>@index</td>
                                                                                 <td>@item.Name</td>
                                                                                 <td>
-                                                                                    @*<img src="@{"https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_55,w_45/" + item.Thumbnail + ".jpg"}" />*@
+                                                                                    <img src="@link" />
                                                                                 </td>
                                                                                 <td>$@item.Price</td>
                                                                                 <td>@item.Quantity</td>
-                                                                                <td>@item.TotalItemPrice</td>
+                                                                                <td>$@item.TotalItemPrice</td>
                                                                             </tr>
+                                                                            index++;
                                                                         }
                                                                     </tbody>
                                                                 </table>
@@ -99,7 +102,6 @@
                                             </div>
                                         }
                                     </div>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -107,6 +109,7 @@
                 </div>
             </div>
         </div>
+    </div>
     </div>
 </section>
 <!-- SWEET ALERT -->

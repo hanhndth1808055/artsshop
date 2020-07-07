@@ -40,6 +40,7 @@ namespace FinalArtsShop.Models
 
         //Order Items
         public Dictionary<string, OrderItem> Items { get; set; }
+        public virtual ICollection<OrderItem> OrderItems { get; set; }
 
         public double TotalPrice { get; set; }
 
@@ -53,7 +54,6 @@ namespace FinalArtsShop.Models
             if (this.ShippedAt == null)
             {
                 this.isReturnable = 1;
-                Debug.WriteLine("abc");
                 return;
             }
 
@@ -62,13 +62,11 @@ namespace FinalArtsShop.Models
             if (timeDiff > 7)
             {
                 this.isReturnable = 0;
-                Debug.WriteLine("abc1");
                 return;
             }
             else
             {
                 this.isReturnable = 1;
-                Debug.WriteLine("abc2");
                 return;
             }
         }

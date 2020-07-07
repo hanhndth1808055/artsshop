@@ -18,9 +18,25 @@ namespace FinalArtsShop.Areas.Admin.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Products
-        public ActionResult Index()
+        public ActionResult Index(DateTime? start, DateTime? end)
         {
-            var products = db.Products.Include(p => p.Category).Where(p => p.isActive == 1);
+            //var products = db.Products.Include(p => p.Category).Where(p => p.isActive == 1);
+            var products = db.Products.AsQueryable();
+            products = products.Include(p => p.Category).Where(p => p.isActive == 1);
+
+            if (start != null)
+            {
+                var startDate = start.GetValueOrDefault().Date;
+                startDate = startDate.Date + new TimeSpan(0, 0, 0);
+                products = products.Where(p => p.CreatedAt >= startDate);
+            }
+
+            if (end != null)
+            {
+                var endDate = end.GetValueOrDefault().Date;
+                endDate = endDate.Date + new TimeSpan(23, 59, 59);
+                products = products.Where(p => p.CreatedAt <= endDate);
+            }
             return View(products.ToList());
         }
 
@@ -124,10 +140,14 @@ namespace FinalArtsShop.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,CategoryID,Name,Description,UnitPrice,PromotionPrice,Thumbnail,Image,Unit,isNew,isActive,CreatedAt,UpdatedAt,isFeature,SellIndex")] Product product)
+        public ActionResult Edit([Bind(Include = "Id,CategoryID,Name,Description,UnitPrice,PromotionPrice,Thumbnail,Image,Unit,isNew,isActive,CreatedAt,UpdatedAt,isFeature,SellIndex")] Product product, String[] thumbnails)
         {
             if (ModelState.IsValid)
             {
+                if (thumbnails != null && thumbnails.Length > 0)
+                {
+                    product.Thumbnail = string.Join(",", thumbnails);
+                }
                 db.Entry(product).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

@@ -43,61 +43,33 @@
                                     <tr>
                                         <th data-field="state" data-checkbox="true"></th>
                                         <th data-field="Id">ID</th>
-                                        <th data-field="CustomerName">Customer Name</th>
-                                        <th data-field="CustomerPhone">Customer Phone</th>
-                                        <th data-field="CreatedAt">Created At</th>
+                                        <th data-field="Name">Name</th>
+                                        <th data-field="CustomerPhone">Price</th>
+                                        <th data-field="CreatedAt">Quantity</th>
                                         <th data-field="TotalPrice">Total Price</th>
-                                        <th data-field="PaymentStatus">Payment Status</th>
-                                        <th data-field="FulfillmentStatus">Fulfillment Status</th>
-                                        <th>View Details</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach (var item in Model)
                                     {
-                                        @*<tr>
+                                        <tr>
                                             <td></td>
                                             <td>
                                                 @Html.DisplayFor(modelItem => item.Id)
                                             </td>
                                             <td>
-                                                @Html.DisplayFor(modelItem => item.CustomerName)
+                                                @Html.DisplayFor(modelItem => item.Name)
                                             </td>
                                             <td>
-                                                @Html.DisplayFor(modelItem => item.CustomerPhoneNumber)
+                                                $@Html.DisplayFor(modelItem => item.Price)
                                             </td>
                                             <td>
-                                                @Html.DisplayFor(modelItem => item.CreatedAt)
+                                                @Html.DisplayFor(modelItem => item.Quantity)
                                             </td>
                                             <td>
-                                                $@Html.DisplayFor(modelItem => item.TotalPrice)
+                                                $@Html.DisplayFor(modelItem => item.TotalItemPrice)
                                             </td>
-                                            <td>
-                                                <select class="form-control form-control-sm PaymentStatus" data-id="@item.Id">
-                                                    @foreach (var payment in ViewBag.PaymentStatusList)
-                                                    {
-                                                        <option @if ((FinalArtsShop.Models.PaymentStatusEnum)payment == item.PaymentStatus) { @( "selected") }
-                                                                value="@( (Int32)payment)">
-                                                            @payment
-                                                        </option>
-                                                    }
-                                                </select>
-                                            </td>
-                                            <td>
-                                                <select class="form-control form-control-sm FulfillmentStatus" data-id="@item.Id">
-                                                    @foreach (var payment in ViewBag.FulfillmentStatusList)
-                                                    {
-                                                        <option @if ((FinalArtsShop.Models.FulfillmentStatusEnum)payment == item.FulfillmentStatus) { @("selected") }
-                                                                value="@( (Int32)payment)">
-                                                            @payment
-                                                        </option>
-                                                    }
-                                                </select>
-                                            </td>
-                                            <td>
-                                                <a style="color: white" href="Orders/Detail/" class="btn btn-primary">View Detail</a>
-                                            </td>
-                                        </tr>*@
+                                        </tr>
                                     }
                                 </tbody>
                             </table>

@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<FinalArtsShop.Models.Order>
 @{
     Layout = "~/Views/Home/Layout/_Layout.cshtml";
-
+    var index = 1;
 }
 <section id="checkout">
     <div class="container">
@@ -27,7 +27,6 @@
                                                     <thead>
                                                         <tr>
                                                             <th>Order Number</th>
-                                                            <th>Name</th>
                                                             <th>Address</th>
                                                             <th>Total</th>
                                                             <th>See Detail</th>
@@ -39,22 +38,23 @@
                                                         {
                                                             <tr>
                                                                 <td>@order.Id</td>
-                                                                <td>@order.CustomerName</td>
                                                                 <td>
                                                                     @order.City.Name, @order.District.Name,  @order.Address
                                                                 </td>
                                                                 <td>$@order.TotalPrice</td>
-                                                                <td><a data-id="@order.Id" class="btn btn-success SeeDetail" data-toggle="modal" data-target="#orderDetailModal">See Detail</a></td>
+                                                                <td><a class="btn btn-success" data-toggle="modal" data-target="#@order.Id">See Detail</a></td>
                                                                 <td><a data-id="@order.Id" class="btn btn-success BackOrder">Back Order</a></td>
                                                             </tr>
                                                         }
                                                     </tbody>
                                                 </table>
                                             </div>
+                                        </div>
+                                        @foreach (var order in Model)
+                                        {
                                             <!-- Modal -->
-                                            <div class="modal fade" id="orderDetailModal" role="dialog">
+                                            <div class="modal fade" id="@order.Id" role="dialog">
                                                 <div class="modal-dialog">
-
                                                     <!-- Modal content-->
                                                     <div class="modal-content">
                                                         <div class="modal-header">
@@ -68,54 +68,39 @@
                                                                         <tr>
                                                                             <th>#</th>
                                                                             <th>Product Name</th>
-                                                                            <th>Price</th>
                                                                             <th>Thumbnail</th>
+                                                                            <th>Price</th>
                                                                             <th>Quantity</th>
+                                                                            <th>Total</th>
                                                                         </tr>
                                                                     </thead>
                                                                     <tbody>
-                                                                        <tr>
-                                                                            <td>1</td>
-                                                                            <td><a href="#">Black Winged Earrings</a></td>
-                                                                            <td>$2</td>
-                                                                            <td>
-                                                                                @*chu y duong links anh co param lay size de hien thi cho dep "c_limit,h_55,w_45"*@
-                                                                                <img src="https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_55,w_45/v1587872991/ujw6rrxbmzbwu78x6hr2.jpg" />
-                                                                            </td>
-                                                                            <td>5</td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td>1</td>
-                                                                            <td><a href="#">3 circles</a></td>
-                                                                            <td>$6</td>
-                                                                            <td>
-                                                                                @*chu y duong links anh co param lay size de hien thi cho dep "c_limit,h_55,w_45"*@
-                                                                                <img src="https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_55,w_45/v1587872991/ujw6rrxbmzbwu78x6hr2.jpg" />
-                                                                            </td>
-                                                                            <td>1</td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td>1</td>
-                                                                            <td><a href="#">Skeleton</a></td>
-                                                                            <td>$4</td>
-                                                                            <td>
-                                                                                @*chu y duong links anh co param lay size de hien thi cho dep "c_limit,h_55,w_45"*@
-                                                                                <img src="https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_55,w_45/v1587872991/ujw6rrxbmzbwu78x6hr2.jpg" />
-                                                                            </td>
-                                                                            <td>2</td>
-                                                                        </tr>
+                                                                        @foreach (var item in order.OrderItems)
+                                                                        {
+                                                                            var link = "https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_55,w_45/" + item.Thumbnail + ".jpg";
+                                                                            <tr>
+                                                                                <td>@index</td>
+                                                                                <td>@item.Name</td>
+                                                                                <td>
+                                                                                    <img src="@link" />
+                                                                                </td>
+                                                                                <td>$@item.Price</td>
+                                                                                <td>@item.Quantity</td>
+                                                                                <td>$@item.TotalItemPrice</td>
+                                                                            </tr>
+                                                                            index++;
+                                                                        }
                                                                     </tbody>
                                                                 </table>
                                                             </div>
                                                         </div>
                                                         <div class="modal-footer">
-                                                            <button type="button" class="btn btn-primary" data-dismiss="modal" style="float: right">Close</button>
+                                                            <button type="button" class="btn btn-success" data-dismiss="modal" style="float: right">Close</button>
                                                         </div>
                                                     </div>
-
                                                 </div>
                                             </div>
-                                        </div>
+                                        }
                                     </div>
                                 </div>
                             </div>
@@ -124,6 +109,7 @@
                 </div>
             </div>
         </div>
+    </div>
     </div>
 </section>
 <!-- SWEET ALERT -->

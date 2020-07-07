@@ -5,6 +5,7 @@ using System.Data.Entity;
 using System.Diagnostics;
 using System.Linq;
 using System.Security.Cryptography;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using FinalArtsShop.Areas.Admin.Controllers;
@@ -65,33 +66,18 @@ namespace FinalArtsShop.Controllers
                 {
                     return HttpNotFound();
                 }
-
-                Dictionary<string, OrderItem> listOrderItem = new Dictionary<string, OrderItem>();
                 Order order;
-                OrderItem orderItem = null;
-                foreach (ShoppingCart.CartItem item in items.Values)
-                {
-                    orderItem = new OrderItem
-                    {
-                        Name = item.Name,
-                        Price = item.Price,
-                        Quantity = item.Quantity,
-                        Thumbnail = item.Thumbnail,
-                        ProductId = item.ProductId,
-                    };
-
-                    listOrderItem.Add(orderItem.ProductId, orderItem);
-                    orderItem = null;
-                }
-
                 var userManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
                 ApplicationUser user = userManager.FindByNameAsync(User.Identity.Name).Result;
-
+                var stringId = items.Keys.FirstOrDefault() + currentDeliveryType.Abbreviation + GetRandomString(8);
+                while(HttpContext.GetOwinContext().Get<ApplicationDbContext>().Orders.Where(p => p.Id == stringId).Any())
+                {
+                    stringId = items.Keys.FirstOrDefault() + currentDeliveryType.Abbreviation + GetRandomString(8);
+                }
                 order = new Order()
                 {
-                    Id = listOrderItem.Values.FirstOrDefault().ProductId + randomNum(),
+                    Id = stringId,
                     Active = 1,
-                    Items = listOrderItem,
                     Address = address,
                     CityId = city,
                     City = HttpContext.GetOwinContext().Get<ApplicationDbContext>().Cities.Find(city),
@@ -114,15 +100,33 @@ namespace FinalArtsShop.Controllers
                     ShippingFee = shippingFee,
                     TotalPrice = shoppingCart.TotalPrice + shippingFee
                 };
+                Dictionary<string, OrderItem> listOrderItem = new Dictionary<string, OrderItem>();
+                OrderItem orderItem = null;
+                foreach (ShoppingCart.CartItem item in items.Values)
+                {
+                    orderItem = new OrderItem
+                    {
+                        OrderId = order.Id,
+                        Name = item.Name,
+                        Price = item.Price,
+                        Quantity = item.Quantity,
+                        Thumbnail = item.Thumbnail,
+                        ProductId = item.ProductId,
+                    };
+                    listOrderItem.Add(orderItem.ProductId, orderItem);
+                    orderItem = null;
+                }
+
                 if (ModelState.IsValid)
                 {
+                    HttpContext.GetOwinContext().Get<ApplicationDbContext>().Orders.Add(order);
+                    HttpContext.GetOwinContext().Get<ApplicationDbContext>().SaveChanges();
                     foreach (var value in listOrderItem.Values)
                     {
+                        value.OrderId = order.Id;
                         HttpContext.GetOwinContext().Get<ApplicationDbContext>().OrderItems.Add(value);
                         HttpContext.GetOwinContext().Get<ApplicationDbContext>().SaveChanges();
                     }
-                    HttpContext.GetOwinContext().Get<ApplicationDbContext>().Orders.Add(order);
-                    HttpContext.GetOwinContext().Get<ApplicationDbContext>().SaveChanges();
                 }
                 if (optionsRadios == 1)
                 {
@@ -149,6 +153,20 @@ namespace FinalArtsShop.Controllers
             }
 
             return View();
+        }
+        
+        public string GetRandomString(int length)
+        {
+            var random = new Random();
+            const string pool = "0123456789";
+            var builder = new StringBuilder();
+
+            for (var i = 0; i < length; i++)
+            {
+                var c = pool[random.Next(0, pool.Length)];
+                builder.Append(c);
+            }
+            return builder.ToString();
         }
 
         private ActionResult StripePayment(Order order)
@@ -295,6 +313,16 @@ namespace FinalArtsShop.Controllers
                         data += "<option data-num=" + district.ShippingFee + " value=" + district.Id + ">" + district.Name + "</option>";
                     }
                 }
+            }
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult getOrderItems(Dictionary<String, OrderItem> orderContent)
+        {
+            var data = "";
+            foreach(var orderItem in orderContent.Values)
+            {
+                data += orderItem.Name;
             }
             return Json(data, JsonRequestBehavior.AllowGet);
         }

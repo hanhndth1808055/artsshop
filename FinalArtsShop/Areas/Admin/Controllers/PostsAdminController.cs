@@ -10,14 +10,32 @@ using FinalArtsShop.Models;
 
 namespace FinalArtsShop.Areas.Admin.Controllers
 {
+    [Authorize]
     public class PostsAdminController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Admin/PostsAdmin
-        public ActionResult Index()
+        public ActionResult Index(DateTime? start, DateTime? end)
         {
-            return View(db.Posts.ToList());
+            var post = db.Posts.AsQueryable();
+            post = post.OrderByDescending(p => p.CreatedAt);
+
+            if (start != null)
+            {
+                var startDate = start.GetValueOrDefault().Date;
+                startDate = startDate.Date + new TimeSpan(0, 0, 0);
+                post = post.Where(p => p.CreatedAt >= startDate);
+            }
+
+            if (end != null)
+            {
+                var endDate = end.GetValueOrDefault().Date;
+                endDate = endDate.Date + new TimeSpan(23, 59, 59);
+                post = post.Where(p => p.CreatedAt <= endDate);
+            }
+
+            return View(post.ToList());
         }
 
         // GET: Admin/PostsAdmin/Details/5
@@ -88,11 +106,8 @@ namespace FinalArtsShop.Areas.Admin.Controllers
             {
                 if (thumbnails != null && thumbnails.Length > 0)
                 {
-                    System.Diagnostics.Debug.WriteLine(string.Join(",", thumbnails));
                     post.Thumbnail = string.Join(",", thumbnails);
-                    System.Diagnostics.Debug.WriteLine(post.Thumbnail);
                 }
-                System.Diagnostics.Debug.WriteLine(post.Thumbnail);
                 db.Entry(post).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

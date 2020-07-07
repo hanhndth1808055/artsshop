@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using static FinalArtsShop.Models.ShoppingCart;
@@ -14,21 +15,47 @@ namespace FinalArtsShop.Areas.Admin.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
         // GET: Admin/Orders
-        public ActionResult Index()
+        public ActionResult Index(DateTime? start, DateTime? end)
         {
             ViewBag.PaymentStatusList = Enum.GetValues(typeof(PaymentStatusEnum)).Cast<PaymentStatusEnum>().ToList();
             ViewBag.FulfillmentStatusList = Enum.GetValues(typeof(FulfillmentStatusEnum)).Cast<FulfillmentStatusEnum>().ToList();
-            return View(db.Orders
-                .OrderByDescending(o => o.CreatedAt)
-                .ToList());
+            var orders = db.Orders.AsQueryable();
+            orders = orders.OrderByDescending(o => o.CreatedAt);
+
+            if (start != null)
+            {
+                var startDate = start.GetValueOrDefault().Date;
+                startDate = startDate.Date + new TimeSpan(0, 0, 0);
+                orders = orders.Where(p => p.CreatedAt >= startDate);
+            }
+
+            if (end != null)
+            {
+                var endDate = end.GetValueOrDefault().Date;
+                endDate = endDate.Date + new TimeSpan(23, 59, 59);
+                orders = orders.Where(p => p.CreatedAt <= endDate);
+            }
+
+            return View(orders.ToList());
         }
 
         [HttpGet]
-        public ActionResult Detail(string orderId)
+        public ActionResult Detail(string id)
         {
-            var order = db.Orders.Find(orderId);
-            var listOrderDetails = order.Items.Values.ToList();
-      
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var order = db.Orders.Find(id);
+            if (order == null)
+            {
+                return HttpNotFound();
+            }
+            var listOrderDetails = new List<OrderItem>();
+            if(order.OrderItems != null)
+            {
+                listOrderDetails = order.OrderItems.ToList();
+            }
             return View(listOrderDetails);
         }
 

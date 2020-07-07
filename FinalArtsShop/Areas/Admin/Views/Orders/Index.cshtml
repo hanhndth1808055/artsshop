@@ -40,6 +40,17 @@
                                     <option value="selected">Export Selected</option>
                                 </select>
                             </div>
+                            <div style="width: 200px">
+                                <form action="/Admin/Orders/Index" method="get" name="search-form">
+                                    <input type="hidden" name="start" />
+                                    <input type="hidden" name="end" />
+                                    @*<div class="form-group">
+                                        <input type="submit" class="btn btn-primary" value="Search" />
+                                    </div>*@
+                                </form>
+                                <label for="daterange">Search by time :</label>
+                                <input type="text" name="daterange" class="form-control" />
+                            </div>
                             <table id="table" data-toggle="table" data-pagination="true" data-search="true" data-show-columns="true" data-show-pagination-switch="true" data-show-refresh="true" data-key-events="true" data-show-toggle="true" data-resizable="true" data-cookie="true"
                                    data-cookie-id-table="saveId" data-show-export="true" data-click-to-select="true" data-toolbar="#toolbar">
                                 <thead>
@@ -48,8 +59,8 @@
                                         <th data-field="Id">ID</th>
                                         <th data-field="CustomerName">Customer Name</th>
                                         <th data-field="CustomerPhone">Customer Phone</th>
-                                        <th data-field="CreatedAt">Created At</th>
-                                        <th data-field="TotalPrice">Total Price</th>
+                                        <th data-field="CreatedAt" data-sortable="true">Created At</th>
+                                        <th data-field="TotalPrice" data-sortable="true">Total Price</th>
                                         <th data-field="PaymentStatus">Payment Status</th>
                                         <th data-field="FulfillmentStatus">Fulfillment Status</th>
                                         <th>View Details</th>
@@ -70,7 +81,10 @@
                                                 @Html.DisplayFor(modelItem => item.CustomerPhoneNumber)
                                             </td>
                                             <td>
-                                                @Html.DisplayFor(modelItem => item.CreatedAt)
+                                                @if (item.CreatedAt != null)
+                                                {
+                                                    @TimeZoneInfo.ConvertTimeFromUtc((DateTime) item.CreatedAt, TimeZoneInfo.Local)
+                                                }
                                             </td>
                                             <td>
                                                 $@Html.DisplayFor(modelItem => item.TotalPrice)
@@ -98,7 +112,8 @@
                                                 </select>
                                             </td>
                                             <td>
-                                                <a style="color: white" href="Orders/Detail/" class="btn btn-primary">View Detail</a>
+                                                @Html.ActionLink("View Detail", "Detail", new { Id = item.Id }, new { @class = "btn btn-primary"})
+                                               
                                             </td>
                                         </tr>
                                     }
@@ -143,4 +158,62 @@
     <!-- AJAX call for
     ============================================ -->
     <script src="~/Scripts/AjaxCallForOrder.js"></script>
+}
+
+@section scripts{
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+    <script>
+        var start = moment().subtract(29, 'days');
+        var end = moment();
+
+        var url_string = location.href;
+        var url = new URL(url_string);
+        var initStart = url.searchParams.get('start');
+        var initEnd = url.searchParams.get('end');
+
+        if (initStart != null && moment(initStart, 'YYYY-MM-DD', true).isValid()) {
+            start = initStart;
+            $('input[name=start]').val(start);
+        }
+        if (initEnd != null && moment(initEnd, 'YYYY-MM-DD', true).isValid()) {
+            end = initEnd;
+            $('input[name=end]').val(end);
+        }
+
+        $('input[name=daterange]').daterangepicker({
+            startDate: start,
+            endDate: end,
+            locale: {
+                format: 'YYYY-MM-DD'
+            },
+            ranges: {
+                'Today': [moment(), moment()],
+                'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                'This Month': [moment().startOf('month'), moment().endOf('month')],
+                'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+            }
+        });
+
+        $('input[name="daterange"]').on('apply.daterangepicker', function (ev, picker) {
+            var startPara = picker.startDate.format('YYYY-MM-DD');
+            var endPara = picker.endDate.format('YYYY-MM-DD');
+            $('input[name=start]').val(startPara);
+            $('input[name=end]').val(endPara);
+            $('form[name=search-form]').submit();
+        });
+
+        $('input[name="daterange"]').on('cancel.daterangepicker', function (ev, picker) {
+            $(this).val('');
+            $('input[name=start]').val('');
+            $('input[name=end]').val('');
+            $('form[name=search-form]').submit();
+        });
+
+    </script>
 }

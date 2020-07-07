@@ -121,13 +121,14 @@ namespace FinalArtsShop.Controllers
                 };
                 if (ModelState.IsValid)
                 {
+                    HttpContext.GetOwinContext().Get<ApplicationDbContext>().Orders.Add(order);
+                    HttpContext.GetOwinContext().Get<ApplicationDbContext>().SaveChanges();
                     foreach (var value in listOrderItem.Values)
                     {
+                        value.OrderId = order.Id;
                         HttpContext.GetOwinContext().Get<ApplicationDbContext>().OrderItems.Add(value);
                         HttpContext.GetOwinContext().Get<ApplicationDbContext>().SaveChanges();
                     }
-                    HttpContext.GetOwinContext().Get<ApplicationDbContext>().Orders.Add(order);
-                    HttpContext.GetOwinContext().Get<ApplicationDbContext>().SaveChanges();
                 }
                 if (optionsRadios == 1)
                 {

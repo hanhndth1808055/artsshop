@@ -40,6 +40,7 @@ namespace FinalArtsShop.Models
 
         //Order Items
         public Dictionary<string, OrderItem> Items { get; set; }
+        public virtual ICollection<OrderItem> OrderItems { get; set; }
 
         public double TotalPrice { get; set; }
 

@@ -5,6 +5,7 @@ using System.Data.Entity;
 using System.Diagnostics;
 using System.Linq;
 using System.Security.Cryptography;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using FinalArtsShop.Areas.Admin.Controllers;
@@ -86,10 +87,14 @@ namespace FinalArtsShop.Controllers
 
                 var userManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
                 ApplicationUser user = userManager.FindByNameAsync(User.Identity.Name).Result;
-
+                var stringId = listOrderItem.Values.FirstOrDefault().ProductId + currentDeliveryType.Abbreviation + GetRandomString(8);
+                while(HttpContext.GetOwinContext().Get<ApplicationDbContext>().Orders.Where(p => p.Id == stringId).Any())
+                {
+                    stringId = listOrderItem.Values.FirstOrDefault().ProductId + currentDeliveryType.Abbreviation + GetRandomString(8);
+                }
                 order = new Order()
                 {
-                    Id = listOrderItem.Values.FirstOrDefault().ProductId + randomNum(),
+                    Id = stringId,
                     Active = 1,
                     Items = listOrderItem,
                     Address = address,
@@ -149,6 +154,20 @@ namespace FinalArtsShop.Controllers
             }
 
             return View();
+        }
+        
+        public string GetRandomString(int length)
+        {
+            var random = new Random();
+            const string pool = "0123456789";
+            var builder = new StringBuilder();
+
+            for (var i = 0; i < length; i++)
+            {
+                var c = pool[random.Next(0, pool.Length)];
+                builder.Append(c);
+            }
+            return builder.ToString();
         }
 
         private ActionResult StripePayment(Order order)
@@ -295,6 +314,16 @@ namespace FinalArtsShop.Controllers
                         data += "<option data-num=" + district.ShippingFee + " value=" + district.Id + ">" + district.Name + "</option>";
                     }
                 }
+            }
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult getOrderItems(Dictionary<String, OrderItem> orderContent)
+        {
+            var data = "";
+            foreach(var orderItem in orderContent.Values)
+            {
+                data += orderItem.Name;
             }
             return Json(data, JsonRequestBehavior.AllowGet);
         }

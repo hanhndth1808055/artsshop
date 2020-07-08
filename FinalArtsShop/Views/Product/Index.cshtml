@@ -105,74 +105,64 @@
                             </div>
                             <div class="tab-pane fade " id="review">
                                 <div class="aa-product-review-area">
-                                    <h4>2 Reviews for T-Shirt</h4>
-                                    <ul class="aa-review-nav">
-                                        <li>
-                                            <div class="media">
-                                                <div class="media-left">
-                                                    <a href="#">
-                                                        <img class="media-object" src="~/MarkUps-dailyShop/dailyShop/img/testimonial-img-3.jpg" alt="girl image">
-                                                    </a>
-                                                </div>
-                                                <div class="media-body">
-                                                    <h4 class="media-heading"><strong>Marla Jobs</strong> - <span>March 26, 2016</span></h4>
-                                                    <div class="aa-product-rating">
-                                                        <span class="fa fa-star"></span>
-                                                        <span class="fa fa-star"></span>
-                                                        <span class="fa fa-star"></span>
-                                                        <span class="fa fa-star"></span>
-                                                        <span class="fa fa-star-o"></span>
+                                    <h4>Reviews</h4>
+                                    <ul class="aa-review-nav" id="revCon">
+                                        @foreach (var comment in ViewBag.CommentData as List<FinalArtsShop.Models.Comment>)
+                                        {
+                                            var star = "";
+                                            for (var i = 0; i < 5; i++)
+                                            {
+                                                if (i < comment.Rate)
+                                                {
+                                                    star += "<span class='fa fa-star'></span>";
+                                                }
+                                                else
+                                                {
+                                                    star += "<span class='fa fa-star-o'></span>";
+                                                }
+                                            }
+                                            <li>
+                                                <div class="media">
+                                                    <div class="media-left">
+                                                        <a href="#">
+                                                            <img class="media-object" src="https://cdn4.vectorstock.com/i/thumb-large/52/38/avatar-icon-vector-11835238.jpg" alt="girl image">
+                                                        </a>
                                                     </div>
-                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="media">
-                                                <div class="media-left">
-                                                    <a href="#">
-                                                        <img class="media-object" src="~/MarkUps-dailyShop/dailyShop/img/testimonial-img-3.jpg" alt="girl image">
-                                                    </a>
-                                                </div>
-                                                <div class="media-body">
-                                                    <h4 class="media-heading"><strong>Marla Jobs</strong> - <span>March 26, 2016</span></h4>
-                                                    <div class="aa-product-rating">
-                                                        <span class="fa fa-star"></span>
-                                                        <span class="fa fa-star"></span>
-                                                        <span class="fa fa-star"></span>
-                                                        <span class="fa fa-star"></span>
-                                                        <span class="fa fa-star-o"></span>
+                                                    <div class="media-body">
+                                                        <h4 class="media-heading"><strong>@comment.Name</strong> - <span>@TimeZoneInfo.ConvertTimeFromUtc((DateTime)comment.CreatedAt, TimeZoneInfo.Local).ToString("MM/dd/yyyy")</span></h4>
+                                                        <div class="aa-product-rating">
+                                                            @Html.Raw(star)
+                                                        </div>
+                                                        <p>@comment.Message.</p>
                                                     </div>
-                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
                                                 </div>
-                                            </div>
-                                        </li>
+                                            </li>
+                                        }
+
                                     </ul>
                                     <h4>Add a review</h4>
-                                    <div class="aa-your-rating">
-                                        <p>Your Rating</p>
-                                        <a href="#"><span class="fa fa-star-o"></span></a>
-                                        <a href="#"><span class="fa fa-star-o"></span></a>
-                                        <a href="#"><span class="fa fa-star-o"></span></a>
-                                        <a href="#"><span class="fa fa-star-o"></span></a>
-                                        <a href="#"><span class="fa fa-star-o"></span></a>
+                                    <div class="col-lg-12 no-padding" style="height: 40px">
+                                        <div class="rating">
+                                            <input type="radio" id="star5" name="rating" value="5" /><label class="full" for="star5" title="Awesome - 5 stars"></label>
+                                            <input type="radio" id="star4" name="rating" value="4" /><label class="full" for="star4" title="Pretty good - 4 stars"></label>
+                                            <input type="radio" id="star3" name="rating" value="3" /><label class="full" for="star3" title="Meh - 3 stars"></label>
+                                            <input type="radio" id="star2" name="rating" value="2" /><label class="full" for="star2" title="Kinda bad - 2 stars"></label>
+                                            <input type="radio" id="star1" name="rating" value="1" /><label class="full" for="star1" title="Sucks big time - 1 star"></label>
+                                        </div>
                                     </div>
                                     <!-- review form -->
                                     <form action="" class="aa-review-form">
-                                        <div class="form-group">
-                                            <label for="message">Your Review</label>
-                                            <textarea class="form-control" rows="3" id="message"></textarea>
-                                        </div>
+                                        <input type="hidden" name="rate" id="rate" value="0">
+                                        <input type="hidden" value="@Model.Product.Id" id="idProduct">
                                         <div class="form-group">
                                             <label for="name">Name</label>
-                                            <input type="text" class="form-control" id="name" placeholder="Name">
+                                            <input required type="text" class="form-control" id="name" placeholder="Name">
                                         </div>
                                         <div class="form-group">
-                                            <label for="email">Email</label>
-                                            <input type="email" class="form-control" id="email" placeholder="example@gmail.com">
+                                            <label for="message">Your Review</label>
+                                            <textarea required class="form-control" rows="3" id="message"></textarea>
                                         </div>
-
-                                        <button type="submit" class="btn btn-default aa-review-submit">Submit</button>
+                                        <button id="submitComment" type="submit" class="btn btn-default aa-review-submit">Submit</button>
                                     </form>
                                 </div>
                             </div>
@@ -310,65 +300,53 @@
     </div>
 </section>
 <!-- / product category -->
+<style>
+    .rating {
+        border: none;
+        float: left;
+    }
+
+        .rating > input {
+            display: none;
+        }
+
+        .rating > label:before {
+            margin: 5px;
+            font-size: 1.25em;
+            font-family: FontAwesome;
+            display: inline-block;
+            content: "\f005";
+        }
+
+        .rating > .half:before {
+            content: "\f089";
+            position: absolute;
+        }
+
+        .rating > label {
+            color: #ddd;
+            float: right;
+        }
+
+        /***** CSS Magic to Highlight Stars on Hover *****/
+
+        .rating > input:checked ~ label, /* show gold star when clicked */
+        .rating:not(:checked) > label:hover, /* hover current star */
+        .rating:not(:checked) > label:hover ~ label {
+            color: #ff6600;
+        }
+            /* hover previous stars in list */
+
+            .rating > input:checked + label:hover, /* hover current star when changing rating */
+            .rating > input:checked ~ label:hover,
+            .rating > label:hover ~ input:checked ~ label, /* lighten current selection */
+            .rating > input:checked ~ label:hover ~ label {
+                color: #f99c5d;
+            }
+</style>
 @section scripts{
     <!-- SWEET ALERT -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
     <script src="~/Scripts/CartWithAjax.js"></script>
-    <script>
-        function quickView(Id, Name, PromotionPrice, UnitPrice, Description, CateName, CateId, Image, Thumbnail_1, Thumbnail_2, Thumbnail_3) {
-            String(Id);
-            String(Name);
-            parseFloat(PromotionPrice);
-            parseFloat(UnitPrice);
-            String(Description);
-            String(CateName);
-            parseInt(CateId);
-            String(Image);
-
-            $("#quick-view-image").attr("data-lens-image", "https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_1024,w_900/v1587872991/" + Thumbnail_1 + ".jpg");
-            $("#quick-view-image img").attr("src", "https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_300,w_250/v1587872991/" + Thumbnail_1 + ".jpg");
-
-            $("#quick-view-thumbnail-1").attr("data-lens-image", "https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_1024,w_900/v1587872991/" + Thumbnail_1 + ".jpg");
-            $("#quick-view-thumbnail-1").attr("data-big-image", "https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_300,w_250/v1587872991/" + Thumbnail_1 + ".jpg");
-            $("#quick-view-thumbnail-1 img").attr("src", "https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_55,w_45/v1587872991/" + Thumbnail_1 + ".jpg");
-
-            $("#quick-view-thumbnail-2").attr("data-lens-image", "https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_1024,w_900/v1587872991/" + Thumbnail_2 + ".jpg");
-            $("#quick-view-thumbnail-2").attr("data-big-image", "https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_300,w_250/v1587872991/" + Thumbnail_2 + ".jpg");
-            $("#quick-view-thumbnail-2 img").attr("src", "https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_55,w_45/v1587872991/" + Thumbnail_2 + ".jpg");
-
-            $("#quick-view-thumbnail-3").attr("data-lens-image", "https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_1024,w_900/v1587872991/" + Thumbnail_3 + ".jpg");
-            $("#quick-view-thumbnail-3").attr("data-big-image", "https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_300,w_250/v1587872991/" + Thumbnail_3 + ".jpg");
-            $("#quick-view-thumbnail-3 img").attr("src", "https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_55,w_45/v1587872991/" + Thumbnail_3 + ".jpg");
-
-            $(".aa-product-view-content h3").html(Name);
-            if (PromotionPrice > 0) {
-                $(".aa-product-view-price").html("$" + PromotionPrice);
-            } else {
-                $(".aa-product-view-price").html("$" + UnitPrice);
-            }
-
-            $("#quick-view-description").html(Description);
-
-            $(".aa-prod-category a").html(CateName);
-            $(".aa-prod-category a").attr("href", "/Category/Index?id=" + CateId);
-
-            $("#add-cart").attr("href", "/ShoppingCart/AddToCart?productId=" + Id + "&quantity=1");
-            $("#view-detail").attr("href", "/Product/Index?id=" + Id);
-
-        }
-
-        $("select[name=select-quantity]").change(function () {
-            var quantity = $("select[name=select-quantity]").val();
-            var href = $("#add-cart").attr("href");
-            href = href.substr(0, (href.indexOf("&quantity=") + 10));
-            $("#add-cart").attr("href", href + quantity);
-        });
-
-        $("select[name=select-quantity-detail]").change(function () {
-            var quantity = $("select[name=select-quantity-detail]").val();
-            var href = $("#add-cart-detail").attr("href");
-            href = href.substr(0, (href.indexOf("&quantity=") + 10));
-            $("#add-cart-detail").attr("href", href + quantity);
-        });
-    </script>
+    <script src="~/Scripts/AjaxCallForComment.js"></script>
 }

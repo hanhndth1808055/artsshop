@@ -50,110 +50,106 @@ namespace FinalArtsShop.Controllers
 
             if (Session["ShoppingCartName"] != null)
             {
-
                 ShoppingCart shoppingCart = Session["ShoppingCartName"] as ShoppingCart;
-
-                Dictionary<string, ShoppingCart.CartItem> items;
-                try
+                if(shoppingCart.Items.Count > 0)
                 {
-                    items = shoppingCart.Items;
-                }
-                catch (Exception e)
-                {
-                    items = new Dictionary<string, ShoppingCart.CartItem>();
-                }
-                if (items.Count < 0)
-                {
-                    return HttpNotFound();
-                }
-                Order order;
-                var userManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-                ApplicationUser user = userManager.FindByNameAsync(User.Identity.Name).Result;
-                var stringId = items.Keys.FirstOrDefault() + currentDeliveryType.Abbreviation + GetRandomString(8);
-                while(HttpContext.GetOwinContext().Get<ApplicationDbContext>().Orders.Where(p => p.Id == stringId).Any())
-                {
-                    stringId = items.Keys.FirstOrDefault() + currentDeliveryType.Abbreviation + GetRandomString(8);
-                }
-                order = new Order()
-                {
-                    Id = stringId,
-                    Active = 1,
-                    Address = address,
-                    CityId = city,
-                    City = HttpContext.GetOwinContext().Get<ApplicationDbContext>().Cities.Find(city),
-                    ApplicationUser = user,
-                    CustomerEmail = email,
-                    CustomerName = user.FirstName + " " + user.LastName,
-                    CustomerPhoneNumber = phoneNumber,
-                    DeliveryTypeId = deliveryType,
-                    DeliveryType = currentDeliveryType,
-                    DistrictId = district,
-                    District = currentDistrict,
-                    FulfillmentStatus = FulfillmentStatusEnum.Pending,
-                    PaymentStatus = PaymentStatusEnum.Pending,
-                    PaymentMethod = optionsRadios == 1 ? PaymentMethodEnum.Paypal : (optionsRadios == 2 ? PaymentMethodEnum.VPP : (optionsRadios == 3 ? PaymentMethodEnum.Check : (optionsRadios == 4 ? PaymentMethodEnum.CreditCard : PaymentMethodEnum.Pending))),
-                    Note = note,
-                    Otp = "12345",
-                    Status = 1,
-                    UserId = user.Id,
-                    LineItemsPrice = shoppingCart.TotalPrice,
-                    ShippingFee = shippingFee,
-                    TotalPrice = shoppingCart.TotalPrice + shippingFee
-                };
-                Dictionary<string, OrderItem> listOrderItem = new Dictionary<string, OrderItem>();
-                OrderItem orderItem = null;
-                foreach (ShoppingCart.CartItem item in items.Values)
-                {
-                    orderItem = new OrderItem
+                    Dictionary<string, ShoppingCart.CartItem> items;
+                    try
                     {
-                        OrderId = order.Id,
-                        Name = item.Name,
-                        Price = item.Price,
-                        Quantity = item.Quantity,
-                        Thumbnail = item.Thumbnail,
-                        ProductId = item.ProductId,
+                        items = shoppingCart.Items;
+                    }
+                    catch (Exception e)
+                    {
+                        items = new Dictionary<string, ShoppingCart.CartItem>();
+                    }
+                    if (items.Count < 0)
+                    {
+                        return HttpNotFound();
+                    }
+                    Order order;
+                    var userManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+                    ApplicationUser user = userManager.FindByNameAsync(User.Identity.Name).Result;
+                    var stringId = items.Keys.FirstOrDefault() + currentDeliveryType.Abbreviation + GetRandomString(8);
+                    while (HttpContext.GetOwinContext().Get<ApplicationDbContext>().Orders.Where(p => p.Id == stringId).Any())
+                    {
+                        stringId = items.Keys.FirstOrDefault() + currentDeliveryType.Abbreviation + GetRandomString(8);
+                    }
+                    order = new Order()
+                    {
+                        Id = stringId,
+                        Active = 1,
+                        Address = address,
+                        CityId = city,
+                        City = HttpContext.GetOwinContext().Get<ApplicationDbContext>().Cities.Find(city),
+                        ApplicationUser = user,
+                        CustomerEmail = email,
+                        CustomerName = user.FirstName + " " + user.LastName,
+                        CustomerPhoneNumber = phoneNumber,
+                        DeliveryTypeId = deliveryType,
+                        DeliveryType = currentDeliveryType,
+                        DistrictId = district,
+                        District = currentDistrict,
+                        FulfillmentStatus = FulfillmentStatusEnum.Pending,
+                        PaymentStatus = PaymentStatusEnum.Pending,
+                        PaymentMethod = optionsRadios == 1 ? PaymentMethodEnum.Paypal : (optionsRadios == 2 ? PaymentMethodEnum.VPP : (optionsRadios == 3 ? PaymentMethodEnum.Check : (optionsRadios == 4 ? PaymentMethodEnum.CreditCard : PaymentMethodEnum.Pending))),
+                        Note = note,
+                        Otp = "12345",
+                        Status = 1,
+                        UserId = user.Id,
+                        LineItemsPrice = shoppingCart.TotalPrice,
+                        ShippingFee = shippingFee,
+                        TotalPrice = shoppingCart.TotalPrice + shippingFee
                     };
-                    listOrderItem.Add(orderItem.ProductId, orderItem);
-                    orderItem = null;
-                }
-
-                if (ModelState.IsValid)
-                {
-                    HttpContext.GetOwinContext().Get<ApplicationDbContext>().Orders.Add(order);
-                    HttpContext.GetOwinContext().Get<ApplicationDbContext>().SaveChanges();
-                    foreach (var value in listOrderItem.Values)
+                    Dictionary<string, OrderItem> listOrderItem = new Dictionary<string, OrderItem>();
+                    OrderItem orderItem = null;
+                    foreach (ShoppingCart.CartItem item in items.Values)
                     {
-                        value.OrderId = order.Id;
-                        HttpContext.GetOwinContext().Get<ApplicationDbContext>().OrderItems.Add(value);
+                        orderItem = new OrderItem
+                        {
+                            OrderId = order.Id,
+                            Name = item.Name,
+                            Price = item.Price,
+                            Quantity = item.Quantity,
+                            Thumbnail = item.Thumbnail,
+                            ProductId = item.ProductId,
+                        };
+                        listOrderItem.Add(orderItem.ProductId, orderItem);
+                        orderItem = null;
+                    }
+
+                    if (ModelState.IsValid)
+                    {
+                        HttpContext.GetOwinContext().Get<ApplicationDbContext>().Orders.Add(order);
                         HttpContext.GetOwinContext().Get<ApplicationDbContext>().SaveChanges();
+                        foreach (var value in listOrderItem.Values)
+                        {
+                            value.OrderId = order.Id;
+                            HttpContext.GetOwinContext().Get<ApplicationDbContext>().OrderItems.Add(value);
+                            HttpContext.GetOwinContext().Get<ApplicationDbContext>().SaveChanges();
+                        }
+                    }
+                    if (optionsRadios == 1)
+                    {
+                        return paypalPayment(order);
+                    }
+                    else if (optionsRadios == 2)
+                    {
+                        Session["ShoppingCartName"] = new ShoppingCart();
+                        return VppPayment(order);
+                    }
+                    else if (optionsRadios == 3)
+                    {
+                        Session["ShoppingCartName"] = new ShoppingCart();
+                        return ChequePayment(order);
+                    }
+                    else if (optionsRadios == 4)
+                    {
+                        Session["ShoppingCartName"] = new ShoppingCart();
+                        return StripePayment(order);
                     }
                 }
-                if (optionsRadios == 1)
-                {
-
-                    return paypalPayment(order);
-                }
-                else if (optionsRadios == 2)
-                {
-                    Session["ShoppingCartName"] = new ShoppingCart();
-                    return VppPayment(order);
-                }
-                else if (optionsRadios == 3)
-                {
-                    Session["ShoppingCartName"] = new ShoppingCart();
-                    return ChequePayment(order);
-                }
-                else if (optionsRadios == 4)
-                {
-                    Session["ShoppingCartName"] = new ShoppingCart();
-                    return StripePayment(order);
-                }
-
-                Session["ShoppingCartName"] = new ShoppingCart();
-                return RedirectToAction("Home", "Home");
             }
-
-            return View();
+            return RedirectToAction("Index", "Checkout");
         }
         
         public string GetRandomString(int length)

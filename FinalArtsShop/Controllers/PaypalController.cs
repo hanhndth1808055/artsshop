@@ -94,7 +94,7 @@ namespace FinalArtsShop.Controllers
                 order.PaymentStatus = PaymentStatusEnum.Paid;
                 db.SaveChanges();
                 NLogger.Infor("update success");
-                
+
                 // check that Payment_status=Completed
                 // check that Txn_id has not been previously processed
                 // check that Receiver_email is your Primary PayPal email

@@ -171,6 +171,26 @@ namespace FinalArtsShop.Areas.Admin.Controllers
             return View(product);
         }
 
+        [HttpGet]
+        public ActionResult ViewComment(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Product product = db.Products.Find(id);
+            if (product == null)
+            {
+                return HttpNotFound();
+            }
+            var comment = db.Comments.Where(p => p.ProductId == id).OrderByDescending(p => p.CreatedAt).ToList();
+            if(comment == null)
+            {
+                comment = new List<Comment>();
+            }
+            return View(comment);
+        }
+
         [HttpPost]
         public JsonResult ProductsDeleteWithAjax(string[] idArray)
         {

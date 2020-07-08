@@ -463,8 +463,8 @@
                                                 <figure class="aa-blog-img">
                                                     <a href="/Post/Index?id=@post.Id"><img src="@("https://res.cloudinary.com/daaycakkk/image/upload/c_crop,h_450,w_450/v1587872991/" + post.GetThubnailIds()[0] + ".jpg")" alt="img"></a>
                                                     <figcaption class="aa-blog-img-caption">
-                                                        <span id="view-post"><i class="fa fa-eye"></i>@post.View</span>
-                                                        <span id="like-post" onclick="likePost(@post.Id)" style="cursor: pointer"><i class="fa fa-thumbs-o-up"></i>@post.Like</span>
+                                                        <span id="view-post-@post.Id"><i class="fa fa-eye"></i>@post.View</span>
+                                                        <span id="like-post-@post.Id" onclick="likePost(@post.Id)" style="cursor: pointer"><i class="fa fa-thumbs-o-up"></i>@post.Like</span>
                                                         <a href="/Post/Index?id=@post.Id"><i class="fa fa-clock-o"></i>@post.CreatedAt</a>
                                                     </figcaption>
                                                 </figure>
@@ -582,7 +582,7 @@
                 type: "get",
                 success: function (result) {
                     var html = '<i class="fa fa-thumbs-o-up"></i>' + result;
-                    $('#like-post').html(html);
+                    $('#like-post-' + id).html(html);
                 }
             });
         }

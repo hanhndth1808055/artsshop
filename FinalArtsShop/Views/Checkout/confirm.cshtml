@@ -4,7 +4,7 @@
     Layout = "~/Views/Home/Layout/_Layout.cshtml";
 }
 @{
-    var data = ViewBag.Message;
+    var data = ViewBag.Message as FinalArtsShop.Models.Order;
 }
 <div class="container">
     <div class="product-tab-list tab-pane" id="reviews">
@@ -27,12 +27,6 @@
                                         Total
                                     </dt>
                                     <dd>
-                                        @data.Id
-                                    </dd>
-                                    <dt>
-                                        OrderId
-                                    </dt>
-                                    <dd>
                                         $@data.TotalPrice
                                     </dd>
                                     <dt>
@@ -51,9 +45,8 @@
                                         Address
                                     </dt>
                                     <dd>
-                                        @data.City.Name - @data.District.Name
+                                        @data.Address - @data.City.Name - @data.District.Name
                                     </dd>
-
                                 </dl>
                             </div>
                         </div>

@@ -7,34 +7,48 @@
     var data = ViewBag.Message;
     var totalPrice = data.TotalPrice * 100;
 }
+<div class="container">
     <div class="row">
         <div class="col-md-3"></div>
-        <div class="col-md-6">
-            <h1 class="text-center">Confirm VPP Payment</h1>
+        <div style="margin-bottom: 8vh; margin-top: 8vh" class="col-md-6">
+            <h2 class="text-center">Confirm Stripe Payment</h2>
             <div>
-                Order No. @data.Id has been successfully created. Please make payment with your Credit Card below.
+                <p>
+                    Dear
+                    <b>
+                        @if (data.CustomerName == null || data.CustomerName == "")
+                        {
+                            Html.Raw("You,");
+                        }
+                        @data.CustomerName,
+                    </b>
+                </p>
+                <p> Your order No. <b>@data.Id</b> has been successfully created!</p>
+                <p> Please make payment at the time of delivery. Our customer service officers will contact you soon!</p>
             </div>
-
-            <form action="/Checkout/Charge" method="POST">
-                <article>
-                    <label>Amount: $@data.TotalPrice</label>
-                </article>
-                <input type="hidden" name="amount" value="@totalPrice" />
-                <input type="hidden" name="orderId" value="@data.Id" />
-                <script src="//checkout.stripe.com/v2/checkout.js"
-                        class="stripe-button"
-                        data-key="@ViewBag.StripePublishKey"
-                        data-locale="auto"
-                        data-description="Sample Charge"
-                        data-amount="@totalPrice">
-                </script>
-            </form>
-
-            <div class="text-center" style="margin-top: 15px">
-                <img src="https://therightwording.com/wp-content/uploads/2019/02/thank-you-515514_1280-1024x936.jpg" alt="Thank you" style="width: 80%" />
+            <div>
+                <form action="/Checkout/Charge" method="POST">
+                    <article>
+                        <label>Amount: $@data.TotalPrice</label>
+                    </article>
+                    <input class="input-group" type="hidden" name="amount" value="@totalPrice" />
+                    <input type="hidden" name="orderId" value="@data.Id" />
+                    <p class="text-center">
+                        <script src="//checkout.stripe.com/v2/checkout.js"
+                                class="stripe-button"
+                                data-key="@ViewBag.StripePublishKey"
+                                data-locale="auto"
+                                data-description="Sample Charge"
+                                data-amount="@totalPrice">
+                        </script>
+                    </p>
+                </form>
             </div>
-            <h4>Thank you for being our valued customer. We are so grateful for the pleasure of serving you and hope we met your expectations.</h4>
         </div>
         <div class="col-md-3"></div>
     </div>
+</div>
+
+
+
 

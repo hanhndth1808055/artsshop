@@ -32,7 +32,7 @@ namespace FinalArtsShop.Areas.Admin.Controllers
                                       Status = applicationUser.LockoutEnabled,
                                   });
             var activeUser = usersWithRoles.Where(u => u.Status == false);
-            return View(usersWithRoles);
+            return View(activeUser);
         }
 
         // GET: Admin/Users/Details/5
@@ -228,6 +228,26 @@ namespace FinalArtsShop.Areas.Admin.Controllers
             db.SaveChanges();
             var data = "Success";
             return Json(data, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public ActionResult ViewComment(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ApplicationUser applicationUser = db.Users.Find(id);
+            if (applicationUser == null)
+            {
+                return HttpNotFound();
+            }
+            var comment = db.Comments.Where(p => p.UserId == id).OrderByDescending(p => p.CreatedAt).ToList();
+            if (comment == null)
+            {
+                comment = new List<Comment>();
+            }
+            return View(comment);
         }
     }
 }

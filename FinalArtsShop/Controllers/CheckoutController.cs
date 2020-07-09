@@ -255,7 +255,7 @@ namespace FinalArtsShop.Controllers
                     order.FulfillmentStatus = FulfillmentStatusEnum.Returned;
                     HttpContext.GetOwinContext().Get<ApplicationDbContext>().Entry(order).State = EntityState.Modified;
                     HttpContext.GetOwinContext().Get<ApplicationDbContext>().SaveChanges();
-                    data = "success";
+                    data = order.FulfillmentStatus.ToString();
                 }
                 else
                 {
@@ -265,7 +265,7 @@ namespace FinalArtsShop.Controllers
                         order.FulfillmentStatus = FulfillmentStatusEnum.Returning;
                         HttpContext.GetOwinContext().Get<ApplicationDbContext>().Entry(order).State = EntityState.Modified;
                         HttpContext.GetOwinContext().Get<ApplicationDbContext>().SaveChanges();
-                        data = "success";
+                        data = order.FulfillmentStatus.ToString();
                     }
                 }  
             }

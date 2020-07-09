@@ -11,6 +11,7 @@ using Microsoft.Owin.Security;
 using FinalArtsShop.Models;
 using Microsoft.Ajax.Utilities;
 using System.Diagnostics;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace FinalArtsShop.Controllers
 {
@@ -151,27 +152,24 @@ namespace FinalArtsShop.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
-            if (ModelState.IsValid)
+            using (var context = new ApplicationDbContext())
             {
-                var user = new ApplicationUser { UserName = model.UserName, Email = model.Email };
-                var result = await UserManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
+                if (ModelState.IsValid)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-
-                    // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-
-                    return RedirectToAction("Home", "Home");
+                    var user = new ApplicationUser { UserName = model.UserName, Email = model.Email };
+                    var result = await UserManager.CreateAsync(user, model.Password);
+                    var userStore = new UserStore<ApplicationUser>(context);
+                    var userManager = new UserManager<ApplicationUser>(userStore);
+                    userManager.AddToRole(user.Id, "Customer");
+                    if (result.Succeeded)
+                    {
+                        await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                        return RedirectToAction("Home", "Home");
+                    }
+                    AddErrors(result);
                 }
-                AddErrors(result);
+                return View("~/Areas/Admin/Views/AdminAccount/Register.cshtml", model);
             }
-
-            // If we got this far, something failed, redisplay form
-            return View("~/Views/Home/Account/Register.cshtml", model);
         }
 
         //

@@ -1,5 +1,6 @@
 ﻿$(".BackOrder").click(function (e) {
     e.preventDefault();
+    var statusCol = this.closest("td").previousElementSibling.previousElementSibling;
     Swal.fire({
         title: 'Are you sure for returning?',
         text: "You won't be able to revert this!",
@@ -29,6 +30,7 @@
                             '',
                             'success'
                         )
+                        statusCol.innerHTML = data;
                     } else {
                         Swal.fire(
                             'Your product can not returning!',

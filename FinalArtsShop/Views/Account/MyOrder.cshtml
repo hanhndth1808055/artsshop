@@ -9,8 +9,7 @@
             <div class="col-md-12">
                 <div class="checkout-area">
                     <div class="row">
-                        <div class="col-md-1"></div>
-                        <div class="col-md-10">
+                        <div class="col-md-12">
                             <div class="checkout-left">
                                 <div class="panel-group" id="accordion">
                                     <div class="panel panel-default aa-checkout-login">
@@ -29,6 +28,7 @@
                                                             <th>Order Number</th>
                                                             <th>Address</th>
                                                             <th>Total</th>
+                                                            <th>Status</th>
                                                             <th>See Detail</th>
                                                             <th>Back Order</th>
                                                         </tr>
@@ -39,9 +39,10 @@
                                                             <tr>
                                                                 <td>@order.Id</td>
                                                                 <td>
-                                                                    @order.City.Name, @order.District.Name,  @order.Address
+                                                                    @order.Address, @order.City.Name, @order.District.Name
                                                                 </td>
                                                                 <td>$@order.TotalPrice</td>
+                                                                <td class="FullFillStatus">@order.FulfillmentStatus.ToString()</td>
                                                                 <td><a class="btn btn-success" data-toggle="modal" data-target="#@order.Id">See Detail</a></td>
                                                                 <td><a data-id="@order.Id" class="btn btn-success BackOrder">Back Order</a></td>
                                                             </tr>

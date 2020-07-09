@@ -24,6 +24,7 @@ namespace FinalArtsShop.Models
         [Display(Name = "Unit Price")]
         [Required]
         public double UnitPrice { get; set; }
+        [Display(Name = "Promotion Price")]
         public double PromotionPrice { get; set; }
         public string Thumbnail { get; set; }
         public string Image { get; set; }

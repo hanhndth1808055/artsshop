@@ -28,33 +28,55 @@ namespace FinalArtsShop.Migrations
             //SeedingCategories(context);
             //SeedingProduct(context);
             //SeedingCouters(context);
-            //SeedingUsers(context);
+            SeedingUsers(context);
         }
 
         private void SeedingUsers(ApplicationDbContext context)
         {
            
-            if (!context.Roles.Any(r => r.Name == "Admin"))
-            {
-                var store = new RoleStore<ApplicationRole>(context);
-                var manager = new RoleManager<ApplicationRole>(store);
-                var role = new ApplicationRole {Name = "Admin"};
-                manager.Create(role);
-            }
+            //if (!context.Roles.Any(r => r.Name == "Admin"))
+            //{
+            //    var store = new RoleStore<ApplicationRole>(context);
+            //    var manager = new RoleManager<ApplicationRole>(store);
+            //    var role = new ApplicationRole {Name = "Admin"};
+            //    manager.Create(role);
+            //}
             
-            if (!context.Users.Any(u => u.UserName == "artsshop"))
-            {
-                var store = new UserStore<ApplicationUser>(context);
-                var manager = new UserManager<ApplicationUser>(store);
-                var user = new ApplicationUser
-                {
-                    UserName = "artsshop",
-                    Email = "artsshop@yopmail.com"
-                };
+            //if (!context.Users.Any(u => u.UserName == "artsshop"))
+            //{
+            //    var store = new UserStore<ApplicationUser>(context);
+            //    var manager = new UserManager<ApplicationUser>(store);
+            //    var user = new ApplicationUser
+            //    {
+            //        UserName = "artsshop",
+            //        Email = "artsshop@yopmail.com"
+            //    };
             
-                manager.Create(user, "Abc123@");
-                manager.AddToRole(user.Id, "Admin");
-            }
+            //    manager.Create(user, "Abc123@");
+            //    manager.AddToRole(user.Id, "Admin");
+            //}
+
+            //if (!context.Roles.Any(r => r.Name == "Customer"))
+            //{
+            //    var store = new RoleStore<ApplicationRole>(context);
+            //    var manager = new RoleManager<ApplicationRole>(store);
+            //    var role = new ApplicationRole { Name = "Customer" };
+            //    manager.Create(role);
+            //}
+
+            //if (!context.Users.Any(u => u.UserName == "customer1"))
+            //{
+            //    var store = new UserStore<ApplicationUser>(context);
+            //    var manager = new UserManager<ApplicationUser>(store);
+            //    var user = new ApplicationUser
+            //    {
+            //        UserName = "customer1",
+            //        Email = "hieula031295@gmail.com"
+            //    };
+
+            //    manager.Create(user, "Abc123@");
+            //    manager.AddToRole(user.Id, "Customer");
+            //}
         }
 
         private void Truncate(FinalArtsShop.Models.ApplicationDbContext context)

@@ -4,21 +4,32 @@
     Layout = "~/Views/Home/Layout/_Layout.cshtml";
 }
 @{
-    var data = ViewBag.Message;
+    var data = ViewBag.Message as FinalArtsShop.Models.Order; ;
 }
-    <div class="row">
-        <div class="col-md-3"></div>
-        <div class="col-md-6">
-            <h1 class="text-center">Finish Cheque Payment</h1>
-            <div>
-                Order No. @data.Id has been successfully created. By the time of cheque payment clearance, the items will be started to be delivered to you. Our customer service officers will contact you soon!
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div style="margin-bottom: 8vh; margin-top: 8vh" class="col-md-6">
+                <h2 class="text-center">Stripe Payment</h2>
+                <div>
+                    <p>
+                        Dear
+                        <b>
+                            @if (data.CustomerName == null || data.CustomerName == "")
+                            {
+                                Html.Raw("You,");
+                            }
+                            @data.CustomerName,
+                        </b>
+                    </p>
+                    <p> Your order No. <b>@data.Id</b> has been successfully created!</p>
+                    <p> Please make payment at the time of delivery. Our customer service officers will contact you soon!</p>
+                </div>
+                <div class="text-center">
+                    <img style="max-width: 100%; height: auto" class="img-fluid" src="https://therightwording.com/wp-content/uploads/2019/02/thank-you-515514_1280-1024x936.jpg" alt="Thank you" />
+                </div>
             </div>
-            
-            <div class="text-center">
-                <img src="https://therightwording.com/wp-content/uploads/2019/02/thank-you-515514_1280-1024x936.jpg" alt="Thank you" style="width: 80%" />
-            </div>
-            <h4>Thank you for being our valued customer. We are so grateful for the pleasure of serving you and hope we met your expectations.</h4>
+            <div class="col-md-3"></div>
         </div>
-        <div class="col-md-3"></div>
     </div>
 

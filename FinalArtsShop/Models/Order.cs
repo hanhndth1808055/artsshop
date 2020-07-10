@@ -48,27 +48,27 @@ namespace FinalArtsShop.Models
         public double LineItemsPrice { get; set; }
         public Order()
         {
-            Items = new Dictionary<string, OrderItem>();
-            var now = new DateTime();
+            //Items = new Dictionary<string, OrderItem>();
+            //var now = DateTime.Now;
 
-            if (this.ShippedAt == null)
-            {
-                this.isReturnable = 1;
-                return;
-            }
+            //if (this.ShippedAt == null)
+            //{
+            //    this.isReturnable = 1;
+            //    return;
+            //}
 
-            var timeDiff = now.Subtract((DateTime)this.ShippedAt).TotalDays;
+            //var timeDiff = now.Subtract((DateTime)this.ShippedAt).TotalDays;
 
-            if (timeDiff > 7)
-            {
-                this.isReturnable = 0;
-                return;
-            }
-            else
-            {
-                this.isReturnable = 1;
-                return;
-            }
+            //if (timeDiff > 7)
+            //{
+            //    this.isReturnable = 0;
+            //    return;
+            //}
+            //else
+            //{
+            //    this.isReturnable = 1;
+            //    return;
+            //}
         }
     }
 

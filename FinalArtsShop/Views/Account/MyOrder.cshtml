@@ -44,7 +44,14 @@
                                                                 <td>$@order.TotalPrice</td>
                                                                 <td class="FullFillStatus">@order.FulfillmentStatus.ToString()</td>
                                                                 <td><a class="btn btn-success" data-toggle="modal" data-target="#@order.Id">See Detail</a></td>
-                                                                <td><a data-id="@order.Id" class="btn btn-success BackOrder">Back Order</a></td>
+                                                                <td>
+                                                                    @if (order.isReturnable == 1)
+                                                                    {
+                                                                        <a data-id="@order.Id" class="btn btn-success BackOrder">
+                                                                            Back Order
+                                                                        </a>
+                                                                    }
+                                                                </td>
                                                             </tr>
                                                         }
                                                     </tbody>
@@ -58,8 +65,8 @@
                                                 <div class="modal-dialog">
                                                     <!-- Modal content-->
                                                     <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <button type="button" class="close" data-dismiss="modal" style="float: right">&times;</button>
+                                                        <div class="modal-header text-center">
+                                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
                                                             <h4 class="modal-title" style="color: #3FC35F">Order detail</h4>
                                                         </div>
                                                         <div class="modal-body">
@@ -76,6 +83,9 @@
                                                                         </tr>
                                                                     </thead>
                                                                     <tbody>
+                                                                        @{
+                                                                            index = 1;
+                                                                        }
                                                                         @foreach (var item in order.OrderItems)
                                                                         {
                                                                             var link = "https://res.cloudinary.com/daaycakkk/image/upload/c_limit,h_55,w_45/" + item.Thumbnail + ".jpg";
@@ -110,7 +120,6 @@
                 </div>
             </div>
         </div>
-    </div>
     </div>
 </section>
 <!-- SWEET ALERT -->

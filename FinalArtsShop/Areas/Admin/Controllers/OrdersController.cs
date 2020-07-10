@@ -79,6 +79,10 @@ namespace FinalArtsShop.Areas.Admin.Controllers
             if (order != null)
             {
                 order.FulfillmentStatus = (FulfillmentStatusEnum)Enum.GetValues(typeof(FulfillmentStatusEnum)).GetValue(fullfillmentStatusVal);
+                if(order.FulfillmentStatus != FulfillmentStatusEnum.Pending && order.isReturnable != 0)
+                {
+                    order.isReturnable = 0;
+                }
                 db.SaveChanges();
                 data = order.FulfillmentStatus.ToString();
             }

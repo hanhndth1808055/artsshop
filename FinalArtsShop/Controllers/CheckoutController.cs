@@ -253,6 +253,7 @@ namespace FinalArtsShop.Controllers
                 if (order.ShippedAt == null)
                 {
                     order.FulfillmentStatus = FulfillmentStatusEnum.Returned;
+                    order.isReturnable = 0;
                     HttpContext.GetOwinContext().Get<ApplicationDbContext>().Entry(order).State = EntityState.Modified;
                     HttpContext.GetOwinContext().Get<ApplicationDbContext>().SaveChanges();
                     data = order.FulfillmentStatus.ToString();
@@ -263,6 +264,7 @@ namespace FinalArtsShop.Controllers
                     if (timeDiff < 7)
                     {
                         order.FulfillmentStatus = FulfillmentStatusEnum.Returning;
+                        order.isReturnable = 0;
                         HttpContext.GetOwinContext().Get<ApplicationDbContext>().Entry(order).State = EntityState.Modified;
                         HttpContext.GetOwinContext().Get<ApplicationDbContext>().SaveChanges();
                         data = order.FulfillmentStatus.ToString();

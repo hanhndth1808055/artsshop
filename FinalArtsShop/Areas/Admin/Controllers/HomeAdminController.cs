@@ -10,12 +10,11 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using System.Web.Http;
 using System.Web.Mvc;
 
 namespace FinalArtsShop.Areas.Admin.Controllers
 {
-    [System.Web.Http.Authorize]
+    [Authorize(Roles = "Admin")]
     public class HomeAdminController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

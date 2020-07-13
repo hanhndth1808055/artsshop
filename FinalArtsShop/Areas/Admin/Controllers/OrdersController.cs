@@ -10,7 +10,7 @@ using static FinalArtsShop.Models.ShoppingCart;
 
 namespace FinalArtsShop.Areas.Admin.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class OrdersController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

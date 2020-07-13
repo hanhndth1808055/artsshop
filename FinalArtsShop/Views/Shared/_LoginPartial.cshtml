@@ -13,12 +13,13 @@
                     <span class="admin-name">@User.Identity.GetUserName()</span>
                     <i class="fa fa-angle-down edu-icon edu-down-arrow"></i>
                 </a>
-                <ul role="menu" class="dropdown-header-top author-log dropdown-menu animated zoomIn">
+                <ul role="menu" class="dropdown-header-top author-log dropdown-menu animated zoomIn" style="min-width: 140px">
                     <li style="float: left">
                         @* @Html.ActionLink("My Account", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", @class = "edu-icon edu-home-admin author-log-ic"}) *@
-                        <a href="/Manage"><span class="edu-icon edu-home-admin author-log-ic"></span>My Account</a>
+                        @*<a href="/Manage"><span class="edu-icon edu-home-admin author-log-ic"></span>My Account</a>*@
+                        <a href="/ShoppingCart/ShowCart"><span class="edu-icon edu-home-admin author-log-ic"></span>My Cart</a>
                     </li>
-                    <li style="float: right">
+                    <li style="float: right;">
                         <a href="javascript:document.getElementById('logoutForm').submit()"><span class="edu-icon edu-locked author-log-ic"></span>Log Out</a>
                     </li>
                 </ul>

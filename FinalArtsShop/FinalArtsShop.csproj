@@ -300,6 +300,10 @@
     <Compile Include="Migrations\202007070837573_UpdateOrderItems.Designer.cs">
       <DependentUpon>202007070837573_UpdateOrderItems.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202007122338492_UpdateTablePostAllowHtml.cs" />
+    <Compile Include="Migrations\202007122338492_UpdateTablePostAllowHtml.Designer.cs">
+      <DependentUpon>202007122338492_UpdateTablePostAllowHtml.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ModelsDAO\information.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -1118,6 +1122,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202007070837573_UpdateOrderItems.resx">
       <DependentUpon>202007070837573_UpdateOrderItems.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007122338492_UpdateTablePostAllowHtml.resx">
+      <DependentUpon>202007122338492_UpdateTablePostAllowHtml.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

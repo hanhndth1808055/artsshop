@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Configuration;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace FinalArtsShop.Models
 {
@@ -12,6 +13,7 @@ namespace FinalArtsShop.Models
         public int Id { get; set; }
         [Required]
         public string Title { get; set; }
+        [AllowHtml]
         [Required]
         public string Body { get; set; }
         [Required]

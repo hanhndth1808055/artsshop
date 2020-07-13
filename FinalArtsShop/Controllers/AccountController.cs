@@ -73,7 +73,7 @@ namespace FinalArtsShop.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View(model);
+                return View("~/Views/Home/Account/Login.cshtml",model);
             }
 
             // This doesn't count login failures towards account lockout
@@ -90,7 +90,7 @@ namespace FinalArtsShop.Controllers
                 case SignInStatus.Failure:
                 default:
                     ModelState.AddModelError("", "Invalid login attempt.");
-                    return View(model);
+                    return View("~/Views/Home/Account/Login.cshtml",model);
             }
         }
 

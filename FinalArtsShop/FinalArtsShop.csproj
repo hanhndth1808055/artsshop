@@ -943,6 +943,7 @@
     <None Include="Properties\PublishProfiles\artsshop - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\artsshop - ReadOnly - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\artsshop - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\artsshop - Web Deploy1.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\hightcharts.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />

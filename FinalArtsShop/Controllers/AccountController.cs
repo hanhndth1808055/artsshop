@@ -90,7 +90,7 @@ namespace FinalArtsShop.Controllers
                 case SignInStatus.Failure:
                 default:
                     ModelState.AddModelError("", "Invalid login attempt.");
-                    return View("~/Views/Home/Account/Login.cshtml",model);
+                    return View(model);
             }
         }
 

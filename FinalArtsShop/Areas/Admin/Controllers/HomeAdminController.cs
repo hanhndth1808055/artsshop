@@ -15,6 +15,7 @@ using System.Web.Mvc;
 
 namespace FinalArtsShop.Areas.Admin.Controllers
 {
+    [System.Web.Http.Authorize]
     public class HomeAdminController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

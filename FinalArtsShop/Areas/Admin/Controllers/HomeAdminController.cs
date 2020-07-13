@@ -22,7 +22,7 @@ namespace FinalArtsShop.Areas.Admin.Controllers
         public async Task<ActionResult> Index()
         {
             string sql = "Select count(id) from Orders;";
-            string sqlOrderSucess = " Select count(id) from Orders where FulfillmentStatus = 2;";
+            string sqlOrderSucess = " Select count(id) from Orders where PaymentStatus = 1;";
             var total = db.Database.SqlQuery<int>(sql).Single();
             var totalOrserSucess = db.Database.SqlQuery<int>(sqlOrderSucess).Single();
             string api = ApiConfig.api;
